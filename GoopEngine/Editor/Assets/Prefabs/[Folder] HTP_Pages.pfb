@@ -1,0 +1,4212 @@
+{
+    "Name": "[Folder] HTP_Pages",
+    "isActive": true,
+    "Version": 0,
+    "Components": [
+        {
+            "Transform": {
+                "pos": "{ 0, 0, 0 }",
+                "scale": "{ 1, 1, 1 }",
+                "rot": "{ 0, 0, 0 }",
+                "worldPos": "{ 0, 0, 0 }",
+                "worldScale": "{ 1, 1, 1 }",
+                "worldRot": "{ 0, 0, 0 }"
+            }
+        }
+    ],
+    "SubData": [
+        {
+            "ID": 1,
+            "isActive": false,
+            "Name": "Page_1",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, 0, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, 0, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 2,
+            "isActive": true,
+            "Name": "text1",
+            "Parent": 1,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -525, 190, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -525, 190, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "- Each character has their own deck",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.22499999403953552,
+                        "fontID": 18,
+                        "Alignment": "LEFT"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 3,
+            "isActive": true,
+            "Name": "text2",
+            "Parent": 1,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -490, 110, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -490, 110, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "of cards.",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.22499999403953552,
+                        "fontID": 18,
+                        "Alignment": "LEFT"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 4,
+            "isActive": true,
+            "Name": "text3",
+            "Parent": 1,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -525, 30, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -525, 30, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "- You will be playing as Leah",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.22499999403953552,
+                        "fontID": 18,
+                        "Alignment": "LEFT"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 5,
+            "isActive": true,
+            "Name": "text4",
+            "Parent": 1,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -525, -50, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -525, -50, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "- Collect and use your cards to help",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.22499999403953552,
+                        "fontID": 18,
+                        "Alignment": "LEFT"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 6,
+            "isActive": true,
+            "Name": "text5",
+            "Parent": 1,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -490, -130, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -490, -130, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "Leah take revenge on Dawson!",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.22499999403953552,
+                        "fontID": 18,
+                        "Alignment": "LEFT"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 7,
+            "isActive": true,
+            "Name": "page 1",
+            "Parent": 1,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 515, -440, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 515, -440, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "1",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.25,
+                        "fontID": 18,
+                        "Alignment": "CENTER"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 8,
+            "isActive": true,
+            "Name": "HTP_Arrow_Left",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -667.167, -90, 1 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -667.167, -90, 1 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "BoxCollider": {
+                        "center": "{ -667.167, -90 }",
+                        "width": 70.0,
+                        "height": 70.0,
+                        "min": "{ -702.167, -125 }",
+                        "max": "{ -632.167, -55 }",
+                        "render": false
+                    }
+                },
+                {
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 70,
+                                "height": 70,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
+                                }
+                            }
+                        },
+                        "spriteName": "HTP_Arrow_Left",
+                        "shouldRender": true
+                    }
+                },
+                {
+                    "Scripts": {
+                        "scriptList": [
+                            {
+                                "scriptName": "HTP_Back",
+                                "entityID": 12,
+                                "scriptFieldInstList": []
+                            }
+                        ]
+                    }
+                },
+                {
+                    "GE_Button": {
+                        "param": "",
+                        "eventType": "NO_EVENT",
+                        "lastCollided": false,
+                        "currCollided": false
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 9,
+            "isActive": true,
+            "Name": "HTP_Arrow_Right",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 663.833, -90, 1 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 663.833, -90, 1 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "BoxCollider": {
+                        "center": "{ 663.833, -90 }",
+                        "width": 70.0,
+                        "height": 70.0,
+                        "min": "{ 628.833, -125 }",
+                        "max": "{ 698.833, -55 }",
+                        "render": false
+                    }
+                },
+                {
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 1.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 75,
+                                "height": 75,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
+                                }
+                            }
+                        },
+                        "spriteName": "HTP_Arrow_Left",
+                        "shouldRender": true
+                    }
+                },
+                {
+                    "Scripts": {
+                        "scriptList": [
+                            {
+                                "scriptName": "HTP_Next",
+                                "entityID": 13,
+                                "scriptFieldInstList": []
+                            }
+                        ]
+                    }
+                },
+                {
+                    "GE_Button": {
+                        "param": "",
+                        "eventType": "NO_EVENT",
+                        "lastCollided": false,
+                        "currCollided": false
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 10,
+            "isActive": false,
+            "Name": "Page_2",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, 0, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, 0, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 11,
+            "isActive": true,
+            "Name": "text1",
+            "Parent": 10,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -520, 190, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -520, 190, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "Card Types :",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.25,
+                        "fontID": 8,
+                        "Alignment": "LEFT"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 12,
+            "isActive": true,
+            "Name": "Leah_Attack",
+            "Parent": 10,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -400, -99, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -400, -99, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 13,
+            "isActive": true,
+            "Name": "Base",
+            "Parent": 12,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, 0, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, 0, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 214,
+                                "height": 300,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
+                                }
+                            }
+                        },
+                        "spriteName": "CardBaseFront_Attack",
+                        "shouldRender": true
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 14,
+            "isActive": true,
+            "Name": "Title",
+            "Parent": 12,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, -25, 1 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, -25, 1 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "BEAM",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.07500000298023224,
+                        "fontID": 21,
+                        "Alignment": "CENTER"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 15,
+            "isActive": true,
+            "Name": "Description",
+            "Parent": 12,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, -65, 1 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, -65, 1 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "Deals 1 Damage",
+                        "clr": {
+                            "r": 0.0,
+                            "g": 0.0,
+                            "b": 0.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.054999999701976776,
+                        "fontID": 18,
+                        "Alignment": "CENTER"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 16,
+            "isActive": true,
+            "Name": "Icon",
+            "Parent": 12,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, 55.5, 1 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, 55.5, 1 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 119,
+                                "height": 111,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
+                                }
+                            }
+                        },
+                        "spriteName": "CardIcon_LeahAttackBeam",
+                        "shouldRender": true
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 17,
+            "isActive": true,
+            "Name": "text2",
+            "Parent": 10,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -400, 90, 1 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -400, 90, 1 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "Attack",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.22499999403953552,
+                        "fontID": 18,
+                        "Alignment": "CENTER"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 18,
+            "isActive": true,
+            "Name": "Leah_Block",
+            "Parent": 10,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, -99, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, -99, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 19,
+            "isActive": true,
+            "Name": "Title",
+            "Parent": 18,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, -25, 1 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, -25, 1 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "BLOCK",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.07500000298023224,
+                        "fontID": 21,
+                        "Alignment": "CENTER"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 20,
+            "isActive": true,
+            "Name": "Description",
+            "Parent": 18,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, -65, 1 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, -65, 1 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "Blocks 1 Damage",
+                        "clr": {
+                            "r": 0.0,
+                            "g": 0.0,
+                            "b": 0.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.054999999701976776,
+                        "fontID": 18,
+                        "Alignment": "CENTER"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 21,
+            "isActive": true,
+            "Name": "Icon",
+            "Parent": 18,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, 55.5, 1 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, 55.5, 1 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 119,
+                                "height": 111,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
+                                }
+                            }
+                        },
+                        "spriteName": "CardIcon_LeahDefenceShield",
+                        "shouldRender": true
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 22,
+            "isActive": true,
+            "Name": "Base",
+            "Parent": 18,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, 0, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, 0, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 214,
+                                "height": 300,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
+                                }
+                            }
+                        },
+                        "spriteName": "CardBaseFront_Defense",
+                        "shouldRender": true
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 23,
+            "isActive": true,
+            "Name": "text3",
+            "Parent": 10,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, 90, 1 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, 90, 1 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "Block",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.22599999606609344,
+                        "fontID": 18,
+                        "Alignment": "CENTER"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 24,
+            "isActive": true,
+            "Name": "Leah_Flashbang",
+            "Parent": 10,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 400, -99, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 400, -99, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 25,
+            "isActive": true,
+            "Name": "Base",
+            "Parent": 24,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, 0, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, 0, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 214,
+                                "height": 300,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
+                                }
+                            }
+                        },
+                        "spriteName": "CardBaseFront_Special",
+                        "shouldRender": true
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 26,
+            "isActive": true,
+            "Name": "Title",
+            "Parent": 24,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, -25, 1 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, -25, 1 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "FLASHBANG",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.07500000298023224,
+                        "fontID": 21,
+                        "Alignment": "CENTER"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 27,
+            "isActive": true,
+            "Name": "Description",
+            "Parent": 24,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, -65, 1 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, -65, 1 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "1/2 Opponent's",
+                        "clr": {
+                            "r": 0.0,
+                            "g": 0.0,
+                            "b": 0.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.054999999701976776,
+                        "fontID": 18,
+                        "Alignment": "CENTER"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 28,
+            "isActive": true,
+            "Name": "Description2",
+            "Parent": 24,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, -80, 1 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, -80, 1 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "damage for 3 turns",
+                        "clr": {
+                            "r": 0.0,
+                            "g": 0.0,
+                            "b": 0.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.054999999701976776,
+                        "fontID": 18,
+                        "Alignment": "CENTER"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 29,
+            "isActive": true,
+            "Name": "Icon",
+            "Parent": 24,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, 55.5, 1 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, 55.5, 1 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 119,
+                                "height": 111,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
+                                }
+                            }
+                        },
+                        "spriteName": "CardIcon_LeahSpecialFlashbang",
+                        "shouldRender": true
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 30,
+            "isActive": true,
+            "Name": "text4",
+            "Parent": 10,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 400, 90, 1 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 400, 90, 1 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "Special",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.22499999403953552,
+                        "fontID": 18,
+                        "Alignment": "CENTER"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 31,
+            "isActive": true,
+            "Name": "page 2",
+            "Parent": 10,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 515, -440, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 515, -440, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "2",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.25,
+                        "fontID": 18,
+                        "Alignment": "CENTER"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 32,
+            "isActive": false,
+            "Name": "Page_4",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, 0, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, 0, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 33,
+            "isActive": true,
+            "Name": "[folder] illustrations",
+            "Parent": 32,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, 0, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, 0, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 34,
+            "isActive": true,
+            "Name": "PQElem1",
+            "Parent": 33,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -175, -180, 0 }",
+                        "scale": "{ 0.893564, 0.836059, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -175, -180, 0 }",
+                        "worldScale": "{ 0.893564, 0.836059, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "BoxCollider": {
+                        "center": "{ -175, -180 }",
+                        "width": 165.0,
+                        "height": 165.0,
+                        "min": "{ -257.5, -262.5 }",
+                        "max": "{ -92.5, -97.5 }",
+                        "render": false
+                    }
+                },
+                {
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 211,
+                                "height": 212,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
+                                }
+                            }
+                        },
+                        "spriteName": "Queue_Sequence_1",
+                        "shouldRender": true
+                    }
+                },
+                {
+                    "Audio": {
+                        "sounds": [
+                            {
+                                "sound": "SFX_CardPlay1",
+                                "loop": false,
+                                "playOnStart": false,
+                                "channel": "BGM",
+                                "volume": 1.0
+                            },
+                            {
+                                "sound": "SFX_CardPlay2",
+                                "loop": false,
+                                "playOnStart": false,
+                                "channel": "BGM",
+                                "volume": 1.0
+                            },
+                            {
+                                "sound": "SFX_CardPlay3",
+                                "loop": false,
+                                "playOnStart": false,
+                                "channel": "BGM",
+                                "volume": 1.0
+                            },
+                            {
+                                "sound": "SFX_CardPlay4",
+                                "loop": false,
+                                "playOnStart": false,
+                                "channel": "BGM",
+                                "volume": 1.0
+                            },
+                            {
+                                "sound": "SFX_CardPlay5",
+                                "loop": false,
+                                "playOnStart": false,
+                                "channel": "BGM",
+                                "volume": 1.0
+                            }
+                        ]
+                    }
+                },
+                {
+                    "GE_Button": {
+                        "param": "",
+                        "eventType": "UNSELECT_CARD",
+                        "lastCollided": false,
+                        "currCollided": false
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 35,
+            "isActive": true,
+            "Name": "PQElem1 (Copy)",
+            "Parent": 33,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 175, -180, 0 }",
+                        "scale": "{ 0.893564, 0.836059, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 175, -180, 0 }",
+                        "worldScale": "{ 0.893564, 0.836059, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "BoxCollider": {
+                        "center": "{ 175, -180 }",
+                        "width": 165.0,
+                        "height": 165.0,
+                        "min": "{ 92.5, -262.5 }",
+                        "max": "{ 257.5, -97.5 }",
+                        "render": false
+                    }
+                },
+                {
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 211,
+                                "height": 212,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
+                                }
+                            }
+                        },
+                        "spriteName": "Queue_Sequence_1",
+                        "shouldRender": true
+                    }
+                },
+                {
+                    "Audio": {
+                        "sounds": [
+                            {
+                                "sound": "SFX_CardPlay1",
+                                "loop": false,
+                                "playOnStart": false,
+                                "channel": "BGM",
+                                "volume": 1.0
+                            },
+                            {
+                                "sound": "SFX_CardPlay2",
+                                "loop": false,
+                                "playOnStart": false,
+                                "channel": "BGM",
+                                "volume": 1.0
+                            },
+                            {
+                                "sound": "SFX_CardPlay3",
+                                "loop": false,
+                                "playOnStart": false,
+                                "channel": "BGM",
+                                "volume": 1.0
+                            },
+                            {
+                                "sound": "SFX_CardPlay4",
+                                "loop": false,
+                                "playOnStart": false,
+                                "channel": "BGM",
+                                "volume": 1.0
+                            },
+                            {
+                                "sound": "SFX_CardPlay5",
+                                "loop": false,
+                                "playOnStart": false,
+                                "channel": "BGM",
+                                "volume": 1.0
+                            }
+                        ]
+                    }
+                },
+                {
+                    "GE_Button": {
+                        "param": "",
+                        "eventType": "UNSELECT_CARD",
+                        "lastCollided": false,
+                        "currCollided": false
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 36,
+            "isActive": true,
+            "Name": "CardIcon",
+            "Parent": 35,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -4.62535e-10, 0, 0 }",
+                        "scale": "{ 1.11911, 1.19609, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -4.62535e-10, 0, 0 }",
+                        "worldScale": "{ 1.11911, 1.19609, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "BoxCollider": {
+                        "center": "{ 175, -180 }",
+                        "width": 119.0,
+                        "height": 111.0,
+                        "min": "{ 115.5, -235.5 }",
+                        "max": "{ 234.5, -124.5 }",
+                        "render": false
+                    }
+                },
+                {
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 119,
+                                "height": 111,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
+                                }
+                            }
+                        },
+                        "spriteName": "CardIcon_BasicAttackClawswipe",
+                        "shouldRender": true
+                    }
+                },
+                {
+                    "Scripts": {
+                        "scriptList": [
+                            {
+                                "scriptName": "EnemyQueueHover",
+                                "entityID": 45,
+                                "scriptFieldInstList": []
+                            }
+                        ]
+                    }
+                },
+                {
+                    "GE_Button": {
+                        "param": "",
+                        "eventType": "NO_EVENT",
+                        "lastCollided": false,
+                        "currCollided": false
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 37,
+            "isActive": true,
+            "Name": "arrow",
+            "Parent": 33,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, -200, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, -200, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "-->",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.25,
+                        "fontID": 18,
+                        "Alignment": "CENTER"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 38,
+            "isActive": true,
+            "Name": "text1",
+            "Parent": 32,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -525, 190, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -525, 190, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "- Max number of 5 cards in hand",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.22499999403953552,
+                        "fontID": 18,
+                        "Alignment": "LEFT"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 39,
+            "isActive": true,
+            "Name": "text2",
+            "Parent": 32,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -525, 110, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -525, 110, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "- Select cards by clicking on it",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.22499999403953552,
+                        "fontID": 18,
+                        "Alignment": "LEFT"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 40,
+            "isActive": true,
+            "Name": "text3",
+            "Parent": 32,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -525, 30, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -525, 30, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "- Selected cards will be shown on",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.22499999403953552,
+                        "fontID": 18,
+                        "Alignment": "LEFT"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 41,
+            "isActive": true,
+            "Name": "text4",
+            "Parent": 32,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -525, -50, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -525, -50, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "  the left in boxes",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.22499999403953552,
+                        "fontID": 18,
+                        "Alignment": "LEFT"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 42,
+            "isActive": true,
+            "Name": "page 4",
+            "Parent": 32,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 515, -440, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 515, -440, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "4",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.25,
+                        "fontID": 18,
+                        "Alignment": "CENTER"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 43,
+            "isActive": false,
+            "Name": "Page_5",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, 0, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, 0, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 44,
+            "isActive": true,
+            "Name": "[folder] illustrations (Copy)",
+            "Parent": 43,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, 0, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, 0, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 45,
+            "isActive": true,
+            "Name": "PQElem1 (Copy)",
+            "Parent": 44,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -175, -180, 0 }",
+                        "scale": "{ 0.893564, 0.836059, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -175, -180, 0 }",
+                        "worldScale": "{ 0.893564, 0.836059, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "BoxCollider": {
+                        "center": "{ -175, -180 }",
+                        "width": 165.0,
+                        "height": 165.0,
+                        "min": "{ -257.5, -262.5 }",
+                        "max": "{ -92.5, -97.5 }",
+                        "render": false
+                    }
+                },
+                {
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 211,
+                                "height": 212,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
+                                }
+                            }
+                        },
+                        "spriteName": "Queue_Sequence_1",
+                        "shouldRender": true
+                    }
+                },
+                {
+                    "Audio": {
+                        "sounds": [
+                            {
+                                "sound": "SFX_CardPlay1",
+                                "loop": false,
+                                "playOnStart": false,
+                                "channel": "BGM",
+                                "volume": 1.0
+                            },
+                            {
+                                "sound": "SFX_CardPlay2",
+                                "loop": false,
+                                "playOnStart": false,
+                                "channel": "BGM",
+                                "volume": 1.0
+                            },
+                            {
+                                "sound": "SFX_CardPlay3",
+                                "loop": false,
+                                "playOnStart": false,
+                                "channel": "BGM",
+                                "volume": 1.0
+                            },
+                            {
+                                "sound": "SFX_CardPlay4",
+                                "loop": false,
+                                "playOnStart": false,
+                                "channel": "BGM",
+                                "volume": 1.0
+                            },
+                            {
+                                "sound": "SFX_CardPlay5",
+                                "loop": false,
+                                "playOnStart": false,
+                                "channel": "BGM",
+                                "volume": 1.0
+                            }
+                        ]
+                    }
+                },
+                {
+                    "GE_Button": {
+                        "param": "",
+                        "eventType": "UNSELECT_CARD",
+                        "lastCollided": false,
+                        "currCollided": false
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 46,
+            "isActive": true,
+            "Name": "CardIcon (Copy)",
+            "Parent": 45,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 4.62535e-10, 0, 0 }",
+                        "scale": "{ 1.11911, 1.19609, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 4.62535e-10, 0, 0 }",
+                        "worldScale": "{ 1.11911, 1.19609, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "BoxCollider": {
+                        "center": "{ -175, -180 }",
+                        "width": 119.0,
+                        "height": 111.0,
+                        "min": "{ -234.5, -235.5 }",
+                        "max": "{ -115.5, -124.5 }",
+                        "render": false
+                    }
+                },
+                {
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 119,
+                                "height": 111,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
+                                }
+                            }
+                        },
+                        "spriteName": "CardIcon_BasicAttackClawswipe",
+                        "shouldRender": true
+                    }
+                },
+                {
+                    "GE_Button": {
+                        "param": "",
+                        "eventType": "NO_EVENT",
+                        "lastCollided": false,
+                        "currCollided": false
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 47,
+            "isActive": true,
+            "Name": "PQElem1 (Copy) (Copy)",
+            "Parent": 44,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 175, -180, 0 }",
+                        "scale": "{ 0.893564, 0.836059, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 175, -180, 0 }",
+                        "worldScale": "{ 0.893564, 0.836059, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "BoxCollider": {
+                        "center": "{ 175, -180 }",
+                        "width": 165.0,
+                        "height": 165.0,
+                        "min": "{ 92.5, -262.5 }",
+                        "max": "{ 257.5, -97.5 }",
+                        "render": false
+                    }
+                },
+                {
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 211,
+                                "height": 212,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
+                                }
+                            }
+                        },
+                        "spriteName": "Queue_Sequence_1",
+                        "shouldRender": true
+                    }
+                },
+                {
+                    "Audio": {
+                        "sounds": [
+                            {
+                                "sound": "SFX_CardPlay1",
+                                "loop": false,
+                                "playOnStart": false,
+                                "channel": "BGM",
+                                "volume": 1.0
+                            },
+                            {
+                                "sound": "SFX_CardPlay2",
+                                "loop": false,
+                                "playOnStart": false,
+                                "channel": "BGM",
+                                "volume": 1.0
+                            },
+                            {
+                                "sound": "SFX_CardPlay3",
+                                "loop": false,
+                                "playOnStart": false,
+                                "channel": "BGM",
+                                "volume": 1.0
+                            },
+                            {
+                                "sound": "SFX_CardPlay4",
+                                "loop": false,
+                                "playOnStart": false,
+                                "channel": "BGM",
+                                "volume": 1.0
+                            },
+                            {
+                                "sound": "SFX_CardPlay5",
+                                "loop": false,
+                                "playOnStart": false,
+                                "channel": "BGM",
+                                "volume": 1.0
+                            }
+                        ]
+                    }
+                },
+                {
+                    "GE_Button": {
+                        "param": "",
+                        "eventType": "UNSELECT_CARD",
+                        "lastCollided": false,
+                        "currCollided": false
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 48,
+            "isActive": true,
+            "Name": "arrow (Copy)",
+            "Parent": 44,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, -200, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, -200, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "-->",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.25,
+                        "fontID": 18,
+                        "Alignment": "CENTER"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 49,
+            "isActive": true,
+            "Name": "text1",
+            "Parent": 43,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -525, 190, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -525, 190, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "- You can unselect cards by clicking",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.22499999403953552,
+                        "fontID": 18,
+                        "Alignment": "LEFT"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 50,
+            "isActive": true,
+            "Name": "text2",
+            "Parent": 43,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -490, 110, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -490, 110, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "on the icon",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.22499999403953552,
+                        "fontID": 18,
+                        "Alignment": "LEFT"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 51,
+            "isActive": true,
+            "Name": "text3",
+            "Parent": 43,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -525, 30, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -525, 30, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "- The card will return to your hand",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.22499999403953552,
+                        "fontID": 18,
+                        "Alignment": "LEFT"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 52,
+            "isActive": true,
+            "Name": "page 5",
+            "Parent": 43,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 515, -440, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 515, -440, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "5",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.25,
+                        "fontID": 18,
+                        "Alignment": "CENTER"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 53,
+            "isActive": false,
+            "Name": "Page_11",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, 0, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, 0, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 54,
+            "isActive": true,
+            "Name": "text1",
+            "Parent": 53,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -525, 190, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -525, 190, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "- When the battle has ended, you",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.22499999403953552,
+                        "fontID": 18,
+                        "Alignment": "LEFT"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 55,
+            "isActive": true,
+            "Name": "text2",
+            "Parent": 53,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -490, 110, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -490, 110, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "will receive a pack of 5 cards. You",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.22499999403953552,
+                        "fontID": 18,
+                        "Alignment": "LEFT"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 56,
+            "isActive": true,
+            "Name": "text3",
+            "Parent": 53,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -490, 30, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -490, 30, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "can choose up to 3 cards to keep",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.22499999403953552,
+                        "fontID": 18,
+                        "Alignment": "LEFT"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 57,
+            "isActive": true,
+            "Name": "text4",
+            "Parent": 53,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -525, -50, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -525, -50, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "- Leah will heal half of the health",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.22499999403953552,
+                        "fontID": 18,
+                        "Alignment": "LEFT"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 58,
+            "isActive": true,
+            "Name": "text5",
+            "Parent": 53,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -490, -130, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -490, -130, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "she lost after every battle",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.22499999403953552,
+                        "fontID": 18,
+                        "Alignment": "LEFT"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 59,
+            "isActive": true,
+            "Name": "page 11",
+            "Parent": 53,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 515, -440, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 515, -440, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "11",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.25,
+                        "fontID": 18,
+                        "Alignment": "CENTER"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 60,
+            "isActive": false,
+            "Name": "Page_6",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, 0, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, 0, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 61,
+            "isActive": true,
+            "Name": "text1",
+            "Parent": 60,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -525, 190, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -525, 190, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "- Enemy's selected cards will be",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.22499999403953552,
+                        "fontID": 18,
+                        "Alignment": "LEFT"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 62,
+            "isActive": true,
+            "Name": "text2",
+            "Parent": 60,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -490, 110, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -490, 110, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "shown on the right",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.22499999403953552,
+                        "fontID": 18,
+                        "Alignment": "LEFT"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 63,
+            "isActive": true,
+            "Name": "text3",
+            "Parent": 60,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -525, 30, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -525, 30, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "- Hover over the icon in game to see",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.22499999403953552,
+                        "fontID": 18,
+                        "Alignment": "LEFT"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 64,
+            "isActive": true,
+            "Name": "text4",
+            "Parent": 60,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -490, -50, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -490, -50, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "more details of the card",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.22499999403953552,
+                        "fontID": 18,
+                        "Alignment": "LEFT"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 65,
+            "isActive": true,
+            "Name": "page 6",
+            "Parent": 60,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 515, -440, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 515, -440, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "6",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.25,
+                        "fontID": 18,
+                        "Alignment": "CENTER"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 66,
+            "isActive": false,
+            "Name": "Page_7",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, 0, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, 0, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 67,
+            "isActive": true,
+            "Name": "text1",
+            "Parent": 66,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -525, 190, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -525, 190, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "- Press \"END TURN\" button on the",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.22499999403953552,
+                        "fontID": 18,
+                        "Alignment": "LEFT"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 68,
+            "isActive": true,
+            "Name": "text2",
+            "Parent": 66,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -490, 110, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -490, 110, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "bottom right to end your turn",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.22499999403953552,
+                        "fontID": 18,
+                        "Alignment": "LEFT"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 69,
+            "isActive": true,
+            "Name": "text4",
+            "Parent": 66,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -490, -225, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -490, -225, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "top to bottom",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.22499999403953552,
+                        "fontID": 18,
+                        "Alignment": "LEFT"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 70,
+            "isActive": true,
+            "Name": "text3",
+            "Parent": 66,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -525, -145, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -525, -145, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "- Cards will be played in order from",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.22499999403953552,
+                        "fontID": 18,
+                        "Alignment": "LEFT"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 71,
+            "isActive": true,
+            "Name": "page 7",
+            "Parent": 66,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 515, -440, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 515, -440, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "7",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.25,
+                        "fontID": 18,
+                        "Alignment": "CENTER"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 72,
+            "isActive": true,
+            "Name": "endturn",
+            "Parent": 66,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, 4.05138, 0 }",
+                        "scale": "{ 0.85, 0.85, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, 4.05138, 0 }",
+                        "worldScale": "{ 0.85, 0.85, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 400,
+                                "height": 160,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
+                                }
+                            }
+                        },
+                        "spriteName": "Button_Base",
+                        "shouldRender": true
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 73,
+            "isActive": true,
+            "Name": "Text",
+            "Parent": 72,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, -20, 0 }",
+                        "scale": "{ 0.666667, 0.666667, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, -20, 0 }",
+                        "worldScale": "{ 0.666667, 0.666667, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "END TURN",
+                        "clr": {
+                            "r": 1.1294118165969849,
+                            "g": 0.8313725590705872,
+                            "b": 0.7764706015586853,
+                            "a": 1.0
+                        },
+                        "scale": 0.20000000298023224,
+                        "fontID": 21,
+                        "Alignment": "CENTER"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 74,
+            "isActive": false,
+            "Name": "Page_8",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, 0, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, 0, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 75,
+            "isActive": true,
+            "Name": "text1 (Copy)",
+            "Parent": 74,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -525, 190, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -525, 190, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "- Card combos will be applied after",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.22499999403953552,
+                        "fontID": 18,
+                        "Alignment": "LEFT"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 76,
+            "isActive": true,
+            "Name": "text2 (Copy)",
+            "Parent": 74,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -490, 110, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -490, 110, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "the cards have been played",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.22499999403953552,
+                        "fontID": 18,
+                        "Alignment": "LEFT"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 77,
+            "isActive": true,
+            "Name": "text3 (Copy)",
+            "Parent": 74,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -525, 30, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -525, 30, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "- Above the health bars, an icon will",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.22499999403953552,
+                        "fontID": 18,
+                        "Alignment": "LEFT"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 78,
+            "isActive": true,
+            "Name": "text4 (Copy)",
+            "Parent": 74,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -490, -50, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -490, -50, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "appear for each buff or debuff",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.22499999403953552,
+                        "fontID": 18,
+                        "Alignment": "LEFT"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 79,
+            "isActive": true,
+            "Name": "text5 (Copy)",
+            "Parent": 74,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -525, -130, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -525, -130, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "- Hover over the icon for details!",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.22499999403953552,
+                        "fontID": 18,
+                        "Alignment": "LEFT"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 80,
+            "isActive": true,
+            "Name": "Dmg Up",
+            "Parent": 74,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -118.186, -215, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -118.186, -215, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "BoxCollider": {
+                        "center": "{ -118.186, -215 }",
+                        "width": 60.0,
+                        "height": 60.0,
+                        "min": "{ -148.186, -245 }",
+                        "max": "{ -88.186, -185 }",
+                        "render": false
+                    }
+                },
+                {
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 60,
+                                "height": 60,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
+                                }
+                            }
+                        },
+                        "spriteName": "Dmg Up",
+                        "shouldRender": true
+                    }
+                },
+                {
+                    "Scripts": {
+                        "scriptList": [
+                            {
+                                "scriptName": "BuffIconInteraction",
+                                "entityID": 88,
+                                "scriptFieldInstList": []
+                            }
+                        ]
+                    }
+                },
+                {
+                    "GE_Button": {
+                        "param": "",
+                        "eventType": "NO_EVENT",
+                        "lastCollided": false,
+                        "currCollided": false
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 81,
+            "isActive": false,
+            "Name": "BuffIconText",
+            "Parent": 80,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 63.4414, -51.471, 10 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 63.4414, -51.471, 10 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 82,
+            "isActive": true,
+            "Name": "Backing",
+            "Parent": 81,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, 1, 0 }",
+                        "scale": "{ 0.59, 0.345365, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, 1, 0 }",
+                        "worldScale": "{ 0.59, 0.345365, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 200,
+                                "height": 110,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
+                                }
+                            }
+                        },
+                        "spriteName": "Pause_GreyOverlay",
+                        "shouldRender": true
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 83,
+            "isActive": true,
+            "Name": "Text",
+            "Parent": 81,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -47.9674, -7.223, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -47.9674, -7.223, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "Dmg Up",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.10000000149011612,
+                        "fontID": 0,
+                        "Alignment": "LEFT"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 84,
+            "isActive": true,
+            "Name": "Dmg Down",
+            "Parent": 74,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 119.74, -215, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 119.74, -215, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "BoxCollider": {
+                        "center": "{ 119.74, -215 }",
+                        "width": 60.0,
+                        "height": 60.0,
+                        "min": "{ 89.74, -245 }",
+                        "max": "{ 149.74, -185 }",
+                        "render": false
+                    }
+                },
+                {
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 60,
+                                "height": 60,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
+                                }
+                            }
+                        },
+                        "spriteName": "Dmg Down",
+                        "shouldRender": true
+                    }
+                },
+                {
+                    "Scripts": {
+                        "scriptList": [
+                            {
+                                "scriptName": "BuffIconInteraction",
+                                "entityID": 92,
+                                "scriptFieldInstList": []
+                            }
+                        ]
+                    }
+                },
+                {
+                    "GE_Button": {
+                        "param": "",
+                        "eventType": "NO_EVENT",
+                        "lastCollided": false,
+                        "currCollided": false
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 85,
+            "isActive": false,
+            "Name": "BuffIconText",
+            "Parent": 84,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 63.441, -50.429, 10 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 63.441, -50.429, 10 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 86,
+            "isActive": true,
+            "Name": "Backing",
+            "Parent": 85,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, 0, 0 }",
+                        "scale": "{ 0.59, 0.345365, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, 0, 0 }",
+                        "worldScale": "{ 0.59, 0.345365, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 200,
+                                "height": 100,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
+                                }
+                            }
+                        },
+                        "spriteName": "Pause_GreyOverlay",
+                        "shouldRender": true
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 87,
+            "isActive": true,
+            "Name": "Text",
+            "Parent": 85,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -53.967, -7.223, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -53.967, -7.223, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "Dmg Down",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.08299999684095383,
+                        "fontID": 0,
+                        "Alignment": "LEFT"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 88,
+            "isActive": true,
+            "Name": "Blinded",
+            "Parent": 74,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, -215, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, -215, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "BoxCollider": {
+                        "center": "{ 0, -215 }",
+                        "width": 60.0,
+                        "height": 60.0,
+                        "min": "{ -30, -245 }",
+                        "max": "{ 30, -185 }",
+                        "render": false
+                    }
+                },
+                {
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 60,
+                                "height": 60,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
+                                }
+                            }
+                        },
+                        "spriteName": "Blinded",
+                        "shouldRender": true
+                    }
+                },
+                {
+                    "Scripts": {
+                        "scriptList": [
+                            {
+                                "scriptName": "BuffIconInteraction",
+                                "entityID": 96,
+                                "scriptFieldInstList": []
+                            }
+                        ]
+                    }
+                },
+                {
+                    "GE_Button": {
+                        "param": "",
+                        "eventType": "NO_EVENT",
+                        "lastCollided": false,
+                        "currCollided": false
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 89,
+            "isActive": false,
+            "Name": "BuffIconText",
+            "Parent": 88,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 63.4408, -50.43, 10 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 63.4408, -50.43, 10 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 90,
+            "isActive": true,
+            "Name": "Backing",
+            "Parent": 89,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, 0, 0 }",
+                        "scale": "{ 0.59, 0.345365, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, 0, 0 }",
+                        "worldScale": "{ 0.59, 0.345365, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Sprite": {
+                        "spriteData": {
+                            "spriteSubData": {
+                                "texCoords": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "texDims": {
+                                    "x": 1.0,
+                                    "y": 1.0
+                                },
+                                "width": 180,
+                                "height": 100,
+                                "tint": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 0.0
+                                },
+                                "multiply": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
+                                }
+                            }
+                        },
+                        "spriteName": "Pause_GreyOverlay",
+                        "shouldRender": true
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 91,
+            "isActive": true,
+            "Name": "Text",
+            "Parent": 89,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -42.9674, -9.279, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -42.9674, -9.279, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "Blinded",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.10000000149011612,
+                        "fontID": 0,
+                        "Alignment": "LEFT"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 92,
+            "isActive": true,
+            "Name": "page 8",
+            "Parent": 74,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 515, -440, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 515, -440, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "8",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.25,
+                        "fontID": 18,
+                        "Alignment": "CENTER"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 93,
+            "isActive": false,
+            "Name": "Page_3",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, 0, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, 0, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 94,
+            "isActive": true,
+            "Name": "text1 (Copy)",
+            "Parent": 93,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -525, 190, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -525, 190, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "- Special cards give different",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.22499999403953552,
+                        "fontID": 18,
+                        "Alignment": "LEFT"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 95,
+            "isActive": true,
+            "Name": "text2 (Copy)",
+            "Parent": 93,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -525, 110, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -525, 110, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "  effects",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.22499999403953552,
+                        "fontID": 18,
+                        "Alignment": "LEFT"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 96,
+            "isActive": true,
+            "Name": "text3 (Copy)",
+            "Parent": 93,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -525, 30, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -525, 30, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "- Adjacent selected cards forms",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.22499999403953552,
+                        "fontID": 18,
+                        "Alignment": "LEFT"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 97,
+            "isActive": true,
+            "Name": "text4 (Copy)",
+            "Parent": 93,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -525, -50, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -525, -50, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "  card combos",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.22499999403953552,
+                        "fontID": 18,
+                        "Alignment": "LEFT"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 98,
+            "isActive": true,
+            "Name": "text5 (Copy)",
+            "Parent": 93,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -525, -130, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -525, -130, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "- Hold \"TAB\" in game to see the card",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.22499999403953552,
+                        "fontID": 18,
+                        "Alignment": "LEFT"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 99,
+            "isActive": true,
+            "Name": "text6 (Copy)",
+            "Parent": 93,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -520, -210, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -520, -210, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "  combo you & the enemy can form!",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.22499999403953552,
+                        "fontID": 18,
+                        "Alignment": "LEFT"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 100,
+            "isActive": true,
+            "Name": "page 3",
+            "Parent": 93,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 515, -440, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 515, -440, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "3",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.25,
+                        "fontID": 18,
+                        "Alignment": "CENTER"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 101,
+            "isActive": false,
+            "Name": "Page_9",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, 0, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, 0, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 102,
+            "isActive": true,
+            "Name": "text1 (Copy)",
+            "Parent": 101,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -525, 190, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -525, 190, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "- At the start of every turn, you will",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.22499999403953552,
+                        "fontID": 18,
+                        "Alignment": "LEFT"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 103,
+            "isActive": true,
+            "Name": "text2 (Copy)",
+            "Parent": 101,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -490, 110, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -490, 110, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "draw one card",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.22499999403953552,
+                        "fontID": 18,
+                        "Alignment": "LEFT"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 104,
+            "isActive": true,
+            "Name": "text3 (Copy)",
+            "Parent": 101,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -525, 30, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -525, 30, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "- If your hand is full, i.e. already has",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.22499999403953552,
+                        "fontID": 18,
+                        "Alignment": "LEFT"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 105,
+            "isActive": true,
+            "Name": "text4 (Copy)",
+            "Parent": 101,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -490, -50, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -490, -50, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "5 cards, the drawn card will go",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.22499999403953552,
+                        "fontID": 18,
+                        "Alignment": "LEFT"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 106,
+            "isActive": true,
+            "Name": "text5 (Copy)",
+            "Parent": 101,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -490, -130, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -490, -130, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "into the discard pile",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.22499999403953552,
+                        "fontID": 18,
+                        "Alignment": "LEFT"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 107,
+            "isActive": true,
+            "Name": "page 9",
+            "Parent": 101,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 515, -440, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 515, -440, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "9",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.25,
+                        "fontID": 18,
+                        "Alignment": "CENTER"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 108,
+            "isActive": false,
+            "Name": "Page_10",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, 0, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, 0, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 109,
+            "isActive": true,
+            "Name": "text1 (Copy)",
+            "Parent": 108,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -525, 190, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -525, 190, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "- When the deck has run out, the",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.22499999403953552,
+                        "fontID": 18,
+                        "Alignment": "LEFT"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 110,
+            "isActive": true,
+            "Name": "text2 (Copy)",
+            "Parent": 108,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -490, 110, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -490, 110, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "discard pile will be reshuffled in",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.22499999403953552,
+                        "fontID": 18,
+                        "Alignment": "LEFT"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 111,
+            "isActive": true,
+            "Name": "text3 (Copy)",
+            "Parent": 108,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -525, 30, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -525, 30, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "- It is possible to end a turn without",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.22499999403953552,
+                        "fontID": 18,
+                        "Alignment": "LEFT"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 112,
+            "isActive": true,
+            "Name": "text4 (Copy)",
+            "Parent": 108,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ -490, -50, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ -490, -50, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "selecting any cards",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.22499999403953552,
+                        "fontID": 18,
+                        "Alignment": "LEFT"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 113,
+            "isActive": true,
+            "Name": "page 10",
+            "Parent": 108,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 515, -440, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 515, -440, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Text": {
+                        "text": "10",
+                        "clr": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "scale": 0.25,
+                        "fontID": 18,
+                        "Alignment": "CENTER"
+                    }
+                }
+            ]
+        },
+        {
+            "ID": 114,
+            "isActive": true,
+            "Name": "HTP_Script",
+            "Parent": 0,
+            "Components": [
+                {
+                    "Transform": {
+                        "pos": "{ 0, 0, 0 }",
+                        "scale": "{ 1, 1, 1 }",
+                        "rot": "{ 0, 0, 0 }",
+                        "worldPos": "{ 0, 0, 0 }",
+                        "worldScale": "{ 1, 1, 1 }",
+                        "worldRot": "{ 0, 0, 0 }"
+                    }
+                },
+                {
+                    "Scripts": {
+                        "scriptList": [
+                            {
+                                "scriptName": "HTP",
+                                "entityID": 114,
+                                "scriptFieldInstList": [
+                                    {
+                                        "data": 4,
+                                        "type": "System.Int32",
+                                        "scriptField": {
+                                            "fieldName": "m_page"
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}
