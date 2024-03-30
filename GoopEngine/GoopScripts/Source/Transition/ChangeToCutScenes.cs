@@ -22,7 +22,8 @@ namespace GoopScripts.Transition
 		{
       Utils.TransitionToScene("Cutscene");
       Utils.FadeOutAudio("menu", 1.0f);
-      Utils.FadeInAudio("VL_Leah_CutScene_1", 0.75f, 1.0f);
-		}
+      Utils.FadeOutAudio("CaveWithWaterDrops_Loop", 1.0f);
+      Utils.FadeOutAudio("Fog", 1.0f);
+    }
 	}
 }

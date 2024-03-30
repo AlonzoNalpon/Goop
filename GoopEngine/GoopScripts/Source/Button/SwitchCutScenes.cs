@@ -29,7 +29,12 @@ namespace GoopScripts.Cutscene
 		{
 			frame = 1;
 			audio = 1;
-		}
+    }
+
+		public void OnCreate()
+		{
+      Utils.PlaySoundF($"VL_Leah_CutScene_1", 0.75f, Utils.ChannelType.VOICE, false);
+    }
 
 		/*!******************************************************************
 		\brief
@@ -60,8 +65,7 @@ namespace GoopScripts.Cutscene
 				Utils.SetIsActiveEntity(Utils.GetEntity($"Cutscenes_00{frame}"), true);
 
 				Utils.StopSound($"VL_Leah_CutScene_{lastAudio}");
-				Utils.FadeInAudio($"VL_Leah_CutScene_{audio}", 0.75f, 1.0f);
-
+				Utils.PlaySoundF($"VL_Leah_CutScene_{audio}", 0.75f, Utils.ChannelType.VOICE, false);
       }
 
 		}
