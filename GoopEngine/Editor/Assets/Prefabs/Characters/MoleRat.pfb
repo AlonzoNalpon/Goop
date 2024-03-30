@@ -1,7 +1,7 @@
 {
     "Name": "MoleRat",
     "isActive": true,
-    "Version": 7,
+    "Version": 8,
     "Components": [
         {
             "Transform": {
@@ -99,28 +99,6 @@
                                 }
                             },
                             {
-                                "data": {
-                                    "Cards In Discard": [],
-                                    "Cards In Hand": [],
-                                    "Cards In Queue": [
-                                        "NO_CARD",
-                                        "",
-                                        "NO_CARD"
-                                    ]
-                                },
-                                "type": "",
-                                "scriptField": {
-                                    "fieldName": "m_deckMngr"
-                                }
-                            },
-                            {
-                                "data": "BASIC_ENEMY",
-                                "type": "GoopScripts.Gameplay.CharacterType",
-                                "scriptField": {
-                                    "fieldName": "m_type"
-                                }
-                            },
-                            {
                                 "data": [
                                     22,
                                     23,
@@ -159,11 +137,6 @@
                                 }
                             }
                         ]
-                    },
-                    {
-                        "scriptName": "MoleRatBites",
-                        "entityID": 0,
-                        "scriptFieldInstList": []
                     },
                     {
                         "scriptName": "LeahDies",
@@ -250,6 +223,26 @@
                                 }
                             }
                         ]
+                    },
+                    {
+                        "scriptName": "MoleRatBite",
+                        "entityID": 0,
+                        "scriptFieldInstList": [
+                            {
+                                "data": 12,
+                                "type": "System.Int32",
+                                "scriptField": {
+                                    "fieldName": "endRange"
+                                }
+                            },
+                            {
+                                "data": 17,
+                                "type": "System.Int32",
+                                "scriptField": {
+                                    "fieldName": "startRange"
+                                }
+                            }
+                        ]
                     }
                 ]
             }
@@ -257,6 +250,138 @@
         {
             "EnemyAI": {
                 "treeID": 12
+            }
+        },
+        {
+            "Audio": {
+                "sounds": [
+                    {
+                        "sound": "SFX_Screech1",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "SFX",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "SFX_Screech2",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "SFX",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "SFX_Screech3",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "SFX",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "SFX_Screech4",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "SFX",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "SFX_Screech5",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "SFX",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "SFX_Screech6",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "SFX",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "SFX_BodyFall1",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "SFX",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "SFX_BodyFall2",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "SFX",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "SFX_BodyFall3",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "SFX",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "SFX_BodyFall4",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "SFX",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "SFX_BodyFallDawson1",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "SFX",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "SFX_BodyFallDawson2",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "SFX",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "SFX_Bite_1",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "SFX",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "SFX_Bite_2",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "SFX",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "SFX_Bite_3",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "SFX",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "SFX_Bite_4",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "SFX",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "SFX_Bite_5",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "SFX",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "SFX_Bite_6",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "SFX",
+                        "volume": 1.0
+                    }
+                ]
             }
         },
         {
