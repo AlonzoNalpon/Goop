@@ -110,14 +110,14 @@
                             "entityID": 0,
                             "scriptFieldInstList": [
                                 {
-                                    "data": 0,
+                                    "data": 9,
                                     "type": "System.Int32",
                                     "scriptField": {
                                         "fieldName": "endRange"
                                     }
                                 },
                                 {
-                                    "data": 0,
+                                    "data": 13,
                                     "type": "System.Int32",
                                     "scriptField": {
                                         "fieldName": "startRange"
@@ -141,11 +141,6 @@
                             "scriptFieldInstList": []
                         },
                         {
-                            "scriptName": "LeahFlinches",
-                            "entityID": 0,
-                            "scriptFieldInstList": []
-                        },
-                        {
                             "scriptName": "LeahShoots",
                             "entityID": 0,
                             "scriptFieldInstList": [
@@ -157,7 +152,7 @@
                                     }
                                 },
                                 {
-                                    "data": 0,
+                                    "data": 5,
                                     "type": "System.Int32",
                                     "scriptField": {
                                         "fieldName": "startRange"
@@ -205,6 +200,51 @@
                                     }
                                 }
                             ]
+                        },
+                        {
+                            "scriptName": "LeahHurt",
+                            "entityID": 0,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 14,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "endRange"
+                                    }
+                                },
+                                {
+                                    "data": 19,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "startRange"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "scriptName": "LeahBodyFall",
+                            "entityID": 0,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": 20,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "endRange"
+                                    }
+                                },
+                                {
+                                    "data": 23,
+                                    "type": "System.Int32",
+                                    "scriptField": {
+                                        "fieldName": "startRange"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "scriptName": "LeahShootParticle",
+                            "entityID": 0,
+                            "scriptFieldInstList": []
                         }
                     ]
                 }
@@ -213,10 +253,171 @@
                 "Audio": {
                     "sounds": [
                         {
-                            "sound": "damageTaken_Leah",
+                            "sound": "SFX_Beam1",
                             "loop": false,
                             "playOnStart": false,
-                            "channel": "BGM",
+                            "channel": "SFX",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_Beam2",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "SFX",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_Beam3",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "SFX",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_Beam4",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "SFX",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_Beam5",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "SFX",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_Beam6",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "SFX",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardDraw1",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "SFX",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardDraw2",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "SFX",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_CardDraw3",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "SFX",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_Leah_Death_1",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "SFX",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_Leah_Death_2",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "SFX",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_Leah_Death_3",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "SFX",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_Leah_Death_4",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "SFX",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_Leah_Death_5",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "SFX",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_Leah_Hurt_1",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "SFX",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_Leah_Hurt_2",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "SFX",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_Leah_Hurt_3",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "SFX",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_Leah_Hurt_4",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "SFX",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_Leah_Hurt_5",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "SFX",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_Leah_Hurt_6",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "SFX",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_BodyFall1",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "SFX",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_BodyFall2",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "SFX",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_BodyFall3",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "SFX",
+                            "volume": 1.0
+                        },
+                        {
+                            "sound": "SFX_BodyFall4",
+                            "loop": false,
+                            "playOnStart": false,
+                            "channel": "SFX",
                             "volume": 1.0
                         }
                     ]

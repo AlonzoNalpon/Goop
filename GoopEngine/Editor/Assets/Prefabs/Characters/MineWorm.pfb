@@ -1,7 +1,7 @@
 {
     "Name": "MineWorm",
     "isActive": true,
-    "Version": 14,
+    "Version": 15,
     "Components": [
         {
             "Transform": {
@@ -62,211 +62,189 @@
         },
         {
             "Scripts": {
-              "scriptList": [
-                {
-                  "scriptName": "Stats",
-                  "entityID": 0,
-                  "scriptFieldInstList": [
+                "scriptList": [
                     {
-                      "data": 0,
-                      "type": "System.Int32",
-                      "scriptField": {
-                        "fieldName": "m_attack"
-                      }
-                    },
-                    {
-                      "data": 0,
-                      "type": "System.Int32",
-                      "scriptField": {
-                        "fieldName": "m_block"
-                      }
-                    },
-                    {
-                      "data": 86,
-                      "type": "System.Int32",
-                      "scriptField": {
-                        "fieldName": "m_buffsDisplay"
-                      }
-                    },
-                    {
-                      "data": [
-                        46,
-                        34
-                      ],
-                      "type": "System.Int32[]",
-                      "scriptField": {
-                        "fieldName": "m_comboUI"
-                      }
-                    },
-                    {
-                      "data": {
-                        "Cards In Discard": [],
-                        "Cards In Hand": [],
-                        "Cards In Queue": [
-                          "NO_CARD",
-                          "NO_CARD",
-                          "NO_CARD"
+                        "scriptName": "Stats",
+                        "entityID": 0,
+                        "scriptFieldInstList": [
+                            {
+                                "data": 0,
+                                "type": "System.Int32",
+                                "scriptField": {
+                                    "fieldName": "m_attack"
+                                }
+                            },
+                            {
+                                "data": 0,
+                                "type": "System.Int32",
+                                "scriptField": {
+                                    "fieldName": "m_block"
+                                }
+                            },
+                            {
+                                "data": 86,
+                                "type": "System.Int32",
+                                "scriptField": {
+                                    "fieldName": "m_buffsDisplay"
+                                }
+                            },
+                            {
+                                "data": [
+                                    46,
+                                    34
+                                ],
+                                "type": "System.Int32[]",
+                                "scriptField": {
+                                    "fieldName": "m_comboUI"
+                                }
+                            },
+                            {
+                                "data": [
+                                    22,
+                                    23,
+                                    24
+                                ],
+                                "type": "System.Int32[]",
+                                "scriptField": {
+                                    "fieldName": "queueElemIDs"
+                                }
+                            }
                         ]
-                      },
-                      "type": "",
-                      "scriptField": {
-                        "fieldName": "m_deckMngr"
-                      }
                     },
                     {
-                      "data": "BOSS_P1",
-                      "type": "GoopScripts.Gameplay.CharacterType",
-                      "scriptField": {
-                        "fieldName": "m_type"
-                      }
+                        "scriptName": "HealthBar",
+                        "entityID": 0,
+                        "scriptFieldInstList": [
+                            {
+                                "data": 12,
+                                "type": "System.Int32",
+                                "scriptField": {
+                                    "fieldName": "m_health"
+                                }
+                            },
+                            {
+                                "data": 0,
+                                "type": "System.Int32",
+                                "scriptField": {
+                                    "fieldName": "m_healthBarUI"
+                                }
+                            },
+                            {
+                                "data": 12,
+                                "type": "System.Int32",
+                                "scriptField": {
+                                    "fieldName": "m_maxHealth"
+                                }
+                            }
+                        ]
                     },
                     {
-                      "data": [
-                        22,
-                        23,
-                        24
-                      ],
-                      "type": "System.Int32[]",
-                      "scriptField": {
-                        "fieldName": "queueElemIDs"
-                      }
+                        "scriptName": "MoleRatScreeches",
+                        "entityID": 0,
+                        "scriptFieldInstList": [
+                            {
+                                "data": 10,
+                                "type": "System.Int32",
+                                "scriptField": {
+                                    "fieldName": "endRange"
+                                }
+                            },
+                            {
+                                "data": 15,
+                                "type": "System.Int32",
+                                "scriptField": {
+                                    "fieldName": "startRange"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "scriptName": "LeahDies",
+                        "entityID": 0,
+                        "scriptFieldInstList": [
+                            {
+                                "data": 6,
+                                "type": "System.Int32",
+                                "scriptField": {
+                                    "fieldName": "endRange"
+                                }
+                            },
+                            {
+                                "data": 9,
+                                "type": "System.Int32",
+                                "scriptField": {
+                                    "fieldName": "startRange"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "scriptName": "MineWormScratches",
+                        "entityID": 0,
+                        "scriptFieldInstList": [
+                            {
+                                "data": 0,
+                                "type": "System.Int32",
+                                "scriptField": {
+                                    "fieldName": "endRange"
+                                }
+                            },
+                            {
+                                "data": 5,
+                                "type": "System.Int32",
+                                "scriptField": {
+                                    "fieldName": "startRange"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "scriptName": "MoleRatBlocks",
+                        "entityID": 0,
+                        "scriptFieldInstList": []
+                    },
+                    {
+                        "scriptName": "AnimationManager",
+                        "entityID": 0,
+                        "scriptFieldInstList": [
+                            {
+                                "data": "SS_MineWorm_Shield",
+                                "type": "System.String",
+                                "scriptField": {
+                                    "fieldName": "m_block"
+                                }
+                            },
+                            {
+                                "data": "SS_MineWorm_Death",
+                                "type": "System.String",
+                                "scriptField": {
+                                    "fieldName": "m_death"
+                                }
+                            },
+                            {
+                                "data": "SS_MineWorm_Death",
+                                "type": "System.String",
+                                "scriptField": {
+                                    "fieldName": "m_deathShield"
+                                }
+                            },
+                            {
+                                "data": "SS_MineWorm_Flinch",
+                                "type": "System.String",
+                                "scriptField": {
+                                    "fieldName": "m_flinch"
+                                }
+                            },
+                            {
+                                "data": "SS_MineWorm_Idle",
+                                "type": "System.String",
+                                "scriptField": {
+                                    "fieldName": "m_idle"
+                                }
+                            }
+                        ]
                     }
-                  ]
-                },
-                {
-                  "scriptName": "HealthBar",
-                  "entityID": 0,
-                  "scriptFieldInstList": [
-                    {
-                      "data": 12,
-                      "type": "System.Int32",
-                      "scriptField": {
-                        "fieldName": "m_health"
-                      }
-                    },
-                    {
-                      "data": 0,
-                      "type": "System.Int32",
-                      "scriptField": {
-                        "fieldName": "m_healthBarUI"
-                      }
-                    },
-                    {
-                      "data": 12,
-                      "type": "System.Int32",
-                      "scriptField": {
-                        "fieldName": "m_maxHealth"
-                      }
-                    }
-                  ]
-                },
-                {
-                  "scriptName": "MoleRatScreeches",
-                  "entityID": 0,
-                  "scriptFieldInstList": [
-                    {
-                      "data": 10,
-                      "type": "System.Int32",
-                      "scriptField": {
-                        "fieldName": "endRange"
-                      }
-                    },
-                    {
-                      "data": 15,
-                      "type": "System.Int32",
-                      "scriptField": {
-                        "fieldName": "startRange"
-                      }
-                    }
-                  ]
-                },
-                {
-                  "scriptName": "LeahDies",
-                  "entityID": 0,
-                  "scriptFieldInstList": [
-                    {
-                      "data": 6,
-                      "type": "System.Int32",
-                      "scriptField": {
-                        "fieldName": "endRange"
-                      }
-                    },
-                    {
-                      "data": 9,
-                      "type": "System.Int32",
-                      "scriptField": {
-                        "fieldName": "startRange"
-                      }
-                    }
-                  ]
-                },
-                {
-                  "scriptName": "MineWormScratches",
-                  "entityID": 0,
-                  "scriptFieldInstList": [
-                    {
-                      "data": 0,
-                      "type": "System.Int32",
-                      "scriptField": {
-                        "fieldName": "endRange"
-                      }
-                    },
-                    {
-                      "data": 5,
-                      "type": "System.Int32",
-                      "scriptField": {
-                        "fieldName": "startRange"
-                      }
-                    }
-                  ]
-                },
-                {
-                  "scriptName": "MoleRatBlocks",
-                  "entityID": 0,
-                  "scriptFieldInstList": []
-                },
-                {
-                  "scriptName": "AnimationManager",
-                  "entityID": 0,
-                  "scriptFieldInstList": [
-                    {
-                      "data": "SS_MineWorm_Shield",
-                      "type": "System.String",
-                      "scriptField": {
-                        "fieldName": "m_block"
-                      }
-                    },
-                    {
-                      "data": "SS_MineWorm_Death",
-                      "type": "System.String",
-                      "scriptField": {
-                        "fieldName": "m_death"
-                      }
-                    },
-                    {
-                      "data": "SS_MineWorm_Death",
-                      "type": "System.String",
-                      "scriptField": {
-                        "fieldName": "m_deathShield"
-                      }
-                    },
-                    {
-                      "data": "SS_MineWorm_Flinch",
-                      "type": "System.String",
-                      "scriptField": {
-                        "fieldName": "m_flinch"
-                      }
-                    },
-                    {
-                      "data": "SS_MineWorm_Idle",
-                      "type": "System.String",
-                      "scriptField": {
-                        "fieldName": "m_idle"
-                      }
-                    }
-                  ]
-                }
-              ]
+                ]
             }
         },
         {
@@ -278,42 +256,42 @@
             "Audio": {
                 "sounds": [
                     {
-                        "sound": "SFX_Scratch1",
+                        "sound": "SFX_Bite_1",
                         "loop": false,
                         "playOnStart": false,
                         "channel": "SFX",
                         "volume": 1.0
                     },
                     {
-                        "sound": "SFX_Scratch2",
+                        "sound": "SFX_Bite_2",
                         "loop": false,
                         "playOnStart": false,
                         "channel": "SFX",
                         "volume": 1.0
                     },
                     {
-                        "sound": "SFX_Scratch3",
+                        "sound": "SFX_Bite_3",
                         "loop": false,
                         "playOnStart": false,
                         "channel": "SFX",
                         "volume": 1.0
                     },
                     {
-                        "sound": "SFX_Scratch4",
+                        "sound": "SFX_Bite_4",
                         "loop": false,
                         "playOnStart": false,
                         "channel": "SFX",
                         "volume": 1.0
                     },
                     {
-                        "sound": "SFX_Scratch5",
+                        "sound": "SFX_Bite_5",
                         "loop": false,
                         "playOnStart": false,
                         "channel": "SFX",
                         "volume": 1.0
                     },
                     {
-                        "sound": "SFX_Scratch6",
+                        "sound": "SFX_Bite_6",
                         "loop": false,
                         "playOnStart": false,
                         "channel": "SFX",

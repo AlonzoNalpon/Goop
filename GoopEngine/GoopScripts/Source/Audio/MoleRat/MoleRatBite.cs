@@ -1,7 +1,7 @@
 ﻿/*!*********************************************************************
-\file   DawsonDies.cs
+\file   MoleRatBites.cs
 \date   04-February-2024
-\brief  Script to play Dawson death sound
+\brief  Script to play mole rat attack sound
 
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
@@ -12,14 +12,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GoopScripts.Source.Audio.Dawson
+namespace GoopScripts.Gameplay
 {
-  public class DawsonDies
+  internal class MoleRatBite : IAnimationEvent
   {
     public int startRange, endRange;
     public void PlayEvent(uint entity)
     {
-      Utils.PlayRandomSound(startRange, endRange, entity, 0.7f);
+      startRange = 0;
+      endRange = 0;
+      Utils.PlayRandomSound(startRange, endRange, entity, 0.75f);
     }
   }
 }
