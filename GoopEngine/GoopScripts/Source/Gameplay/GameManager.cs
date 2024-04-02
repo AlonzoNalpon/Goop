@@ -120,6 +120,7 @@ namespace GoopScripts.Gameplay
               }
           }
 
+          m_playerStats.m_healthBar.IncreaseHealth((int)((m_playerStats.m_healthBar.m_maxHealth - m_playerStats.m_healthBar.m_health) * 0.5));
         }
 
         if (Utils.GetLoseFocus())
@@ -141,6 +142,8 @@ namespace GoopScripts.Gameplay
             case 2:
               if (Utils.GetIsActiveEntity((uint)HOWTOPLAY_MENU))
                 Utils.UndeeperPause(PAUSE_MENU, HOWTOPLAY_MENU);
+                Utils.SetIsActiveEntity(Utils.GetEntity($"Page_{HTP_Popup.m_page}"), false);
+                Utils.SetIsActiveEntity(Utils.GetEntity("HTP_Arrow_Left"), false);
               if (Utils.GetIsActiveEntity((uint)QUIT_MENU))
                 Utils.UndeeperPause(PAUSE_MENU, QUIT_MENU);
               break;
