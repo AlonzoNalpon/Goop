@@ -1251,6 +1251,7 @@ void GE::MONO::SetTextComponent(GE::ECS::Entity entity, MonoString* str)
   if (textComp)
   {
     textComp->m_text = MONO::MonoStringToSTD(str);
+    textComp->m_dirty = true;
   }
 
 }
