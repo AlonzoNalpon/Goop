@@ -34,7 +34,10 @@ void GE::EditorGUI::SceneControls::CreateContent()
         ImGuiHelper::Restart();
         GE::FPS::FrameRateController::GetInstance().SetTimeScale(1.f);
         auto& fmod = GE::fMOD::FmodSystem::GetInstance();
-        fmod.StopAllSound();
+        //fmod.StopAllSound();
+        fmod.SetChannelPause(GE::fMOD::FmodSystem::BGM, true);
+        fmod.SetChannelPause(GE::fMOD::FmodSystem::SFX, true);
+        fmod.SetChannelPause(GE::fMOD::FmodSystem::VOICE, true);
       }
       if (Button(pause))
       {
@@ -64,6 +67,10 @@ void GE::EditorGUI::SceneControls::CreateContent()
       {
         Events::EventManager::GetInstance().Dispatch(Events::StartSceneEvent());
         ImGuiHelper::Play();
+        auto& fmod = GE::fMOD::FmodSystem::GetInstance();
+        fmod.SetChannelPause(GE::fMOD::FmodSystem::BGM, false);
+        fmod.SetChannelPause(GE::fMOD::FmodSystem::SFX, false);
+        fmod.SetChannelPause(GE::fMOD::FmodSystem::VOICE, false);
       }
       BeginDisabled();
       Button(pause);
