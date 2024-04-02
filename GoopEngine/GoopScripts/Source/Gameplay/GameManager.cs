@@ -105,6 +105,7 @@ namespace GoopScripts.Gameplay
           gameStarted = true;
           m_playerSkipped = false;
           m_timer = 0.0;
+          m_playerStats.m_healthBar.IncreaseHealth((int)((m_playerStats.m_healthBar.m_maxHealth - m_playerStats.m_healthBar.m_health) * 0.5));
         }
 
         if (Utils.GetLoseFocus())
