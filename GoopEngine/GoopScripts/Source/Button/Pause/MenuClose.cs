@@ -43,7 +43,6 @@ namespace GoopScripts.Button
 					break;
 				case 1:
 					Utils.UnpauseMenu(PauseMenuID);
-          Utils.PlaySoundF("Menu-Quit", (float)m_rng.NextDouble() * (0.6f - 0.75f) + 0.6f, Utils.ChannelType.SFX, false);
           break;
 				case 2:
 					Utils.UndeeperPause(PauseMenuID, DeeperPauseMenuID);
