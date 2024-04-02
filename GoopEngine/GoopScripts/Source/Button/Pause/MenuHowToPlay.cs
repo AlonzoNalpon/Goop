@@ -25,6 +25,7 @@ namespace GoopScripts.Button
     {
       HTP_Popup.m_page = 1;
       Utils.SetIsActiveEntity(Utils.GetEntity($"Page_{HTP_Popup.m_page}"), true);
+      Utils.SetIsActiveEntity(Utils.GetEntity("HTP_Arrow_Right"), true);
       base.OnRelease(entity);
 			Utils.DeeperPauseMenu(PauseMenuID, DeeperPauseMenuID);
 		}

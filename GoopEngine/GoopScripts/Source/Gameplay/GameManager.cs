@@ -126,6 +126,8 @@ namespace GoopScripts.Gameplay
             case 2:
               if (Utils.GetIsActiveEntity((uint)HOWTOPLAY_MENU))
                 Utils.UndeeperPause(PAUSE_MENU, HOWTOPLAY_MENU);
+                Utils.SetIsActiveEntity(Utils.GetEntity($"Page_{HTP_Popup.m_page}"), false);
+                Utils.SetIsActiveEntity(Utils.GetEntity("HTP_Arrow_Left"), false);
               if (Utils.GetIsActiveEntity((uint)QUIT_MENU))
                 Utils.UndeeperPause(PAUSE_MENU, QUIT_MENU);
               break;
