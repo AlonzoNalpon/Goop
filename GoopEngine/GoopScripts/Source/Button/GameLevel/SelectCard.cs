@@ -34,7 +34,7 @@ namespace GoopScripts.Button
 		************************************************************************/
     public void OnClick(uint entity)
     {
-      if (GameManager.IsResolutionPhase())
+      if (GameManager.IsResolutionPhase() || GameManager.IsDrawingCard())
       {
         return;
       }
@@ -61,6 +61,11 @@ namespace GoopScripts.Button
 		************************************************************************/
     public void OnHoverEnter(uint entity)
     {
+      if (GameManager.IsDrawingCard())
+      {
+        return;
+      }
+
       Vec3<double> pos = Utils.GetWorldPosition(entity);
       pos.Z -= 5.0;
       Utils.SetPosition(m_cardHover, pos);

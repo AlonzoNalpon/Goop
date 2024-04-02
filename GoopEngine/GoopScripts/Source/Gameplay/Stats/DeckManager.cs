@@ -72,11 +72,29 @@ namespace GoopScripts.Gameplay
       double padding = (PLAYER_HAND_WIDTH - (double)m_hand.Count * CARD_WIDTH) / (double)(m_hand.Count + 1);
       Vec3<double> cardPos = HAND_START_POS;
       cardPos.X += padding + CARD_WIDTH / 2.0;
-      foreach (var c in m_hand)
+      for (int i = m_hand.Count - 1; i >= 0; --i)
       {
-        Utils.SetPosition(c.Item2, cardPos);
+        Utils.SetPosition(m_hand[i].Item2, cardPos);
         cardPos.X += padding + CARD_WIDTH;
       }
+    }
+
+    public Vec3<double> AlignCardsForDraw()
+    {
+      double newCount = (double)(m_hand.Count + 1);
+      double padding = (PLAYER_HAND_WIDTH - newCount * CARD_WIDTH) / (newCount + 1.0);
+      Vec3<double> cardPos = HAND_START_POS;
+      Vec3<double> startPos = new Vec3<double>(cardPos.X + padding + CARD_WIDTH * 0.5, cardPos.Y, cardPos.Z);
+      cardPos.X = startPos.X + padding + CARD_WIDTH;  // offset by 1 card
+      for (int i = m_hand.Count - 1; i >= 0; --i)
+      {
+        Utils.ClearTweenKeyFrames(m_hand[i].Item2, "Align");
+        Utils.AddTweenKeyFrame(m_hand[i].Item2, "Align", cardPos, new Vec3<double>(1.0, 1.0, 1.0), new Vec3<double>(), 0.25);
+        Utils.PlayTransformAnimation(m_hand[i].Item2, "Align");
+        cardPos.X += padding + CARD_WIDTH;
+      }
+
+      return startPos;
     }
 
     /*!*********************************************************************
@@ -132,7 +150,7 @@ namespace GoopScripts.Gameplay
       }
 
       // if hand full, destroy the top card
-      if (m_hand.Count == MAX_CARDS)
+      if (IsHandFull())
       {
         m_deck.BurnTop();
         return -1;
@@ -252,6 +270,17 @@ namespace GoopScripts.Gameplay
         }
         m_queue[i] = (CardBase.CardID.NO_CARD, uint.MaxValue);
       }
+    }
+
+    /*!*********************************************************************
+		\brief
+		  Checks if the hand is full
+    \return
+      True if the hand is full and false otherwise
+		************************************************************************/
+    public bool IsHandFull()
+    {
+      return m_hand.Count == MAX_CARDS;
     }
   }
 }

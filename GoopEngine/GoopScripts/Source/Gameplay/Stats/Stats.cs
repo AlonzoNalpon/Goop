@@ -35,6 +35,8 @@ namespace GoopScripts.Gameplay
 {
   public class Stats : Entity
   {
+    static readonly Vec3<double> CARD_DRAW_POS = new Vec3<double>(-800.625, -515.0, 10.0);
+
     public CharacterType m_type;
     public HealthBar m_healthBar;
     public int m_attack, m_block;
@@ -98,7 +100,7 @@ namespace GoopScripts.Gameplay
     {
       for (int i = 0; i < DeckManager.STARTING_CARDS; ++i)
       {
-        Draw(false);
+        Draw();
       }
     }
 
@@ -314,31 +316,52 @@ namespace GoopScripts.Gameplay
       PLAYER, a prefab instance of the card will be created and the entity
       ID of the instance is set to the corresponding card in hand.
     ************************************************************************/
-    public void Draw(bool playSound = true)
+    public void Draw()
     {
-      int idx = m_deckMngr.Draw();
-      if (idx < 0)
+      if (m_deckMngr.IsHandFull())
       {
+        m_deckMngr.Draw();
         return;
       }
 
-      // ermmmmmmmmmm i dont like the way this is structured
-      // deck doesn't know CharacterType so check has to be done here
-      // this can be done in GameManager but then we'll have to
-      // spawn prefab, set the id, reposition cards from outside
-      // which we shouldn't have to since Draw will always have the
-      // same behaviour so for now itll be done this way
+      int idx = m_deckMngr.Draw();
+
       if (m_type == CharacterType.PLAYER)
       {
         CardBase.CardID cardType = m_deckMngr.m_hand[idx].Item1;
-        m_deckMngr.m_hand[idx] = (cardType, Utils.SpawnPrefab(CardManager.m_cardPrefabs[cardType]));
+        uint pfbInst = Utils.SpawnPrefab(CardManager.m_cardPrefabs[cardType]);
+        m_deckMngr.m_hand[idx] = (cardType, pfbInst);
         m_deckMngr.AlignHandCards();
       }
+    }
+
+    public void PlayerDraw(bool playSound = true)
+    {
+      if (m_deckMngr.IsHandFull())
+      {
+        m_deckMngr.Draw();
+        return;
+      }
+
+      Vec3<double> cardPos = m_deckMngr.AlignCardsForDraw();
+      int idx = m_deckMngr.Draw();
+
+      CardBase.CardID cardType = m_deckMngr.m_hand[idx].Item1;
+      uint pfbInst = Utils.SpawnPrefab(CardManager.m_cardPrefabs[cardType]);
+      m_deckMngr.m_hand[idx] = (cardType, pfbInst);
+      Utils.AddTweenKeyFrame(pfbInst, "Draw", CARD_DRAW_POS, new Vec3<double>(1.0, 1.0, 1.0), new Vec3<double>(), 0.0);
+      Vec3<double> frame2Pos = new Vec3<double>(CARD_DRAW_POS.X, CARD_DRAW_POS.Y + 400.0, CARD_DRAW_POS.Z);
+      Utils.AddTweenKeyFrame(pfbInst, "Draw", frame2Pos, new Vec3<double>(1.0, 1.0, 1.0), new Vec3<double>(), 0.2);
+      Utils.AddTweenKeyFrame(pfbInst, "Draw", frame2Pos, new Vec3<double>(1.0, 1.0, 1.0), new Vec3<double>(), 0.15);
+      Utils.AddTweenKeyFrame(pfbInst, "Draw", cardPos, new Vec3<double>(1.0, 1.0, 1.0), new Vec3<double>(), 0.15);
+      Utils.PlayTransformAnimation(pfbInst, "Draw");
+      //m_deckMngr.AlignHandCards();
+
       if (playSound)
       {
         Utils.PlaySoundF("SFX_CardDraw3", 1.0f, Utils.ChannelType.SFX, false);
       }
-    }
+}
 
     public void FakeDraw()
     {

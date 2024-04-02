@@ -113,7 +113,7 @@ namespace GoopScripts.Gameplay
           {
             m_playerStats.TutorialPlayerDraw(false);
           }
-          m_enemyStats.Draw(false);
+          m_enemyStats.Draw();
           m_enemyStats.QueueCard(0);
           gameStarted = true;
         }
@@ -190,14 +190,14 @@ namespace GoopScripts.Gameplay
       m_playerStats.TutorialPlayerDraw();
       if (m_turn == 4)
       {
-        m_enemyStats.Draw(false);
-        m_enemyStats.Draw(false);
+        m_enemyStats.Draw();
+        m_enemyStats.Draw();
         m_enemyStats.QueueCard(0);
         m_enemyStats.QueueCard(0);
       }
       else
       {
-        m_enemyStats.Draw(false);
+        m_enemyStats.Draw();
         m_enemyStats.QueueCard(0);
       }
       Utils.SetIsActiveEntity(Utils.GetEntity($"Tutorial_{++m_tut}"), true); 

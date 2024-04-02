@@ -268,7 +268,8 @@ void GE::MONO::ScriptManager::AddInternalCalls()
   mono_add_internal_call("GoopScripts.Mono.Utils::FadeOutAudio", GE::MONO::FadeOutAudio);
   mono_add_internal_call("GoopScripts.Mono.Utils::PlayTransformAnimation", GE::MONO::PlayTransformAnimation);
   mono_add_internal_call("GoopScripts.Mono.Utils::PlayAllTweenAnimation", GE::MONO::PlayAllTweenAnimation);
-  mono_add_internal_call("GoopScripts.Mono.Utils::AddTweenKeyframe", GE::MONO::AddTweenKeyframe);
+  mono_add_internal_call("GoopScripts.Mono.Utils::ClearTweenKeyFrames", GE::MONO::ClearTweenKeyFrames);
+  mono_add_internal_call("GoopScripts.Mono.Utils::AddTweenKeyFrame", GE::MONO::AddTweenKeyFrame);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetTimeScale", GE::MONO::SetTimeScale);
   mono_add_internal_call("GoopScripts.Mono.Utils::DispatchQuitEvent", GE::MONO::DispatchQuitEvent);
 }
@@ -847,7 +848,19 @@ void GE::MONO::PlayAllTweenAnimation(GE::ECS::Entity parent, MonoString* animNam
   }
 }
 
-void GE::MONO::AddTweenKeyframe(GE::ECS::Entity entity, MonoString* animName, GE::Math::dVec3 pos, GE::Math::dVec3 scale,
+void GE::MONO::ClearTweenKeyFrames(GE::ECS::Entity entity, MonoString* animName)
+{
+  auto& ecs = GE::ECS::EntityComponentSystem::GetInstance();
+  auto tween{ ecs.GetComponent<GE::Component::Tween>(entity) };
+  if (!tween)
+  {
+    throw GE::Debug::Exception<ScriptManager>(Debug::LEVEL_ERROR, ErrMsg("Unable to get Tween component from entity " + std::to_string(entity)));
+  }
+
+  return tween->m_tweens[MonoStringToSTD(animName)].clear();
+}
+
+void GE::MONO::AddTweenKeyFrame(GE::ECS::Entity entity, MonoString* animName, GE::Math::dVec3 pos, GE::Math::dVec3 scale,
   GE::Math::dVec3 rot, double duration, MonoString* animEvent)
 {
   static auto& ecs = GE::ECS::EntityComponentSystem::GetInstance();

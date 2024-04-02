@@ -658,6 +658,16 @@ namespace GE::MONO
 
 	/*!*********************************************************************
 	\brief
+		Clears a tween animation of its keyframes
+	\param entity
+		The entity
+	\param animName
+		The name of the animation
+	************************************************************************/
+	void ClearTweenKeyFrames(GE::ECS::Entity entity, MonoString* animName);
+
+	/*!*********************************************************************
+	\brief
 		Adds a keyframe to an existing tween animation
 	\param entity
 		The entity to add the keyframe to
@@ -674,7 +684,7 @@ namespace GE::MONO
 	\param animEvent
 		The name of the script for the keyframe
 	************************************************************************/
-	void AddTweenKeyframe(GE::ECS::Entity entity, MonoString* animName, GE::Math::dVec3 pos, GE::Math::dVec3 scale,
+	void AddTweenKeyFrame(GE::ECS::Entity entity, MonoString* animName, GE::Math::dVec3 pos, GE::Math::dVec3 scale,
 		GE::Math::dVec3 rot, double duration, MonoString* animEvent);
 
 	float GetChannelVolume(int channel);

@@ -1,7 +1,7 @@
 {
     "Name": "Leah_Block",
     "isActive": true,
-    "Version": 11,
+    "Version": 13,
     "Components": [
         {
             "Transform": {
@@ -11,6 +11,23 @@
                 "worldPos": "{ 0, 0, 0 }",
                 "worldScale": "{ 1, 1, 1 }",
                 "worldRot": "{ 0, 0, 0 }"
+            }
+        },
+        {
+            "Tween": {
+                "tweens": [
+                    {
+                        "key": "Align",
+                        "value": []
+                    },
+                    {
+                        "key": "Draw",
+                        "value": []
+                    }
+                ],
+                "paused": false,
+                "loop": false,
+                "playing": ""
             }
         }
     ],

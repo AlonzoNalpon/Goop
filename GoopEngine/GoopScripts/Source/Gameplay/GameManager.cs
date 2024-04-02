@@ -34,6 +34,8 @@ namespace GoopScripts.Gameplay
     //static readonly double INTERVAL_TIME = 3.0;
     static readonly Vec3<double> ENEMY_POS = new Vec3<double>(336.318, 100.0, 0.0);
     static readonly string GAME_DATA_DIR = "./Assets/GameData/";
+    static readonly double PLAYER_DRAW_ANIM_TIME = 0.6;
+
     public int PAUSE_MENU, HOWTOPLAY_MENU, QUIT_MENU;
     public int P_QUEUE_HIGHLIGHT, E_QUEUE_HIGHLIGHT;
     public int P_HEALTH_TEXT_UI, P_HEALTH_UI, E_HEALTH_TEXT_UI, E_HEALTH_UI;
@@ -44,11 +46,12 @@ namespace GoopScripts.Gameplay
 
     static int m_currentLevel;
     static bool isResolutionPhase = false;
+    static bool isDrawingCard = false;
     static bool gameEnded = false;
 
     //tools for resolving cards
     int m_slotToResolve = 0;
-    double m_timer;
+    double m_timer, m_playerDrawTimer;
     bool m_playerSkipped;
     static bool isStartOfTurn = true;
     static bool gameStarted = false; // called once at the start of game
@@ -105,7 +108,7 @@ namespace GoopScripts.Gameplay
           m_enemyStats.Init();
           gameStarted = true;
           m_playerSkipped = false;
-          m_timer = 0.0;
+          m_timer = m_playerDrawTimer = 0.0;
           switch (m_enemyStats.m_type)
           {
             case CharacterType.DAWSON_MINI:
@@ -180,6 +183,18 @@ namespace GoopScripts.Gameplay
           isStartOfTurn = false;
           StartOfTurn();
         }
+
+        if (isDrawingCard)
+        {
+          m_playerDrawTimer += deltaTime;
+
+          if (m_playerDrawTimer > PLAYER_DRAW_ANIM_TIME)
+          {
+            isDrawingCard = false;
+            m_playerDrawTimer = 0.0;
+          }
+        }
+
       }
 #if (DEBUG)
       catch (Exception ex)
@@ -204,7 +219,8 @@ namespace GoopScripts.Gameplay
       SetHighlightActive(false);
       m_playerStats.EndOfTurn();
       m_enemyStats.EndOfTurn();
-      m_playerStats.Draw();
+      m_playerStats.PlayerDraw();
+      isDrawingCard = true;
       m_enemyStats.Draw();
       if (!m_enemyStats.IsTurnSkipped())
       {
@@ -502,6 +518,8 @@ namespace GoopScripts.Gameplay
     }
 
     static public bool IsResolutionPhase() {  return isResolutionPhase; }
+
+    static public bool IsDrawingCard() { return isDrawingCard; }
 
     void LoadGame(string filePath)
     {
