@@ -199,5 +199,60 @@
                 }
             }
         ]
+    },
+    {
+        "Name": "FPSCounter",
+        "ID": 2,
+        "Prefab": {
+            "name": "FPSCounter",
+            "version": 2,
+            "objToEntity": [
+                {
+                    "key": 0,
+                    "value": 2
+                }
+            ],
+            "registered": true
+        },
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 850, 480, 1000 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, -0, 0 }",
+                    "worldPos": "{ 850, 480, 1000 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "FPS",
+                            "entityID": 2,
+                            "scriptFieldInstList": []
+                        }
+                    ]
+                }
+            },
+            {
+                "Text": {
+                    "text": "FPS",
+                    "clr": {
+                        "r": 0.9411764740943909,
+                        "g": 1.0,
+                        "b": 0.0,
+                        "a": 0.0
+                    },
+                    "scale": 0.12300000339746475,
+                    "fontID": 0,
+                    "Alignment": "LEFT"
+                }
+            }
+        ]
     }
 ]

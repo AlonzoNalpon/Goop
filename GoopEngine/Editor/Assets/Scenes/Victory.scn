@@ -54,6 +54,61 @@
         ]
     },
     {
+        "Name": "FPSCounter",
+        "ID": 1,
+        "Prefab": {
+            "name": "FPSCounter",
+            "version": 2,
+            "objToEntity": [
+                {
+                    "key": 0,
+                    "value": 1
+                }
+            ],
+            "registered": true
+        },
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 850, 480, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, -0, 0 }",
+                    "worldPos": "{ 850, 480, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "FPS",
+                            "entityID": 1,
+                            "scriptFieldInstList": []
+                        }
+                    ]
+                }
+            },
+            {
+                "Text": {
+                    "text": "FPS",
+                    "clr": {
+                        "r": 0.9411764740943909,
+                        "g": 1.0,
+                        "b": 0.0,
+                        "a": 0.0
+                    },
+                    "scale": 0.12300000339746475,
+                    "fontID": 0,
+                    "Alignment": "LEFT"
+                }
+            }
+        ]
+    },
+    {
         "Name": "Transition",
         "ID": 2,
         "Prefab": null,
@@ -270,61 +325,6 @@
         ]
     },
     {
-        "Name": "FPSCounter",
-        "ID": 5,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": null,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 861.577, 512.984, 1001 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, -0, 0 }",
-                    "worldPos": "{ 861.577, 512.984, 1001 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, -0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 861.577, 512.984 }",
-                    "width": 8.152580206657e-312,
-                    "height": 8.14846383731e-312,
-                    "min": "{ 861.577, 512.984 }",
-                    "max": "{ 861.577, 512.984 }",
-                    "render": true
-                }
-            },
-            {
-                "Scripts": {
-                    "scriptList": [
-                        {
-                            "scriptName": "FPS",
-                            "entityID": 5,
-                            "scriptFieldInstList": []
-                        }
-                    ]
-                }
-            },
-            {
-                "Text": {
-                    "text": "FPS",
-                    "clr": {
-                        "r": 0.9411765336990356,
-                        "g": 1.0,
-                        "b": 0.0,
-                        "a": 1.0
-                    },
-                    "scale": 0.12300000339746475,
-                    "fontID": 0,
-                    "Alignment": "LEFT"
-                }
-            }
-        ]
-    },
-    {
         "Name": "Leave Button",
         "ID": 6,
         "Prefab": {
@@ -431,7 +431,7 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, -23.1481, 0 }",
+                    "pos": "{ 0, -23.148, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 0, -309.148, 0 }",
