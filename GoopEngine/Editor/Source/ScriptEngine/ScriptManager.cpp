@@ -266,6 +266,7 @@ void GE::MONO::ScriptManager::AddInternalCalls()
   mono_add_internal_call("GoopScripts.Mono.Utils::FadeInAudio", GE::MONO::FadeInAudio);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetSpriteTint", GE::MONO::SetSpriteTint);
   mono_add_internal_call("GoopScripts.Mono.Utils::FadeOutAudio", GE::MONO::FadeOutAudio);
+  mono_add_internal_call("GoopScripts.Mono.Utils::AddTweenComponent", GE::MONO::AddTweenComponent);
   mono_add_internal_call("GoopScripts.Mono.Utils::PlayTransformAnimation", GE::MONO::PlayTransformAnimation);
   mono_add_internal_call("GoopScripts.Mono.Utils::PlayAllTweenAnimation", GE::MONO::PlayAllTweenAnimation);
   mono_add_internal_call("GoopScripts.Mono.Utils::ClearTweenKeyFrames", GE::MONO::ClearTweenKeyFrames);
@@ -818,6 +819,13 @@ void GE::MONO::DestroyEntityByName(MonoString* name)
   ecs.DestroyEntity(entity);
 }
 
+void GE::MONO::AddTweenComponent(GE::ECS::Entity entity, bool loop)
+{
+  Component::Tween tween{};
+  tween.m_loop = loop;
+  ECS::EntityComponentSystem::GetInstance().AddComponent<Component::Tween>(entity, tween);
+}
+
 
 void GE::MONO::PlayTransformAnimation(GE::ECS::Entity entity, MonoString* animName)
 {
@@ -861,11 +869,11 @@ void GE::MONO::ClearTweenKeyFrames(GE::ECS::Entity entity, MonoString* animName)
 }
 
 void GE::MONO::AddTweenKeyFrame(GE::ECS::Entity entity, MonoString* animName, GE::Math::dVec3 pos, GE::Math::dVec3 scale,
-  GE::Math::dVec3 rot, double duration, MonoString* animEvent)
+  GE::Math::dVec3 rot, double duration, float alpha)
 {
   static auto& ecs = GE::ECS::EntityComponentSystem::GetInstance();
-  std::string const animEventStr{ animEvent ? MonoStringToSTD(animEvent) : "" };
-  GE::Component::Tween::Action newAction{ pos, scale, rot, duration, animEventStr };
+  GE::Component::Tween::Action newAction{ pos, scale, rot, duration, {} };
+  newAction.m_spriteMult.a = alpha;
   auto tween{ ecs.GetComponent<GE::Component::Tween>(entity) };
   if (!tween)
   {

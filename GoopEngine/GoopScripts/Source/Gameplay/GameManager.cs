@@ -52,7 +52,7 @@ namespace GoopScripts.Gameplay
     //tools for resolving cards
     int m_slotToResolve = 0;
     double m_timer, m_playerDrawTimer;
-    bool m_playerSkipped;
+    bool m_playerSkipped = false;
     static bool isStartOfTurn = true;
     static bool gameStarted = false; // called once at the start of game
 
@@ -123,7 +123,8 @@ namespace GoopScripts.Gameplay
               }
           }
 
-          m_playerStats.m_healthBar.IncreaseHealth((int)((m_playerStats.m_healthBar.m_maxHealth - m_playerStats.m_healthBar.m_health) * 0.5));
+          m_playerStats.m_healthBar.AnimatedHeal((int)((m_playerStats.m_healthBar.m_maxHealth - m_playerStats.m_healthBar.m_health) * 0.5), 1.5);
+          m_playerStats.m_animManager.PlayCustom(2);
         }
 
         if (Utils.GetLoseFocus())
@@ -184,6 +185,7 @@ namespace GoopScripts.Gameplay
           StartOfTurn();
         }
 
+        m_playerStats.m_healthBar.Update(deltaTime);
         if (isDrawingCard)
         {
           m_playerDrawTimer += deltaTime;
@@ -199,7 +201,7 @@ namespace GoopScripts.Gameplay
 #if (DEBUG)
       catch (Exception ex)
       {
-        Console.WriteLine($"Exception in game loop: {ex.Message}");
+        Utils.SendString($"Exception in game loop: {ex.Message}");
       }
 #else
       catch (Exception)

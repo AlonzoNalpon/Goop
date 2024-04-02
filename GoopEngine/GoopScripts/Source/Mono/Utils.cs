@@ -487,6 +487,9 @@ namespace GoopScripts.Mono
     extern public static void DestroyEntityByName(string name);
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static void AddTweenComponent(uint entity, bool loop = false);
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static void PlayTransformAnimation(uint entity, string animName);
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
@@ -497,7 +500,7 @@ namespace GoopScripts.Mono
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static void AddTweenKeyFrame(uint entity, string animName, Vec3<double> pos,
-      Vec3<double> scale, Vec3<double> rot, double duration, string animEvent = "");
+      Vec3<double> scale, Vec3<double> rot, double duration, float alpha = 1.0f);
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static void SetTimeScale(float scale);

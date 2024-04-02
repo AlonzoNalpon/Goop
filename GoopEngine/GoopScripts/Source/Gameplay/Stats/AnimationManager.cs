@@ -150,6 +150,18 @@ namespace GoopScripts.Source.Gameplay
 
     /*!*********************************************************************
     \brief
+      This function is used to keep track of an external animation being
+      played. Uses the existing timer in the animation manager.
+      IsPlayingAnimation() should be called to determine when the time is up.
+    ************************************************************************/
+    public void PlayCustom(double animTime)
+    {
+      m_timeToHit = animTime;
+      AnimationPlayed(false);
+    }
+
+    /*!*********************************************************************
+    \brief
       Updates the internal timer usign the deltaTime from the main update
       loop.
     ************************************************************************/

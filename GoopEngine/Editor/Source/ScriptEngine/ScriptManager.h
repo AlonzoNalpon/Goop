@@ -641,6 +641,16 @@ namespace GE::MONO
 
 	/*!******************************************************************
 	\brief
+		Adds a tween component to an entity
+	\param
+		The entity to add the component to
+	\param
+		Whether to loop the animations
+	********************************************************************/
+	void AddTweenComponent(GE::ECS::Entity entity, bool loop);
+
+	/*!******************************************************************
+	\brief
 	  Plays an animation from the tween system of an entity.
 	********************************************************************/
 	void PlayTransformAnimation(GE::ECS::Entity entity, MonoString* animName);
@@ -681,11 +691,11 @@ namespace GE::MONO
 		The rotation of the keyframe
 	\param duration
 		The duration of the keyframe
-	\param animEvent
-		The name of the script for the keyframe
+	\param alpha
+		The alpha of the sprite multiply
 	************************************************************************/
 	void AddTweenKeyFrame(GE::ECS::Entity entity, MonoString* animName, GE::Math::dVec3 pos, GE::Math::dVec3 scale,
-		GE::Math::dVec3 rot, double duration, MonoString* animEvent);
+		GE::Math::dVec3 rot, double duration, float alpha);
 
 	float GetChannelVolume(int channel);
 

@@ -18,17 +18,22 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace GoopScripts.UI
 {
-  public class HealthBar : Entity
+  public class HealthBar
   {
     bool m_isPlayer;
     public int m_healthBarUI;
     int m_textUI;
-    public int m_health;
-    public int m_maxHealth;
+    public int m_health, m_maxHealth;
     uint m_playerBarID;
     private Vec3<double> m_alignPos = new Vec3<double>(); // starting position
     int m_maxWidth; // taken from the sprite of playerbarID
     int m_oneUnit;
+
+    // animation stuff
+    bool m_isPlayingAnim = false;
+    double m_timer;
+    double m_timeSlice; // how often to update health text
+    int m_targetHealth;
 
     public HealthBar()
     {
@@ -60,6 +65,7 @@ namespace GoopScripts.UI
         }
       }
       m_playerBarID = Utils.CreateObject("TestHealthBar", new Vec3<double>(m_alignPos), new Vec3<double>(1, 1, 1), new Vec3<double>());
+      Utils.AddTweenComponent(m_playerBarID);
       Utils.SetPosition(m_playerBarID, m_alignPos);
 
       Utils.SetScale(m_playerBarID, new Vec3<double>(1.0, 1.0, 1.0));
@@ -73,6 +79,28 @@ namespace GoopScripts.UI
       }
       Utils.SetObjectHeight(m_playerBarID, (int)Utils.GetObjectHeight((uint)m_healthBarUI) * (int)Utils.GetScale((uint)m_healthBarUI).Y - 18);
       UpdateBar();
+    }
+
+    public void Update(double dt)
+    {
+      if (!m_isPlayingAnim)
+      {
+        return;
+      }
+
+      m_timer += dt;
+      if (m_timer >= m_timeSlice)
+      {
+        ++m_health;
+        UpdateHealthText();
+        m_timer = 0.0;
+
+        if (m_health >= m_targetHealth)
+        {
+          UpdateHealthText();
+          m_isPlayingAnim = false;
+        }
+      }
     }
 
     public void UpdateBar()
@@ -103,11 +131,11 @@ namespace GoopScripts.UI
       {
         if (m_isPlayer)
         {
-          a.X = a.X - m_oneUnit * 0.5f;
+          a.X = a.X - m_oneUnit * 0.5;
         }
         else
         {
-          a.X = a.X + m_oneUnit * 0.5f;
+          a.X = a.X + m_oneUnit * 0.5;
         }
       }
       Utils.SetPosition(m_playerBarID, a);
@@ -122,11 +150,11 @@ namespace GoopScripts.UI
       {
         if (m_isPlayer)
         {
-          a.X = a.X + m_oneUnit * 0.5f;
+          a.X = a.X + m_oneUnit * 0.5;
         }
         else
         {
-          a.X = a.X - m_oneUnit * 0.5f;
+          a.X = a.X - m_oneUnit * 0.5;
         }
       }
       Utils.SetPosition(m_playerBarID, a);
@@ -142,16 +170,28 @@ namespace GoopScripts.UI
       m_maxHealth = amount;
     }
 
-    public void OnUpdate(double deltaTime)
+    public void AnimatedHeal(int amount, double time)
     {
-      if (Utils.IsKeyTriggered(Input.KeyCode.UP_ARROW))
+      m_targetHealth = m_health + amount;
+      double multiplier = 0.5;
+      Vec3<double> currPos = Utils.GetPosition(m_playerBarID);
+      Vec3<double> currScale = new Vec3<double>(1.0, 1.0, 1.0);
+      double posIncr = m_oneUnit * 0.5 * multiplier, scaleIncr = multiplier * ((double)m_targetHealth / (double)m_health - 1.0) / (double)amount;
+      m_timeSlice = time / (double)amount;
+
+      Utils.ClearTweenKeyFrames(m_playerBarID, "Heal");
+      amount = (int)((double)amount / multiplier);
+      for (int i = 0; i < amount; ++i)
       {
-        IncreaseHealth();
+        currPos.X += posIncr;
+        currScale.X += scaleIncr;
+        Utils.AddTweenKeyFrame(m_playerBarID, "Heal", currPos, currScale, new Vec3<double>(), m_timeSlice * multiplier, (i % 2 == 0 || i == amount - 1) ? 1.0f : 0.0f);
       }
-      if (Utils.IsKeyTriggered(Input.KeyCode.DOWN_ARROW))
-      {
-        DecreaseHealth();
-      }
+      
+      Utils.PlayTransformAnimation(m_playerBarID, "Heal");
+      m_isPlayingAnim = true;
+      m_timer = 0.0;
+      Console.WriteLine(m_isPlayingAnim.ToString());
     }
 
     void UpdateHealthText()
