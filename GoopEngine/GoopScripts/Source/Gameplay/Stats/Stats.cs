@@ -86,7 +86,7 @@ namespace GoopScripts.Gameplay
     public void FakeOnCreate()
     {
       m_buffsDisplay = 0;
-      m_type = CharacterType.DAWSON;
+      m_type = CharacterType.DAWSON_MINI;
       m_buffs = new BuffManager(m_buffsDisplay, m_type);
     }
 
@@ -98,7 +98,7 @@ namespace GoopScripts.Gameplay
     {
       for (int i = 0; i < DeckManager.STARTING_CARDS; ++i)
       {
-        Draw();
+        Draw(false);
       }
     }
 
@@ -314,7 +314,7 @@ namespace GoopScripts.Gameplay
       PLAYER, a prefab instance of the card will be created and the entity
       ID of the instance is set to the corresponding card in hand.
     ************************************************************************/
-    public void Draw()
+    public void Draw(bool playSound = true)
     {
       int idx = m_deckMngr.Draw();
       if (idx < 0)
@@ -334,7 +334,10 @@ namespace GoopScripts.Gameplay
         m_deckMngr.m_hand[idx] = (cardType, Utils.SpawnPrefab(CardManager.m_cardPrefabs[cardType]));
         m_deckMngr.AlignHandCards();
       }
-      Utils.PlaySoundF("SFX_CardDraw3", 1.0f, Utils.ChannelType.SFX, false);
+      if (playSound)
+      {
+        Utils.PlaySoundF("SFX_CardDraw3", 1.0f, Utils.ChannelType.SFX, false);
+      }
     }
 
     public void FakeDraw()
@@ -526,7 +529,7 @@ namespace GoopScripts.Gameplay
       Draws a card through the deck manager. This function spawns the
       tutorial version of the card prefab
     ************************************************************************/
-    public void TutorialPlayerDraw()
+    public void TutorialPlayerDraw(bool playSound = true)
     {
       int idx = m_deckMngr.Draw();
       if (idx < 0)
@@ -539,7 +542,10 @@ namespace GoopScripts.Gameplay
       m_deckMngr.m_hand[idx] = (cardType, Utils.SpawnPrefab(CardManager.m_cardPrefabs[cardType] + "_Tut"));
       Utils.SetEntityName(m_deckMngr.m_hand[idx].Item2, CardManager.m_cardPrefabs[cardType]);
       m_deckMngr.AlignHandCards();
-      Utils.PlaySoundF("SFX_CardDraw3", 1.0f, Utils.ChannelType.SFX, false);
+      if (playSound)
+      {
+        Utils.PlaySoundF("SFX_CardDraw3", 1.0f, Utils.ChannelType.SFX, false);
+      }
     }
 
     public bool IsTurnSkipped()

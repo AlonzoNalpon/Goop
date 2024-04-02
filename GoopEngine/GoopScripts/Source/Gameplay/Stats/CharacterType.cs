@@ -20,6 +20,7 @@ namespace GoopScripts.Gameplay
     PLAYER,
     MINE_WORM,
     MOLE_RAT,
-    DAWSON
+    DAWSON_MINI,
+    DAWSON_FINAL
   }
 }

@@ -71,22 +71,22 @@ namespace GoopScripts.Gameplay
       try
       {
         //button scripts
-        if (m_tut == 1 || m_tut == 11 || m_tut == 16 || m_tut == 20 || m_tut == 26 || m_tut == 31 || m_tut == 33 || m_tut == 39 || m_tut == 44)
+        if (m_tut == 1 || m_tut == 10 || m_tut == 15 || m_tut == 19 || m_tut == 25 || m_tut == 30 || m_tut == 32 || m_tut == 38 || m_tut == 43)
         {
           Utils.SetIsActiveEntity(Utils.GetEntity("Tutorial_Button_Back"), false);
           Utils.SetIsActiveEntity(Utils.GetEntity("Tutorial_Button_Next"), true);
         }
-        else if (m_tut == 9 || m_tut == 13 || m_tut == 17 || m_tut == 25 || m_tut == 29 || m_tut == 32 || m_tut == 35 || m_tut == 43 || m_tut == 46)
+        else if (m_tut == 8 || m_tut == 12 || m_tut == 16 || m_tut == 24 || m_tut == 28 || m_tut == 31 || m_tut == 34 || m_tut == 42 || m_tut == 46)
         {
           Utils.SetIsActiveEntity(Utils.GetEntity("Tutorial_Button_Back"), true);
           Utils.SetIsActiveEntity(Utils.GetEntity("Tutorial_Button_Next"), false);
         }
-        else if (m_tut == 10 || m_tut == 14 || m_tut == 15 || m_tut == 18 || m_tut == 19 || m_tut == 30 || m_tut == 36 || m_tut == 37 || m_tut == 38 || m_tut == 47 || m_tut == 48)
+        else if (m_tut == 9 || m_tut == 13 || m_tut == 14 || m_tut == 17 || m_tut == 18 || m_tut == 29 || (m_tut >= 35 && m_tut <= 37) || m_tut == 47 || m_tut == 48)
         {
           Utils.SetIsActiveEntity(Utils.GetEntity("Tutorial_Button_Back"), false);
           Utils.SetIsActiveEntity(Utils.GetEntity("Tutorial_Button_Next"), false);
         }
-        else if ((m_tut >= 2 && m_tut <= 8) || m_tut == 12 || m_tut == 21 || m_tut == 22 || m_tut == 23 || m_tut == 24 || m_tut == 27 || m_tut == 28 || m_tut == 34 || m_tut == 40 || m_tut == 41 || m_tut == 42 || m_tut == 45)
+        else if ((m_tut >= 2 && m_tut <= 7) || m_tut == 11 || (m_tut >= 20 && m_tut <= 23) || m_tut == 26 || m_tut == 27 || m_tut == 33 || m_tut == 39 || m_tut == 40 || m_tut == 41 || m_tut == 44 || m_tut == 45)
         {
           Utils.SetIsActiveEntity(Utils.GetEntity("Tutorial_Button_Back"), true);
           Utils.SetIsActiveEntity(Utils.GetEntity("Tutorial_Button_Next"), true);
@@ -111,9 +111,9 @@ namespace GoopScripts.Gameplay
           LoadGame(GAME_DATA_DIR + "TutorialStats.sav");
           for (int i = 0; i < 5; ++i)
           {
-            m_playerStats.TutorialPlayerDraw();
+            m_playerStats.TutorialPlayerDraw(false);
           }
-          m_enemyStats.Draw();
+          m_enemyStats.Draw(false);
           m_enemyStats.QueueCard(0);
           gameStarted = true;
         }
@@ -190,14 +190,14 @@ namespace GoopScripts.Gameplay
       m_playerStats.TutorialPlayerDraw();
       if (m_turn == 4)
       {
-        m_enemyStats.Draw();
-        m_enemyStats.Draw();
+        m_enemyStats.Draw(false);
+        m_enemyStats.Draw(false);
         m_enemyStats.QueueCard(0);
         m_enemyStats.QueueCard(0);
       }
       else
       {
-        m_enemyStats.Draw();
+        m_enemyStats.Draw(false);
         m_enemyStats.QueueCard(0);
       }
       Utils.SetIsActiveEntity(Utils.GetEntity($"Tutorial_{++m_tut}"), true); 
@@ -326,6 +326,14 @@ namespace GoopScripts.Gameplay
     private void StartResolution()
     {
       SetHighlightActive(true);
+      Random rand = new Random();
+      int randomNumber = rand.Next(100);
+      if (randomNumber <= 25)
+      {
+        List<string> playerVoiceLine = new List<string> { "VL_Leah_Enemy_1", "VL_Leah_Enemy_2" };
+        int voiceLineInd = rand.Next(playerVoiceLine.Count);
+        PlaySoundF(playerVoiceLine[voiceLineInd], 1.0f, ChannelType.VOICE, false);
+      }
     }
 
     /*!*********************************************************************

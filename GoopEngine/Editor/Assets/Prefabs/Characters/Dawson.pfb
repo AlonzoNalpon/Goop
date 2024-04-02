@@ -1,7 +1,7 @@
 {
     "Name": "Dawson",
     "isActive": true,
-    "Version": 22,
+    "Version": 26,
     "Components": [
         {
             "Transform": {
@@ -99,28 +99,6 @@
                                 }
                             },
                             {
-                                "data": {
-                                    "Cards In Discard": [],
-                                    "Cards In Hand": [],
-                                    "Cards In Queue": [
-                                        "NO_CARD",
-                                        "",
-                                        "NO_CARD"
-                                    ]
-                                },
-                                "type": "",
-                                "scriptField": {
-                                    "fieldName": "m_deckMngr"
-                                }
-                            },
-                            {
-                                "data": "BOSS_P1",
-                                "type": "GoopScripts.Gameplay.CharacterType",
-                                "scriptField": {
-                                    "fieldName": "m_type"
-                                }
-                            },
-                            {
                                 "data": [
                                     22,
                                     23,
@@ -206,14 +184,14 @@
                         "entityID": 0,
                         "scriptFieldInstList": [
                             {
-                                "data": 3,
+                                "data": 5,
                                 "type": "System.Int32",
                                 "scriptField": {
                                     "fieldName": "endRange"
                                 }
                             },
                             {
-                                "data": 4,
+                                "data": 8,
                                 "type": "System.Int32",
                                 "scriptField": {
                                     "fieldName": "startRange"
@@ -247,11 +225,6 @@
                         "scriptFieldInstList": []
                     },
                     {
-                        "scriptName": "DawsonFlinches",
-                        "entityID": 0,
-                        "scriptFieldInstList": []
-                    },
-                    {
                         "scriptName": "DawsonShootParticle",
                         "entityID": 0,
                         "scriptFieldInstList": []
@@ -260,6 +233,66 @@
                         "scriptName": "DawsonAttackParticle",
                         "entityID": 0,
                         "scriptFieldInstList": []
+                    },
+                    {
+                        "scriptName": "DawsonBodyFall",
+                        "entityID": 0,
+                        "scriptFieldInstList": [
+                            {
+                                "data": 3,
+                                "type": "System.Int32",
+                                "scriptField": {
+                                    "fieldName": "endRange"
+                                }
+                            },
+                            {
+                                "data": 4,
+                                "type": "System.Int32",
+                                "scriptField": {
+                                    "fieldName": "startRange"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "scriptName": "DawsonChargeUp",
+                        "entityID": 0,
+                        "scriptFieldInstList": [
+                            {
+                                "data": 9,
+                                "type": "System.Int32",
+                                "scriptField": {
+                                    "fieldName": "endRange"
+                                }
+                            },
+                            {
+                                "data": 12,
+                                "type": "System.Int32",
+                                "scriptField": {
+                                    "fieldName": "startRange"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "scriptName": "DawsonHurt",
+                        "entityID": 0,
+                        "scriptFieldInstList": [
+                            {
+                                "data": 13,
+                                "type": "System.Int32",
+                                "scriptField": {
+                                    "fieldName": "endRange"
+                                }
+                            },
+                            {
+                                "data": 22,
+                                "type": "System.Int32",
+                                "scriptField": {
+                                    "fieldName": "startRange"
+                                }
+                            }
+                        ]
                     }
                 ]
             }
@@ -305,6 +338,202 @@
                         "loop": false,
                         "playOnStart": false,
                         "channel": "SFX",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "SFX_Dawson_Death_1",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "SFX",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "SFX_Dawson_Death_2",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "SFX",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "SFX_Dawson_Death_3",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "SFX",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "SFX_Dawson_Death_4",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "SFX",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "SFX_Dawson_ChargeUp_1",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "SFX",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "SFX_Dawson_ChargeUp_2",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "SFX",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "SFX_Dawson_ChargeUp_3",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "SFX",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "SFX_Dawson_ChargeUp_4",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "SFX",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "SFX_Dawson_Hurt_1",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "SFX",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "SFX_Dawson_Hurt_2",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "SFX",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "SFX_Dawson_Hurt_3",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "SFX",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "SFX_Dawson_Hurt_4",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "SFX",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "SFX_Dawson_Hurt_5",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "SFX",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "SFX_Dawson_Hurt_6",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "SFX",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "SFX_Dawson_Hurt_7",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "SFX",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "SFX_Dawson_Hurt_8",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "SFX",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "SFX_Dawson_Hurt_9",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "SFX",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "SFX_Dawson_Hurt_10",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "SFX",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "VL_DawsonBoss_1",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "BGM",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "VL_DawsonBoss_2",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "BGM",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "VL_DawsonBoss_3",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "BGM",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "VL_DawsonBoss_End",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "BGM",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "VL_DawsonBoss_Start",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "BGM",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "VL_DawsonMiniBoss_1",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "BGM",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "VL_DawsonMiniBoss_2",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "BGM",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "VL_DawsonMiniBoss_3",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "BGM",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "VL_DawsonMiniBoss_End",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "BGM",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "VL_DawsonMiniBoss_Start",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "BGM",
                         "volume": 1.0
                     }
                 ]

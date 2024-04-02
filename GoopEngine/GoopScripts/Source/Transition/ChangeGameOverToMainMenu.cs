@@ -8,6 +8,7 @@
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 using GoopScripts.Audio;
+using GoopScripts.Demo;
 using GoopScripts.Mono;
 using System;
 using System.Collections.Generic;
@@ -29,9 +30,9 @@ namespace GoopScripts.Transition
 		public void PlayEvent(uint entity)
 		{
 			// Hack here and just invoke the stop game audio onclick event
-			StopGameAudio temp = new StopGameAudio();
-			temp.OnClick(entity);
-			Utils.TransitionToScene("MainMenu");
+      CrossFadeToBGM temp = new CrossFadeToBGM();
+      temp.OnClick(0);
+      Utils.TransitionToScene("MainMenu");
 		}
 	}
 }

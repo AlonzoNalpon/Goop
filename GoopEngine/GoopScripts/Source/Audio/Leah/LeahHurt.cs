@@ -14,11 +14,14 @@ using System.Threading.Tasks;
 
 namespace GoopScripts.Gameplay
 {
-  internal class LeahFlinches : IAnimationEvent
+  internal class LeahHurt : IAnimationEvent
   {
+    public int startRange, endRange;
     public void PlayEvent(uint entity)
     {
-      Utils.PlaySoundF("damageTaken_Leah", 0.8f, Utils.ChannelType.SFX, false);
+      startRange = 0;
+      endRange = 0;
+      Utils.PlayRandomSound(startRange, endRange, entity, 0.75f);
     }
   }
 }

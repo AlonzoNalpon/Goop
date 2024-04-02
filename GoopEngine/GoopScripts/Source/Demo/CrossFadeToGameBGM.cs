@@ -18,9 +18,11 @@ namespace GoopScripts.Demo
 	internal class CrossFadeToGameBGM : IButtonClick
 	{
 		public void OnClick(uint entity)
-		{
-      Utils.FadeOutAudio("menu", 0.8f);
-      Utils.FadeInAudio("caveFighting", 0.8f, 1.0f);
+    {
+      Utils.FadeOutAudio("menu", 2.0f);
+      Utils.FadeInAudio("CaveWithWaterDrops_Loop", 0.486f, 3.0f);
+      Utils.FadeInAudio("Fog", 0.753f, 3.0f);
+      Utils.FadeInAudio("caveFighting", 0.8f, 3.0f);
     }
 	}
 }
