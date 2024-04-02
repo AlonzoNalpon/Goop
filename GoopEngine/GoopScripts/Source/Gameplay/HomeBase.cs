@@ -31,7 +31,9 @@ namespace GoopScripts.Gameplay
     {
       //Serialization.SerialReader.IncrementLevel("./Assets/GameData/PlayerStats.sav");
       var statsInfo = Serialization.SerialReader.LoadPlayerState(playerSavePath);
+      statsInfo.SortDeck();
       m_levelToLoad = statsInfo.levelToLoad;
+
       // Console.WriteLine("Current Level: " + m_levelToLoad);
       if (m_levelToLoad <= 0)
       {
