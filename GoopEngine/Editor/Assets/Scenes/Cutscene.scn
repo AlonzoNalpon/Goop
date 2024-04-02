@@ -909,11 +909,6 @@
                 "Scripts": {
                     "scriptList": [
                         {
-                            "scriptName": "ChangeToDeckViewer",
-                            "entityID": 15,
-                            "scriptFieldInstList": []
-                        },
-                        {
                             "scriptName": "TransitionOut",
                             "entityID": 15,
                             "scriptFieldInstList": []

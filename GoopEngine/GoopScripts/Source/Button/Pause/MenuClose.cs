@@ -26,7 +26,6 @@ namespace GoopScripts.Button
 		public override void OnRelease(uint entity)
 		{
       m_clicked = false;
-      Utils.PlaySoundF("Menu-Quit", (float)m_rng.NextDouble() * (0.6f - 0.75f) + 0.6f, Utils.ChannelType.SFX, false);
       if (!m_hovering)
       {
         Utils.UpdateSprite(entity, "Button_Base");
@@ -44,7 +43,8 @@ namespace GoopScripts.Button
 					break;
 				case 1:
 					Utils.UnpauseMenu(PauseMenuID);
-					break;
+          Utils.PlaySoundF("Menu-Quit", (float)m_rng.NextDouble() * (0.6f - 0.75f) + 0.6f, Utils.ChannelType.SFX, false);
+          break;
 				case 2:
 					Utils.UndeeperPause(PauseMenuID, DeeperPauseMenuID);
           Utils.SetIsActiveEntity(Utils.GetEntity($"Page_{HTP_Popup.m_page}"), false);

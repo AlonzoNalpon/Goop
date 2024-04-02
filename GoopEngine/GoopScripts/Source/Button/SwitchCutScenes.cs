@@ -55,7 +55,8 @@ namespace GoopScripts.Cutscene
 				CrossFadeToGameBGM temp = new CrossFadeToGameBGM();
 				temp.OnClick(entity);
 				Utils.StopSound($"VL_Leah_CutScene_{lastAudio}");
-				Utils.FadeInAudio("CaveWithWaterDrops_Loop", 0.486f, 1.0f);
+        Utils.FadeInAudio("caveFighting", 0.8f, 1.0f);
+        Utils.FadeInAudio("CaveWithWaterDrops_Loop", 0.486f, 1.0f);
 				Utils.FadeInAudio("Fog", 0.753f, 1.0f);
 				Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "TransitionOut");
 			}

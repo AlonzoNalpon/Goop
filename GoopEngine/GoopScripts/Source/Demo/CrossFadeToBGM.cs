@@ -20,6 +20,8 @@ namespace GoopScripts.Demo
 		public void OnClick(uint entity)
 		{
 			Utils.FadeOutAudio("caveFighting", 0.8f);
+			Utils.FadeOutAudio("CaveWithWaterDrops_Loop", 0.8f);
+			Utils.FadeOutAudio("Fog", 0.8f);
 			Utils.FadeInAudio("menu", 0.8f, 1.0f);
 		}
 	}
