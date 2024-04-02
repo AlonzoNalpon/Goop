@@ -326,6 +326,14 @@ namespace GoopScripts.Gameplay
     private void StartResolution()
     {
       SetHighlightActive(true);
+      Random rand = new Random();
+      int randomNumber = rand.Next(100);
+      if (randomNumber <= 25)
+      {
+        List<string> playerVoiceLine = new List<string> { "VL_Leah_Enemy_1", "VL_Leah_Enemy_2" };
+        int voiceLineInd = rand.Next(playerVoiceLine.Count);
+        PlaySoundF(playerVoiceLine[voiceLineInd], 1.0f, ChannelType.VOICE, false);
+      }
     }
 
     /*!*********************************************************************
