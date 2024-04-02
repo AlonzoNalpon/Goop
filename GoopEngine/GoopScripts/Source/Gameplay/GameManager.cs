@@ -25,6 +25,7 @@ using System.IO;
 using GoopScripts.Serialization;
 using GoopScripts.UI;
 using GoopScripts.Demo;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace GoopScripts.Gameplay
 {
@@ -105,6 +106,20 @@ namespace GoopScripts.Gameplay
           gameStarted = true;
           m_playerSkipped = false;
           m_timer = 0.0;
+          switch (m_enemyStats.m_type)
+          {
+            case CharacterType.DAWSON_MINI:
+              {
+                PlayRandomSound(27, 27, m_enemyStats.entityID);
+                break;
+              }
+            case CharacterType.DAWSON_FINAL:
+              {
+                PlayRandomSound(32, 32, m_enemyStats.entityID);
+                break;
+              }
+          }
+
         }
 
         if (Utils.GetLoseFocus())
@@ -293,6 +308,39 @@ namespace GoopScripts.Gameplay
             m_enemyStats.m_animManager.PlayDeath();
           }
           gameEnded = true;
+          Random rand = new Random();
+          int charrandomNumber = rand.Next(10);
+          if (charrandomNumber < 5)
+          {
+            switch (m_enemyStats.m_type)
+            {
+              case CharacterType.DAWSON_MINI:
+                {
+                  PlayRandomSound(26, 26, m_enemyStats.entityID);
+                  break;
+                }
+              case CharacterType.DAWSON_FINAL:
+                {
+                  PlayRandomSound(31, 31, m_enemyStats.entityID);
+                  break;
+                }
+            }
+          }
+          else
+          {
+            List<string> playerVoiceLine = new List<string>();
+            if (m_enemyStats.m_type == CharacterType.DAWSON_MINI)
+            {
+              playerVoiceLine = new List<string> { "VL_Leah_MiniBossDeath" };
+            }
+            else
+            {
+              playerVoiceLine = new List<string> { "VL_Leah_EnemyDeath" };
+            }
+            int voiceLineInd = rand.Next(playerVoiceLine.Count);
+            PlaySoundF(playerVoiceLine[voiceLineInd], 1.0f, ChannelType.VOICE, false);
+            Console.WriteLine("play sound");
+          }
           return;
         }
 
@@ -335,6 +383,8 @@ namespace GoopScripts.Gameplay
         }
         else
         {
+         
+          
           if (m_currentLevel == 4)
           {
             File.Copy(GAME_DATA_DIR + "DefaultStats.sav", GAME_DATA_DIR + "PlayerStats.sav", true);
@@ -358,6 +408,47 @@ namespace GoopScripts.Gameplay
     private void StartResolution()
     {
       SetHighlightActive(true);
+      Random rand = new Random();
+      int randomNumber = rand.Next(100);
+      if(randomNumber <= 25)
+      {
+        int charrandomNumber = rand.Next(10);
+        if(charrandomNumber <= 5)
+        {
+          switch (m_enemyStats.m_type)
+          {
+            case CharacterType.DAWSON_MINI:
+              {
+                PlayRandomSound(28, 30, m_enemyStats.entityID);
+                break;
+              }
+            case CharacterType.DAWSON_FINAL:
+              {
+                PlayRandomSound(23, 25, m_enemyStats.entityID);
+                break;
+              }
+          }
+        }
+
+        else
+        {
+          List<string> playerVoiceLine = new List<string>();
+          if (m_enemyStats.m_type == CharacterType.DAWSON_MINI || m_enemyStats.m_type == CharacterType.DAWSON_FINAL)
+          {
+            playerVoiceLine = new List<string> { "VL_Leah_BossFight_1", "VL_Leah_BossFight_2", "VL_Leah_BossFight_3" };
+          }
+          else
+          {
+            playerVoiceLine = new List<string> { "VL_Leah_Enemy_1", "VL_Leah_Enemy_2" };
+          }
+
+          int voiceLineInd = rand.Next(playerVoiceLine.Count);
+          PlaySoundF(playerVoiceLine[voiceLineInd], 1.0f, ChannelType.VOICE,false);
+        }
+        
+      }
+      
+     
     }
 
 

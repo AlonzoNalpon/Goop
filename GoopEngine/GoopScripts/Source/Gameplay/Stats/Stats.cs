@@ -86,7 +86,7 @@ namespace GoopScripts.Gameplay
     public void FakeOnCreate()
     {
       m_buffsDisplay = 0;
-      m_type = CharacterType.DAWSON;
+      m_type = CharacterType.DAWSON_MINI;
       m_buffs = new BuffManager(m_buffsDisplay, m_type);
     }
 

@@ -1,7 +1,7 @@
 {
     "Name": "Dawson",
     "isActive": true,
-    "Version": 25,
+    "Version": 26,
     "Components": [
         {
             "Transform": {
@@ -464,6 +464,76 @@
                         "loop": false,
                         "playOnStart": false,
                         "channel": "SFX",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "VL_DawsonBoss_1",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "BGM",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "VL_DawsonBoss_2",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "BGM",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "VL_DawsonBoss_3",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "BGM",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "VL_DawsonBoss_End",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "BGM",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "VL_DawsonBoss_Start",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "BGM",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "VL_DawsonMiniBoss_1",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "BGM",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "VL_DawsonMiniBoss_2",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "BGM",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "VL_DawsonMiniBoss_3",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "BGM",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "VL_DawsonMiniBoss_End",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "BGM",
+                        "volume": 1.0
+                    },
+                    {
+                        "sound": "VL_DawsonMiniBoss_Start",
+                        "loop": false,
+                        "playOnStart": false,
+                        "channel": "BGM",
                         "volume": 1.0
                     }
                 ]
