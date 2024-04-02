@@ -656,6 +656,27 @@ namespace GE::MONO
 	************************************************************************/
 	void PlayAllTweenAnimation(GE::ECS::Entity parent, MonoString* animName);
 
+	/*!*********************************************************************
+	\brief
+		Adds a keyframe to an existing tween animation
+	\param entity
+		The entity to add the keyframe to
+	\param animName
+		The name of the animation
+	\param pos
+		The position of the keyframe
+	\param scale
+		The scale of the keyframe
+	\param rot
+		The rotation of the keyframe
+	\param duration
+		The duration of the keyframe
+	\param animEvent
+		The name of the script for the keyframe
+	************************************************************************/
+	void AddTweenKeyframe(GE::ECS::Entity entity, MonoString* animName, GE::Math::dVec3 pos, GE::Math::dVec3 scale,
+		GE::Math::dVec3 rot, double duration, MonoString* animEvent);
+
 	float GetChannelVolume(int channel);
 
 	void SetChannelVolume(int channel, float volume);

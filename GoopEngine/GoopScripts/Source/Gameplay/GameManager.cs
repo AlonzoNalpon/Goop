@@ -58,9 +58,9 @@ namespace GoopScripts.Gameplay
     }
 
     /*!*********************************************************************
-      \brief
-        OnCreate function for GameManager
-      ************************************************************************/
+    \brief
+      OnCreate function for GameManager
+    ************************************************************************/
     public void OnCreate()
     {
       m_playerStats = (Stats)Utils.GetScript("Player", "Stats");

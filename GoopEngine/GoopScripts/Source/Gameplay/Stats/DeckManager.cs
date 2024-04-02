@@ -10,8 +10,6 @@
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 
-#define IMGUI_ENABLED
-
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -28,8 +26,8 @@ namespace GoopScripts.Gameplay
   public class DeckManager
   {
     static readonly double CARD_WIDTH = 214.0;
-    static readonly double PLAYER_HAND_WIDTH = CARD_WIDTH * 5 + 300.0;
-    static public readonly Vec3<double> HAND_START_POS = new Vec3<double>(-PLAYER_HAND_WIDTH / 2.0 - 60.0, -350.0, 10.0);
+    static readonly double PLAYER_HAND_WIDTH = CARD_WIDTH * 5 + 150.0;
+    static public readonly Vec3<double> HAND_START_POS = new Vec3<double>(-PLAYER_HAND_WIDTH / 2.0 - 30.0, -350.0, 10.0);
 
     static public readonly int STARTING_CARDS = 5, MAX_CARDS = 5;
     static readonly int QUEUE_SIZE = 3;
@@ -39,10 +37,6 @@ namespace GoopScripts.Gameplay
     // <CardID, EntityID>
     public ValueTuple<CardBase.CardID, uint>[] m_queue;
     public List<ValueTuple<CardBase.CardID, uint>> m_hand;
-
-#if IMGUI_ENABLED
-    public CardBase.CardID[] m_discardDisplay;
-#endif
 
     public DeckManager()
     {
@@ -55,10 +49,6 @@ namespace GoopScripts.Gameplay
       {
         m_queue[i] = (CardBase.CardID.NO_CARD, uint.MaxValue);
       }
-
-#if IMGUI_ENABLED
-      m_discardDisplay = m_discard.ToArray();
-#endif
     }
 
     /*!*********************************************************************

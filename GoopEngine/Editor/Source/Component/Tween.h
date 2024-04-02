@@ -29,6 +29,15 @@ namespace GE
 				Colorf m_textColor;
 				double m_duration;
 				std::string m_animationEvent;
+
+				Action() = default;
+				Action(vec3 const& pos, vec3 const& scale, vec3 const& rot, double duration, std::string const& animEvent)
+					: m_trans{ pos }, m_scale{ scale }, m_rot{ rot }, m_spriteTint{}, m_spriteMult{ 1.f, 1.f, 1.f, 1.f },
+						m_textColor{}, m_duration { duration }, m_animationEvent{ animEvent } {}
+				Action(vec3 const& pos, vec3 const& scale, vec3 const& rot, Colorf const& sprTint, Colorf const& sprMult,
+					Colorf const& textCol, double duration = {}, std::string const& animEvent = {})
+					: m_trans{ pos }, m_scale{ scale }, m_rot{ rot }, m_spriteTint{ sprTint }, m_spriteMult{ sprMult },
+					m_textColor{ textCol }, m_duration{ duration }, m_animationEvent{ animEvent } {}
 			};
 
 			std::map<std::string, std::vector<Action>> m_tweens;
@@ -48,7 +57,7 @@ namespace GE
 
 			/*!*********************************************************************
 			\brief
-				Default contructor
+				Default constructor
 			************************************************************************/
 			Tween() : m_timeTaken{ 0.0 }, m_timeElapsed{ 0.0 }, m_started{ false }, m_paused{ false }, m_step{ 0 } {}
 
@@ -58,9 +67,13 @@ namespace GE
 			\param target
 				New position to interpolate to.
 			************************************************************************/
-			void AddTween(std::string name, Action keyframe)
+			void AddTween(std::string const& name, Action const& keyframe)
 			{
 				m_tweens[name].emplace_back(keyframe);
+			}
+			void AddTween(std::string const& name, Action&& keyframe)
+			{
+				m_tweens[name].emplace_back(std::move(keyframe));
 			}
 		};
 	}

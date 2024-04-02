@@ -11,8 +11,6 @@
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 
-#define IMGUI_ENABLE
-
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -31,11 +29,6 @@ namespace GoopScripts.Gameplay
     public CardBase.CardID[] m_cards; // the actual deck
     public List<CardBase.CardID> m_drawOrder; // the order of cards to draw
 
-#if IMGUI_ENABLE
-    // to display in inspector
-    public CardBase.CardID[] m_drawOrderDisplay;
-#endif
-
     Random m_rand;
 
     public Deck()
@@ -43,10 +36,6 @@ namespace GoopScripts.Gameplay
       m_rand = new Random();
       m_cards = new CardBase.CardID[0];
       m_drawOrder = new List<CardBase.CardID>();
-
-#if IMGUI_ENABLE
-      m_drawOrderDisplay = m_drawOrder.ToArray();
-#endif
     }
 
     public Deck(List<CardBase.CardID> cardList)
@@ -54,10 +43,6 @@ namespace GoopScripts.Gameplay
       m_rand = new Random();
       m_cards = cardList.ToArray();
       m_drawOrder = new List<CardBase.CardID>(m_cards.ToList());
-
-#if IMGUI_ENABLE
-      m_drawOrderDisplay = m_drawOrder.ToArray();
-#endif
     }
 
     public Deck(Deck deck)
@@ -66,10 +51,6 @@ namespace GoopScripts.Gameplay
       m_cards = new CardBase.CardID[deck.m_cards.Length];
       deck.m_cards.CopyTo(m_cards, 0);
       m_drawOrder = new List<CardBase.CardID>(deck.m_drawOrder);
-
-#if IMGUI_ENABLE
-      m_drawOrderDisplay = m_drawOrder.ToArray();
-#endif
     }
 
     /*!*********************************************************************
@@ -96,10 +77,6 @@ namespace GoopScripts.Gameplay
       }
 
       m_cards = newCards;
-
-#if IMGUI_ENABLE
-    m_drawOrderDisplay = m_drawOrder.ToArray();
-#endif
     }
 
     /*!*********************************************************************
@@ -116,10 +93,6 @@ namespace GoopScripts.Gameplay
 
       m_drawOrder.RemoveAt(0);
 
-#if IMGUI_ENABLE
-      m_drawOrderDisplay = m_drawOrder.ToArray();
-#endif
-
       return cardDrawn;
     }
 
@@ -132,10 +105,6 @@ namespace GoopScripts.Gameplay
       if (Empty()) { return; }
 
       m_drawOrder.RemoveAt(0);
-
-#if IMGUI_ENABLE
-      m_drawOrderDisplay = m_drawOrder.ToArray();
-#endif
     }
 
     /*!*********************************************************************
@@ -153,10 +122,6 @@ namespace GoopScripts.Gameplay
         m_drawOrder[idx] = m_drawOrder[i];
         m_drawOrder[i] = temp;
       }
-
-#if IMGUI_ENABLE
-      m_drawOrderDisplay = m_drawOrder.ToArray();
-#endif
     }
 
     /*!*********************************************************************
@@ -169,10 +134,6 @@ namespace GoopScripts.Gameplay
     {
       m_drawOrder.AddRange(pile);
       pile.Clear();
-
-#if IMGUI_ENABLE
-      m_drawOrderDisplay = m_drawOrder.ToArray();
-#endif
     }
 
     public Dictionary<CardBase.CardID, uint> GetDeckListWithCount()
@@ -214,16 +175,5 @@ namespace GoopScripts.Gameplay
     {
       return m_drawOrder.Count == 0;
     }
-
-    //public string Serialize()
-    //{
-    //  StringBuilder sb = new StringBuilder();
-    //  foreach (var elem in GetDeckListWithCount())
-    //  {
-    //    sb.AppendLine(elem.Key.ToString() + ", " + elem.Value.ToString());
-    //  }
-
-    //  return sb.ToString();
-    //}
   }
 }

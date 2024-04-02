@@ -493,6 +493,10 @@ namespace GoopScripts.Mono
     extern public static void PlayAllTweenAnimation(uint parent, string animName);
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static void AddTweenKeyframe(uint entity, string animName, Vec3<double> pos, double duration,
+      Vec3<double> scale, Vec3<double> rot, string animEvent = "");
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static void SetTimeScale(float scale);
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
