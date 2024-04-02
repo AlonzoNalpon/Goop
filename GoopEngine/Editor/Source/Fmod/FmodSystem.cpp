@@ -26,6 +26,8 @@ FmodSystem::~FmodSystem()
   // if fmod not initialized dont close 
   if (m_fModSystem != nullptr)
   {
+    terminatefMod = true;
+    fModThrd.join();
     ErrorCheck(m_fModSystem->close());
     ErrorCheck(m_fModSystem->release());
 
@@ -54,11 +56,13 @@ void FmodSystem::Init()
 
     ErrorCheck(m_masterGroup->addGroup(m_channelGroups[currChannel]));
   }
+
+  terminatefMod = false;
+  fModThrd = std::thread([this]() { while (!terminatefMod) { ErrorCheck(m_fModSystem->update()); } });
 }
 
 void FmodSystem::Update()
 {
-  ErrorCheck(m_fModSystem->update());
   UnLoadSounds();
 
   double dt{ GE::FPS::FrameRateController::GetInstance().GetFixedDeltaTime() };

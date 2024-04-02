@@ -16,7 +16,15 @@ BASIC_ATTACK, SS_MineWorm_Slash
 BASIC_SHIELD, SS_MineWorm_Shield
 SPECIAL_SCREECH, SS_MineWorm_Sneak
 
-DAWSON
+DAWSON_MINI
+DAWSON_BEAM, SS_Dawson_Attack
+DAWSON_SWING, SS_Dawson_Slash
+DAWSON_SHIELD, SS_Dawson_BlockShield
+SPECIAL_CHARGEUP, SS_Dawson_ChargeUp
+SPECIAL_TIMEWARP, SS_Dawson_ChargeUp
+
+
+DAWSON_FINAL
 DAWSON_BEAM, SS_Dawson_Attack
 DAWSON_SWING, SS_Dawson_Slash
 DAWSON_SHIELD, SS_Dawson_BlockShield

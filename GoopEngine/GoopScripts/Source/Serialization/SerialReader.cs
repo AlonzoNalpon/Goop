@@ -62,7 +62,6 @@ namespace GoopScripts.Serialization
 
         line = GetNextNonCommentLine(sr);
         ret.deckList = new List<Tuple<CardBase.CardID, uint>>();
-        Dictionary<CardBase.CardID, uint> deckList = new Dictionary<CardBase.CardID, uint>();
         do
         {
           string[] cardData = line.Split(',');
@@ -75,16 +74,8 @@ namespace GoopScripts.Serialization
 #endif      
             continue;
           }
-
-          if (deckList.ContainsKey(card))
-            deckList[card] += amount;
-          else
-            deckList.Add(card, amount);
-
-        } while ((line = sr.ReadLine()) != null) ;          
-
-        foreach (var cardData in deckList)
-					ret.deckList.Add(new Tuple<CardBase.CardID, uint>(cardData.Key, cardData.Value));
+          ret.deckList.Add(new Tuple<CardBase.CardID, uint>(card, amount));
+        } while ((line = sr.ReadLine()) != null);
       }
 
       return ret;

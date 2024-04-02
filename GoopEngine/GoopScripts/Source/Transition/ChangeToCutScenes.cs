@@ -20,7 +20,10 @@ namespace GoopScripts.Transition
 	{
 		public void PlayEvent(uint entity)
 		{
-			Utils.TransitionToScene("Cutscene");
-		}
+      Utils.TransitionToScene("Cutscene");
+      Utils.FadeOutAudio("menu", 1.0f);
+      Utils.FadeOutAudio("CaveWithWaterDrops_Loop", 1.0f);
+      Utils.FadeOutAudio("Fog", 1.0f);
+    }
 	}
 }

@@ -21,6 +21,24 @@ namespace GoopScripts.Serialization
     public List<Tuple<CardBase.CardID, uint>> deckList;
     public int health, maxHealth;
     public int levelToLoad;
+
+    public void SortDeck()
+    {
+      Dictionary<CardBase.CardID, uint> cardMap = new Dictionary<CardBase.CardID, uint>();
+      foreach (var card in deckList)
+      {
+        if (cardMap.ContainsKey(card.Item1))
+          cardMap[card.Item1] += card.Item2;
+        else
+          cardMap.Add(card.Item1, card.Item2);
+      }
+
+      deckList.Clear();
+      foreach (var cardData in cardMap)
+      {
+        deckList.Add(new Tuple<CardBase.CardID, uint>(cardData.Key, cardData.Value));
+      }
+    }
   }
 
   public struct EnemyStatsInfo

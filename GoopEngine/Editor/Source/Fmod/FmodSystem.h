@@ -177,6 +177,8 @@ namespace GE
         double timer{};
       }; // jury rigged pause play request
       FMOD::System* m_fModSystem{ nullptr };
+      bool terminatefMod;
+      std::thread fModThrd;
 
       using SoundMap = std::map<std::string, FMOD::Sound*>;
       using SoundChannel = std::map<std::string, FMOD::Channel*>;

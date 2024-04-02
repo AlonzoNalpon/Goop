@@ -14,7 +14,7 @@ namespace GoopScripts.Button
     public override void OnRelease(uint entity)
     {
       base.OnRelease(entity);
-      if (HTP.m_page == 10)
+      if (HTP.m_page == 11)
       {
         return;
       }

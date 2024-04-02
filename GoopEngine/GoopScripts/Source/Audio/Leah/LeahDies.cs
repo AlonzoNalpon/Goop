@@ -18,10 +18,9 @@ namespace GoopScripts.Gameplay
 	public class LeahDies : IAnimationEvent
 	{
 		public int startRange, endRange;
-		Random rng = new Random();
 		public void PlayEvent(uint entity)
 		{
-			Utils.PlayRandomSound(startRange, endRange, entity, 0.7f + (float)rng.NextDouble() * 0.3f);
+			Utils.PlayRandomSound(startRange, endRange, entity, 0.7f);
 		}
 	}
 }

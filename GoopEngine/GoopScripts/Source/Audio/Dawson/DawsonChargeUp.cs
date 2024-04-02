@@ -1,7 +1,7 @@
 ﻿/*!*********************************************************************
-\file   DawsonFlinches.cs
+\file   DawsonDies.cs
 \date   04-February-2024
-\brief  Script to play Dawson flinch sound
+\brief  Script to play Dawson death sound
 
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
@@ -14,11 +14,14 @@ using System.Threading.Tasks;
 
 namespace GoopScripts.Source.Audio.Dawson
 {
-  internal class DawsonFlinches
+  public class DawsonChargeUp
   {
+    public int startRange, endRange;
     public void PlayEvent(uint entity)
     {
-      Utils.PlaySoundF("SFX_SlashSharp", 0.8f, Utils.ChannelType.SFX, false);
+      startRange = 0;
+      endRange = 0;
+      Utils.PlayRandomSound(startRange, endRange, entity, 0.7f);
     }
   }
 }

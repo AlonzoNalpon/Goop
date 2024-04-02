@@ -746,6 +746,104 @@
         ]
     },
     {
+        "Name": "text",
+        "ID": 13,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 440, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, -0, 0 }",
+                    "worldPos": "{ 0, 440, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, -0, 0 }"
+                }
+            },
+            {
+                "Tween": {
+                    "tweens": [
+                        {
+                            "key": "fading",
+                            "value": [
+                                {
+                                    "trans": "{ 0, 440, 0 }",
+                                    "scale": "{ 1, 1, 1 }",
+                                    "rot": "{ 0, -0, 0 }",
+                                    "spriteTint": {
+                                        "r": 0.0,
+                                        "g": 0.0,
+                                        "b": 0.0,
+                                        "a": 0.0
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "textColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 0.0
+                                    },
+                                    "duration": 1.0,
+                                    "animationEvent": ""
+                                },
+                                {
+                                    "trans": "{ 0, 440, 0 }",
+                                    "scale": "{ 1, 1, 1 }",
+                                    "rot": "{ 0, -0, 0 }",
+                                    "spriteTint": {
+                                        "r": 0.0,
+                                        "g": 0.0,
+                                        "b": 0.0,
+                                        "a": 0.0
+                                    },
+                                    "spriteMult": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "textColor": {
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
+                                    },
+                                    "duration": 2.0,
+                                    "animationEvent": ""
+                                }
+                            ]
+                        }
+                    ],
+                    "paused": false,
+                    "loop": true,
+                    "playing": "fading"
+                }
+            },
+            {
+                "Text": {
+                    "text": "Click to continue",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.22499999403953552,
+                    "fontID": 8,
+                    "Alignment": "CENTER"
+                }
+            }
+        ]
+    },
+    {
         "Name": "Skip button",
         "ID": 15,
         "Prefab": null,
@@ -811,11 +909,6 @@
                 "Scripts": {
                     "scriptList": [
                         {
-                            "scriptName": "ChangeToDeckViewer",
-                            "entityID": 15,
-                            "scriptFieldInstList": []
-                        },
-                        {
                             "scriptName": "TransitionOut",
                             "entityID": 15,
                             "scriptFieldInstList": []
@@ -843,10 +936,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, -15.659, 0 }",
+                    "pos": "{ 0, -15, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -856.555, -503.104, 10 }",
+                    "worldPos": "{ -856.555, -502.445, 10 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -861,7 +954,7 @@
                         "a": 1.0
                     },
                     "scale": 0.1679999977350235,
-                    "fontID": 2,
+                    "fontID": 21,
                     "Alignment": "CENTER"
                 }
             }

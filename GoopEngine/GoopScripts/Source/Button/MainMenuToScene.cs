@@ -60,8 +60,6 @@ namespace GoopScripts.Transition
 							Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Game");
 							CrossFadeToGameBGM temp = new CrossFadeToGameBGM();
 							temp.OnClick(0);
-							Utils.FadeInAudio("CaveWithWaterDrops_Loop", 0.486f, 1.0f);
-							Utils.FadeInAudio("Fog", 0.753f, 1.0f);
 							break;
 						case 2:
 							Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Options");

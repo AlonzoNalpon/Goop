@@ -22,7 +22,7 @@ namespace GoopScripts.Gameplay
     public void OnCreate()
     {
       m_page = 1;
-      Utils.SetIsActiveEntity(Utils.GetEntity($"Page_{HTP.m_page}"), true);
+      Utils.SetIsActiveEntity(Utils.GetEntity($"Page_{m_page}"), true);
     }
 
     public void OnUpdate(double deltaTime)
@@ -31,7 +31,7 @@ namespace GoopScripts.Gameplay
       {
         Utils.SetIsActiveEntity(Utils.GetEntity("HTP_Arrow_Left"), false);
       }
-      else if (m_page == 10)
+      else if (m_page == 11)
       {
         Utils.SetIsActiveEntity(Utils.GetEntity("HTP_Arrow_Right"), false);
       }

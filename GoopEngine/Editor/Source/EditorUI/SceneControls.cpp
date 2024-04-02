@@ -34,9 +34,7 @@ void GE::EditorGUI::SceneControls::CreateContent()
         ImGuiHelper::Restart();
         GE::FPS::FrameRateController::GetInstance().SetTimeScale(1.f);
         auto& fmod = GE::fMOD::FmodSystem::GetInstance();
-        fmod.SetChannelPause(GE::fMOD::FmodSystem::BGM, true);
-        fmod.SetChannelPause(GE::fMOD::FmodSystem::SFX, true);
-        fmod.SetChannelPause(GE::fMOD::FmodSystem::VOICE, true);
+        fmod.StopAllSound();
       }
       if (Button(pause))
       {
