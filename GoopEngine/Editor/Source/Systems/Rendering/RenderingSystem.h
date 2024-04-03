@@ -14,7 +14,6 @@ Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 #include <iostream>
 
 // The involved components:
-#include <Component/Model.h>			// models (ALL MUST HAVE THIS)
 #include <Component/Sprite.h>			// sprite (ALL MUST HAVE THIS)
 #include <Component/SpriteAnim.h> // Moved to SpriteAnimSystem
 #include <Component/Transform.h>  

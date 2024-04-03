@@ -202,11 +202,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Game Build|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Source\ImGui\imgui_demo.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Game Build|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
     <ClCompile Include="Source\ImGui\imgui_draw.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
@@ -270,7 +265,6 @@
     <ClCompile Include="Source\Systems\Physics\CollisionSystem.cpp" />
     <ClCompile Include="Source\Systems\Physics\PhysicsSystem.cpp" />
     <ClCompile Include="Source\Systems\ScriptSystem\ScriptSystem.cpp" />
-    <ClCompile Include="Source\Systems\Rendering\CameraSystem.cpp" />
     <ClCompile Include="Source\Systems\Rendering\RenderingSystem.cpp" />
     <ClCompile Include="Source\EditorUI\ImGuiUI.cpp" />
     <ClCompile Include="Source\Systems\RootTransform\PostRootTransformSystem.cpp" />
@@ -301,7 +295,6 @@
     <ClInclude Include="Source\Commands\CommandManager.h" />
     <ClInclude Include="Source\Commands\ICommand.h" />
     <ClInclude Include="Source\Commands\ImGuiCommands.h" />
-    <ClInclude Include="Source\Component\Camera.h" />
     <ClInclude Include="Source\Component\EnemyAI.h" />
     <ClInclude Include="Source\Component\Components.h" />
     <ClInclude Include="Source\Component\Grid.h" />
@@ -430,7 +423,6 @@
     <ClInclude Include="Source\Systems\Physics\PhysicsSystem.h" />
     <ClInclude Include="Source\Systems\ScriptSystem\ScriptSystem.h" />
     <ClInclude Include="Source\EditorUI\ImGuiUI.h" />
-    <ClInclude Include="Source\Systems\Rendering\CameraSystem.h" />
     <ClInclude Include="Source\Systems\RootTransform\PostRootTransformSystem.h" />
     <ClInclude Include="Source\Systems\RootTransform\PreRootTransformSystem.h" />
     <ClInclude Include="Source\Systems\RootTransform\RootTransformSystem.h" />

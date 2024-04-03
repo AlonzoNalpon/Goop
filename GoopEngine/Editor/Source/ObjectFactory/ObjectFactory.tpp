@@ -1,3 +1,14 @@
+/*!*********************************************************************
+\file       ObjectFactory.h
+\author     loh.j\@digipen.edu
+\co-author  chengen.lau\@digipen.edu
+\date       28 September 2023
+\brief      Contains the definition of template functions of ObjectFactory
+            singleton class. Currently only contains a function to
+            register components to a system for the engine on startup.
+
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 template <typename T>
 void ObjectFactory::RegisterComponentsToSystem(std::vector<rttr::type> const& components) const
 {

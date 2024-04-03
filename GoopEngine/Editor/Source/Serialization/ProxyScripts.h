@@ -13,6 +13,7 @@ Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 #pragma once
 #include <string>
 #include <Component/Scripts.h>
+#include <rapidjson/document.h>
 
 namespace GE::Serialization
 {
@@ -22,7 +23,6 @@ namespace GE::Serialization
     std::string m_scriptData;
 
     ProxyScripts(rapidjson::Value const& data);
-    //ProxyScripts(Component::Scripts const& scripts);
   };
 
 } // namespace GE::Serialization

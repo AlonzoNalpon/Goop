@@ -18,7 +18,6 @@ Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 #include <Systems/RootTransform/TransformSystemHelper.h>
 #include <Systems/RootTransform/PostRootTransformSystem.h>
 #include <Systems/RootTransform/PreRootTransformSystem.h>
-#include <ObjectFactory/SerializeComponents.h>
 #include <Commands/CommandManager.h>
 #include <Prefabs/PrefabManager.h>
 #include "PrefabEditor.h"

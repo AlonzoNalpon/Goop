@@ -9,7 +9,6 @@ Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
 #include "Scene.h"
-#include <Systems/DraggableObject/DraggableObjectSystem.h>
 #include <Systems/ScriptSystem/ScriptSystem.h>
 #include <Systems/SpriteAnim/SpriteAnimSystem.h>
 #include <Systems/Rendering/RenderingSystem.h>

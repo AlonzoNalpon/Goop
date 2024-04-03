@@ -1,6 +1,5 @@
 #pragma once
 #include <Component/BoxCollider.h>
-#include <Component/Camera.h>
 #include <Component/Scripts.h>
 #include <Component/Sprite.h>
 #include <Component/SpriteAnim.h>

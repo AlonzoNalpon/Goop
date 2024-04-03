@@ -8,7 +8,6 @@
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
-#include "../Systems/DraggableObject/DraggableObjectSystem.h"
 #include "EventManager.h"
 #include "InputEvents.h"
 #include <Events/Events.h>
@@ -26,8 +25,6 @@ void EventManager::SubscribeAllListeners()
 {
   ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
 
-  Subscribe<MouseHeldEvent>(ecs.GetSystem<GE::Systems::DraggableObjectSystem>());
-  Subscribe<MouseReleasedEvent>(ecs.GetSystem<GE::Systems::DraggableObjectSystem>());
   Subscribe<MouseTriggeredEvent>(ecs.GetSystem<GE::Systems::ButtonSystem>());
 
 #ifndef IMGUI_DISABLE
