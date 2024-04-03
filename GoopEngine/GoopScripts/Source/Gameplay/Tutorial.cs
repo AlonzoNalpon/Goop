@@ -187,7 +187,7 @@ namespace GoopScripts.Gameplay
       m_playerStats.EndOfTurn();
       m_enemyStats.EndOfTurn();
       ++m_turn;
-      m_playerStats.TutorialPlayerDraw();
+      m_playerStats.TutorialPlayerDraw(true);
       if (m_turn == 4)
       {
         m_enemyStats.Draw();

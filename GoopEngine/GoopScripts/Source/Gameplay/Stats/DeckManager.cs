@@ -67,11 +67,12 @@ namespace GoopScripts.Gameplay
       PLAYER_HAND_WIDTH and CARD_WIDTH variables. The cards will start
       at the position specified by HAND_START_POS.
 		************************************************************************/
-    public void AlignHandCards()
+    public void AlignHandCards(bool isTutorial = false)
     {
-      double padding = (PLAYER_HAND_WIDTH - (double)m_hand.Count * CARD_WIDTH) / (double)(m_hand.Count + 1);
-      Vec3<double> cardPos = HAND_START_POS;
-      cardPos.X += padding + CARD_WIDTH / 2.0;
+      double handWidth = isTutorial ? CARD_WIDTH * 5 + 300.0 : PLAYER_HAND_WIDTH;
+      double padding = (handWidth - (double)m_hand.Count * CARD_WIDTH) / (double)(m_hand.Count + 1);
+      Vec3<double> cardPos = isTutorial ? new Vec3<double>(-handWidth * 0.5 - 60.0, -350.0, 10.0) : HAND_START_POS;
+      cardPos.X += padding + CARD_WIDTH * 0.5;
       for (int i = m_hand.Count - 1; i >= 0; --i)
       {
         Utils.SetPosition(m_hand[i].Item2, cardPos);

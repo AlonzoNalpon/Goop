@@ -334,10 +334,10 @@ namespace GoopScripts.Mono
 		[MethodImplAttribute(MethodImplOptions.InternalCall)]
 		extern public static void StopChannel(ChannelType channel);
 
-        [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        extern public static void PauseChannel(ChannelType type, bool paused);
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static void PauseChannel(ChannelType type, bool paused);
 
-        [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
 		extern public static void GameSystemResolved();
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]

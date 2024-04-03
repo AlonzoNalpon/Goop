@@ -564,7 +564,7 @@ namespace GoopScripts.Gameplay
       CardBase.CardID cardType = m_deckMngr.m_hand[idx].Item1;
       m_deckMngr.m_hand[idx] = (cardType, Utils.SpawnPrefab(CardManager.m_cardPrefabs[cardType] + "_Tut"));
       Utils.SetEntityName(m_deckMngr.m_hand[idx].Item2, CardManager.m_cardPrefabs[cardType]);
-      m_deckMngr.AlignHandCards();
+      m_deckMngr.AlignHandCards(true);
       if (playSound)
       {
         Utils.PlaySoundF("SFX_CardDraw3", 1.0f, Utils.ChannelType.SFX, false);
