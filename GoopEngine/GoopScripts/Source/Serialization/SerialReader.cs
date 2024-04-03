@@ -47,7 +47,7 @@ namespace GoopScripts.Serialization
       string file = isTutorial ? "./Assets/GameData/TutorialStats.sav" : PLAYER_STATS_FILE;
       PlayerStatsInfo ret = new PlayerStatsInfo();
 
-      var ifs = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+      var ifs = new FileStream(file, FileMode.Open, FileAccess.Read);
       using (StreamReader sr = new StreamReader(ifs))
       {
         string line = GetNextNonCommentLine(sr);
@@ -105,7 +105,7 @@ namespace GoopScripts.Serialization
     static public EnemyStatsInfo LoadEnemy(string fileName)
     {
       EnemyStatsInfo ret = new EnemyStatsInfo();
-      var ifs = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+      var ifs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
       using (StreamReader sr = new StreamReader(ifs))
       {
         string line = GetNextNonCommentLine(sr);
@@ -202,7 +202,7 @@ namespace GoopScripts.Serialization
     static public Dictionary<Gameplay.CharacterType, Dictionary<CardBase.CardID, string>> LoadAnimationMappings(string file)
     {
       var ret = new Dictionary<Gameplay.CharacterType, Dictionary<CardBase.CardID, string>>();
-      var ifs = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+      var ifs = new FileStream(file, FileMode.Open, FileAccess.Read);
       using (StreamReader sr = new StreamReader(ifs))
       {
         string line = GetNextNonCommentLine(sr);
@@ -260,7 +260,7 @@ namespace GoopScripts.Serialization
         targetIndex = lines.Length - 1;
       }
 
-      using (StreamWriter writer = new StreamWriter(File.OpenRead(PLAYER_STATS_FILE)))
+      using (StreamWriter writer = new StreamWriter(PLAYER_STATS_FILE))
       {
         for (int i = 0; i <= targetIndex; ++i)
         {
