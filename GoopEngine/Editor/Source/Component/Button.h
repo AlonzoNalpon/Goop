@@ -8,7 +8,6 @@
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #pragma once
-#include <Systems/Button/ButtonTypes.h>
 
 namespace GE::Component
 {

@@ -24,9 +24,9 @@ Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 #define ASSET_MANAGER_H
 #include <AssetManager/AssetStructs.h>
 #include <Singleton/Singleton.h>
-#include <Serialization/GooStream/SpriteGooStream.h>
 #include <DebugTools/Exception/Exception.h>
 #include "AssetTypes.h"
+#include <Serialization/SpriteData.h>
 #ifndef IMGUI_DISABLE
 #include <Events/Listener.h>
 #endif

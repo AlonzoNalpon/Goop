@@ -14,6 +14,7 @@ Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 #include "ProxyScripts.h"
 #include <rapidjson/document.h>
 #include <rapidjson/stringbuffer.h>
+#include <rapidjson/writer.h>
 #include <Serialization/Serializer.h>
 
 namespace GE::Serialization

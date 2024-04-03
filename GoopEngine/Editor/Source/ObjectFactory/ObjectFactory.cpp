@@ -21,7 +21,6 @@ Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 #include "ObjectFactory.h"
 #include <AssetManager/AssetManager.h>
 #include <Systems/Systems.h>
-#include "SerializeComponents.h"
 #include <Systems/Rendering/RenderingSystem.h>
 #include <Serialization/Deserializer.h>
 #ifndef IMGUI_DISABLE
