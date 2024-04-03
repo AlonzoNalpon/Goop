@@ -103,7 +103,7 @@ namespace GoopScripts.Serialization
     static public EnemyStatsInfo LoadEnemy(string fileName)
     {
       EnemyStatsInfo ret = new EnemyStatsInfo();
-      using (StreamReader sr = new StreamReader(fileName))
+      using (StreamReader sr = new StreamReader(File.OpenRead(fileName)))
       {
         string line = GetNextNonCommentLine(sr);
         if (!Enum.TryParse(line, out ret.characterType))
@@ -200,7 +200,7 @@ namespace GoopScripts.Serialization
     static public Dictionary<Gameplay.CharacterType, Dictionary<CardBase.CardID, string>> LoadAnimationMappings(string file)
     {
       var ret = new Dictionary<Gameplay.CharacterType, Dictionary<CardBase.CardID, string>>();
-      using (StreamReader sr = new StreamReader(file))
+      using (StreamReader sr = new StreamReader(File.OpenRead(file)))
       {
         string line = GetNextNonCommentLine(sr);
         while (line != null)
@@ -257,7 +257,7 @@ namespace GoopScripts.Serialization
         targetIndex = lines.Length - 1;
       }
 
-      using (StreamWriter writer = new StreamWriter(PLAYER_STATS_FILE))
+      using (StreamWriter writer = new StreamWriter(File.OpenRead(PLAYER_STATS_FILE)))
       {
         for (int i = 0; i <= targetIndex; ++i)
         {
