@@ -529,6 +529,8 @@ namespace GE::MONO
 
 	static GE::ECS::Entity CreateObject(MonoString* name, GE::Math::dVec3 pos = {}, GE::Math::dVec3 scale = {}, GE::Math::dVec3 rotation = {}, GE::ECS::Entity parent = ECS::INVALID_ID);
 
+	static ECS::Entity CreateEntity(MonoString* name, GE::Math::dVec3 worldPos, GE::Math::dVec3 worldScale, GE::Math::dVec3 worldRot, GE::ECS::Entity parent);
+
 	static void UpdateSprite(GE::ECS::Entity entity, MonoString* textureName);
 
 	void SetSpriteTint(GE::ECS::Entity entity, int r, int g, int b, int a = 255);

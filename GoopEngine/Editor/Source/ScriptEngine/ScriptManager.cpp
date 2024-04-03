@@ -258,6 +258,7 @@ void GE::MONO::ScriptManager::AddInternalCalls()
   mono_add_internal_call("GoopScripts.Mono.Utils::SetObjectWidth", GE::MONO::SetObjectWidth);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetObjectHeight", GE::MONO::SetObjectHeight);
   mono_add_internal_call("GoopScripts.Mono.Utils::CreateObject", GE::MONO::CreateObject);
+  mono_add_internal_call("GoopScripts.Mono.Utils::CreateEntity", GE::MONO::CreateEntity);
   mono_add_internal_call("GoopScripts.Mono.Utils::UpdateSprite", GE::MONO::UpdateSprite);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetTextComponent", GE::MONO::SetTextComponent);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetTextColor", GE::MONO::SetTextColor);
@@ -1386,6 +1387,25 @@ GE::ECS::Entity GE::MONO::CreateObject(MonoString* name, GE::Math::dVec3 pos, GE
   std::string str = GE::MONO::MonoStringToSTD(name);
 
   return GE::ObjectFactory::ObjectFactory::GetInstance().CreateObject(str, pos, scale, rotation, parent);
+}
+
+GE::ECS::Entity GE::MONO::CreateEntity(MonoString* name, GE::Math::dVec3 worldPos, GE::Math::dVec3 worldScale, GE::Math::dVec3 worldRot, GE::ECS::Entity parent)
+{
+  ECS::EntityComponentSystem& ecs{ ECS::EntityComponentSystem::GetInstance() };
+  ECS::Entity entity{ ecs.CreateEntity() };
+  ecs.SetEntityName(entity, MONO::MonoStringToSTD(name));
+  ecs.AddComponent(entity, Component::Transform{});
+  auto trans{ ecs.GetComponent<Component::Transform>(entity) };
+  trans->m_pos = worldPos;
+  trans->m_scale = worldScale;
+  trans->m_rot = worldRot;
+  ecs.SetParentEntity(entity, parent);
+  if (parent != ECS::INVALID_ID)
+  {
+    ecs.AddChildEntity(parent, entity);
+  }
+
+  return entity;
 }
 
 void GE::MONO::UpdateSprite(GE::ECS::Entity entity, MonoString* textureName)

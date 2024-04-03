@@ -21,6 +21,9 @@ namespace GoopScripts.UI
 {
   public class HealthBar
   {
+    static readonly string HEAL_EMITTER_PREFAB = "HealEmitter";
+    static readonly string HEALTH_BAR_GLOW_PREFAB = "HealthBarGlow";
+
     bool m_isPlayer;
     public int m_healthBarUI;
     int m_textUI;
@@ -100,7 +103,8 @@ namespace GoopScripts.UI
         {
           UpdateHealthText();
           m_isPlayingAnim = false;
-          Utils.DestroyEntity(Utils.GetEntity("HealEmitter"));
+          Utils.DestroyEntity(Utils.GetEntity(HEAL_EMITTER_PREFAB));
+          Utils.DestroyEntity(Utils.GetEntity(HEALTH_BAR_GLOW_PREFAB));
         }
       }
     }
@@ -178,12 +182,18 @@ namespace GoopScripts.UI
       double multiplier = 0.5;
       Vec3<double> currPos = Utils.GetPosition(m_playerBarID);
       Vec3<double> currScale = new Vec3<double>(1.0, 1.0, 1.0);
-      double posIncr = m_oneUnit * 0.5 * multiplier, scaleIncr = multiplier * ((double)m_targetHealth / (double)m_health - 1.0) / (double)amount;
+      double posIncr = (double)m_oneUnit * 0.5 * multiplier, scaleIncr = multiplier * ((double)m_targetHealth / (double)m_health - 1.0) / (double)amount;
       m_timeSlice = time / (double)amount;
 
-      // spawn emitter prefab
-      uint emitterInst = Utils.SpawnPrefab("HealEmitter");
+      // spawn emitter prefab and glow
+      uint emitterInst = Utils.SpawnPrefab(HEAL_EMITTER_PREFAB);
+      Vec3<double> glowPos = new Vec3<double>(currPos.X + ((double)m_oneUnit * 0.5) * (double)amount, currPos.Y, currPos.Z - 1);
 
+      uint glowInst = Utils.CreateEntity(HEALTH_BAR_GLOW_PREFAB, glowPos, new Vec3<double>(1.0, 1.0, 1.0));
+      Utils.UpdateSprite(glowInst, "HP_Glow");
+      Utils.SetObjectWidth(glowInst, m_oneUnit * (m_targetHealth + 1));
+
+      // set up animation keyframes
       Utils.ClearTweenKeyFrames(m_playerBarID, "Heal");
       amount = (int)((double)amount / multiplier);
       for (int i = 0; i < amount; ++i)
@@ -193,7 +203,7 @@ namespace GoopScripts.UI
         Utils.AddTweenKeyFrame(m_playerBarID, "Heal", currPos, currScale, new Vec3<double>(), m_timeSlice * multiplier, (i % 2 == 0 || i == amount - 1) ? 1.0f : 0.0f);
 
         Vec3<double> emitterPos = new Vec3<double>(currPos);
-        emitterPos.X += m_oneUnit * (double)(i + m_health) * 0.5 - m_oneUnit;
+        emitterPos.X += (double)m_oneUnit * (double)(i + m_health) * 0.5 - (double)m_oneUnit;
         Utils.AddTweenKeyFrame(emitterInst, "Heal", emitterPos, new Vec3<double>(1.0, 1.0, 1.0), new Vec3<double>(), m_timeSlice * multiplier, (i % 2 == 0 || i == amount - 1) ? 1.0f : 0.0f);
       }
 

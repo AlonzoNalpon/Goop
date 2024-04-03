@@ -414,6 +414,10 @@ namespace GoopScripts.Mono
       uint ParentID = uint.MaxValue);
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static uint CreateEntity(string name, Vec3<double> worldPos, Vec3<double> worldScale,
+      Vec3<double> worldRot = new Vec3<double>(), uint parent = uint.MaxValue);
+
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static void UpdateSprite(uint ID, string name);
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
