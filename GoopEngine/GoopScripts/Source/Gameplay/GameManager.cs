@@ -123,8 +123,10 @@ namespace GoopScripts.Gameplay
               }
           }
 
-          m_playerStats.m_healthBar.AnimatedHeal((int)((m_playerStats.m_healthBar.m_maxHealth - m_playerStats.m_healthBar.m_health) * 0.5), 2.0);
-          m_playerStats.m_animManager.PlayCustom(2.0);
+          if (m_playerStats.m_healthBar.AnimatedHeal((int)((m_playerStats.m_healthBar.m_maxHealth - m_playerStats.m_healthBar.m_health) * 0.5), 2.0))
+          {
+            m_playerStats.m_animManager.PlayCustom(2.0);
+          }
         }
 
         if (Utils.GetLoseFocus())

@@ -176,8 +176,13 @@ namespace GoopScripts.UI
       m_maxHealth = amount;
     }
 
-    public void AnimatedHeal(int amount, double time)
+    public bool AnimatedHeal(int amount, double time)
     {
+      if (m_health == m_maxHealth)
+      {
+        return false;
+      }
+
       m_targetHealth = m_health + amount;
       double multiplier = 0.5;
       Vec3<double> currPos = Utils.GetPosition(m_playerBarID);
@@ -211,6 +216,7 @@ namespace GoopScripts.UI
       Utils.PlayTransformAnimation(emitterInst, "Heal");
       m_isPlayingAnim = true;
       m_timer = 0.0;
+      return true;
     }
 
     void UpdateHealthText()
