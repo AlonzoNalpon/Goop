@@ -69,14 +69,30 @@ namespace GoopScripts.Gameplay
 		************************************************************************/
     public void AlignHandCards(bool isTutorial = false)
     {
-      double handWidth = isTutorial ? CARD_WIDTH * 5 + 300.0 : PLAYER_HAND_WIDTH;
-      double padding = (handWidth - (double)m_hand.Count * CARD_WIDTH) / (double)(m_hand.Count + 1);
-      Vec3<double> cardPos = isTutorial ? new Vec3<double>(-handWidth * 0.5 - 60.0, -350.0, 10.0) : HAND_START_POS;
-      cardPos.X += padding + CARD_WIDTH * 0.5;
-      for (int i = m_hand.Count - 1; i >= 0; --i)
+      if (isTutorial)
       {
-        Utils.SetPosition(m_hand[i].Item2, cardPos);
-        cardPos.X += padding + CARD_WIDTH;
+        double handWidth = CARD_WIDTH * 5 + 300.0;
+        double padding = (handWidth - (double)m_hand.Count * CARD_WIDTH) / (double)(m_hand.Count + 1);
+        Vec3<double> cardPos = new Vec3<double>(-handWidth * 0.5 - 60.0, -350.0, 10.0);
+        cardPos.X += padding + CARD_WIDTH * 0.5;
+
+        for (int i = 0; i < m_hand.Count; ++i)
+        {
+          Utils.SetPosition(m_hand[i].Item2, cardPos);
+          cardPos.X += padding + CARD_WIDTH;
+        }
+      }
+      else
+      {
+        double padding = (PLAYER_HAND_WIDTH - (double)m_hand.Count * CARD_WIDTH) / (double)(m_hand.Count + 1);
+        Vec3<double> cardPos = HAND_START_POS;
+        cardPos.X += padding + CARD_WIDTH * 0.5;
+
+        for (int i = m_hand.Count - 1; i >= 0; --i)
+        {
+          Utils.SetPosition(m_hand[i].Item2, cardPos);
+          cardPos.X += padding + CARD_WIDTH;
+        }
       }
     }
 
