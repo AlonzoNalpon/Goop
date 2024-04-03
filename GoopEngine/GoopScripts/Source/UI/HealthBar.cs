@@ -70,6 +70,7 @@ namespace GoopScripts.UI
       }
       m_playerBarID = Utils.CreateObject("TestHealthBar", new Vec3<double>(m_alignPos), new Vec3<double>(1, 1, 1), new Vec3<double>());
       Utils.AddTweenComponent(m_playerBarID);
+      Utils.SetScript(m_playerBarID, "ResetHealthBar");
       Utils.SetPosition(m_playerBarID, m_alignPos);
 
       Utils.SetScale(m_playerBarID, new Vec3<double>(1.0, 1.0, 1.0));
@@ -95,17 +96,18 @@ namespace GoopScripts.UI
       m_timer += dt;
       if (m_timer >= m_timeSlice)
       {
-        ++m_health;
-        UpdateHealthText();
-        m_timer = 0.0;
-
         if (m_health >= m_targetHealth)
         {
           UpdateHealthText();
           m_isPlayingAnim = false;
           Utils.DestroyEntity(Utils.GetEntity(HEAL_EMITTER_PREFAB));
           Utils.DestroyEntity(Utils.GetEntity(HEALTH_BAR_GLOW_PREFAB));
+          return;
         }
+
+        ++m_health;
+        UpdateHealthText();
+        m_timer -= m_timeSlice;
       }
     }
 
@@ -201,16 +203,20 @@ namespace GoopScripts.UI
       // set up animation keyframes
       Utils.ClearTweenKeyFrames(m_playerBarID, "Heal");
       amount = (int)((double)amount / multiplier);
+
+      Utils.AddTweenKeyFrame(emitterInst, "Heal", currPos, new Vec3<double>(1.0, 1.0, 1.0), new Vec3<double>(), 0.0);
       for (int i = 0; i < amount; ++i)
       {
         currPos.X += posIncr;
         currScale.X += scaleIncr;
-        Utils.AddTweenKeyFrame(m_playerBarID, "Heal", currPos, currScale, new Vec3<double>(), m_timeSlice * multiplier, (i % 2 == 0 || i == amount - 1) ? 1.0f : 0.0f);
+        Utils.AddTweenKeyFrame(m_playerBarID, "Heal", currPos, currScale, new Vec3<double>(), m_timeSlice * multiplier, (i % 2 == 0) ? 1.0f : 0.0f);
 
         Vec3<double> emitterPos = new Vec3<double>(currPos);
         emitterPos.X += (double)m_oneUnit * (double)(i + m_health) * 0.5 - (double)m_oneUnit;
-        Utils.AddTweenKeyFrame(emitterInst, "Heal", emitterPos, new Vec3<double>(1.0, 1.0, 1.0), new Vec3<double>(), m_timeSlice * multiplier, (i % 2 == 0 || i == amount - 1) ? 1.0f : 0.0f);
+        Utils.AddTweenKeyFrame(emitterInst, "Heal", emitterPos, new Vec3<double>(1.0, 1.0, 1.0), new Vec3<double>(), m_timeSlice * multiplier);
       }
+      Utils.AddTweenKeyFrame(m_playerBarID, "Heal", currPos, currScale, new Vec3<double>(), 0.5);
+      Utils.AddTweenKeyFrame(m_playerBarID, "Heal", currPos, new Vec3<double>(1.0, 1.0, 1.0), new Vec3<double>(), 0.0, 1.0f, "ResetHealthBar");
 
       Utils.PlayTransformAnimation(m_playerBarID, "Heal");
       Utils.PlayTransformAnimation(emitterInst, "Heal");
@@ -222,6 +228,11 @@ namespace GoopScripts.UI
     void UpdateHealthText()
     {
       Utils.SetTextComponent(m_textUI, m_health + " / " + m_maxHealth);
+    }
+
+    public void Reset()
+    {
+      UpdateBar();
     }
   }
 }

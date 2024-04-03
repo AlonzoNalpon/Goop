@@ -504,7 +504,7 @@ namespace GoopScripts.Mono
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static void AddTweenKeyFrame(uint entity, string animName, Vec3<double> pos,
-      Vec3<double> scale, Vec3<double> rot, double duration, float alpha = 1.0f);
+      Vec3<double> scale, Vec3<double> rot, double duration, float alpha = 1.0f, string animEvent = "");
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static void SetTimeScale(float scale);

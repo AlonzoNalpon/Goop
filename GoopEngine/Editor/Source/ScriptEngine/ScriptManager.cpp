@@ -870,10 +870,11 @@ void GE::MONO::ClearTweenKeyFrames(GE::ECS::Entity entity, MonoString* animName)
 }
 
 void GE::MONO::AddTweenKeyFrame(GE::ECS::Entity entity, MonoString* animName, GE::Math::dVec3 pos, GE::Math::dVec3 scale,
-  GE::Math::dVec3 rot, double duration, float alpha)
+  GE::Math::dVec3 rot, double duration, float alpha, MonoString* animEvent)
 {
   static auto& ecs = GE::ECS::EntityComponentSystem::GetInstance();
-  GE::Component::Tween::Action newAction{ pos, scale, rot, duration, {} };
+  std::string const animEventStr{ animEvent ? MonoStringToSTD(animEvent) : ""};
+  GE::Component::Tween::Action newAction{ pos, scale, rot, duration, animEventStr };
   newAction.m_spriteMult.a = alpha;
   auto tween{ ecs.GetComponent<GE::Component::Tween>(entity) };
   if (!tween)

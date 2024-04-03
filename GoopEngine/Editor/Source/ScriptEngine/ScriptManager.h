@@ -697,7 +697,7 @@ namespace GE::MONO
 		The alpha of the sprite multiply
 	************************************************************************/
 	void AddTweenKeyFrame(GE::ECS::Entity entity, MonoString* animName, GE::Math::dVec3 pos, GE::Math::dVec3 scale,
-		GE::Math::dVec3 rot, double duration, float alpha);
+		GE::Math::dVec3 rot, double duration, float alpha, MonoString* animEvent);
 
 	float GetChannelVolume(int channel);
 
