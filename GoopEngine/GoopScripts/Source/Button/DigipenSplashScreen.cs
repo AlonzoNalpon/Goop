@@ -28,7 +28,7 @@ namespace GoopScripts.Source.Button
 		********************************************************************/
 		public void OnClick(uint entity)
 		{
-			Utils.TransitionToScene("LogoSplashScreen");
+			Utils.TransitionToScene("FMODSplashScreen");
 		}
 
 		/*!******************************************************************

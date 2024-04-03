@@ -16,6 +16,9 @@ Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 #include <FrameRateController/FrameRateController.h>
 #include <SpriteAnimation/SpriteAnimGenerator.h>
   
+#ifdef _DEBUG
+extern SpriteManifest g_manifest;
+#endif
 namespace GE::Graphics {
   
 namespace {
@@ -43,6 +46,7 @@ namespace {
 
   GraphicsEngine::~GraphicsEngine()
   {
+   
   }
 
   void GraphicsEngine::Init(Colorf clearColor, GLint w, GLint h)
@@ -408,6 +412,9 @@ namespace {
     unsigned char* raw_image = imageData.GetData();
     GLsizei width{ static_cast<GLsizei>(imageData.GetWidth()) };
     GLsizei height{ static_cast<GLsizei>(imageData.GetHeight()) };
+#ifdef _DEBUG
+    g_manifest.totalSprites.emplace(name);
+#endif
     return m_textureManager.AddTexture(name, width, height, raw_image);
   }
 

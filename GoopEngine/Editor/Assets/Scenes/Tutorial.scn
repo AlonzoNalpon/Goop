@@ -1876,29 +1876,29 @@
     {
         "Name": "FPSCounter",
         "ID": 17,
-        "Prefab": null,
+        "Prefab": {
+            "name": "FPSCounter",
+            "version": 2,
+            "objToEntity": [
+                {
+                    "key": 0,
+                    "value": 17
+                }
+            ],
+            "registered": true
+        },
         "isActive": true,
         "Parent": null,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 861.577, 512.984, 1001 }",
+                    "pos": "{ 850, 480, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, -0, 0 }",
-                    "worldPos": "{ 861.577, 512.984, 1001 }",
+                    "worldPos": "{ 850, 480, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 861.577, 512.984 }",
-                    "width": 8.152580206657e-312,
-                    "height": 8.14846383731e-312,
-                    "min": "{ 861.577, 512.984 }",
-                    "max": "{ 861.577, 512.984 }",
-                    "render": true
                 }
             },
             {
@@ -1916,10 +1916,10 @@
                 "Text": {
                     "text": "FPS",
                     "clr": {
-                        "r": 0.9411765336990356,
+                        "r": 0.9411764740943909,
                         "g": 1.0,
                         "b": 0.0,
-                        "a": 1.0
+                        "a": 0.0
                     },
                     "scale": 0.12300000339746475,
                     "fontID": 0,
@@ -8460,10 +8460,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -28, -25, 1 }",
+                    "pos": "{ 0, -25, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 440, -375, 14 }",
+                    "worldPos": "{ 468, -375, 14 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -8478,8 +8478,8 @@
                         "a": 1.0
                     },
                     "scale": 0.07500000298023224,
-                    "fontID": 2,
-                    "Alignment": "LEFT"
+                    "fontID": 21,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -8494,10 +8494,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -50.089, -65, 1 }",
+                    "pos": "{ 0, -65, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 417.911, -415, 14 }",
+                    "worldPos": "{ 468, -415, 14 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -8512,8 +8512,8 @@
                         "a": 1.0
                     },
                     "scale": 0.054999999701976776,
-                    "fontID": 0,
-                    "Alignment": "LEFT"
+                    "fontID": 18,
+                    "Alignment": "CENTER"
                 }
             }
         ]
@@ -17878,7 +17878,8 @@
         "Child Entities": [
             151,
             401,
-            402
+            402,
+            962
         ],
         "Components": [
             {
@@ -43974,6 +43975,247 @@
                     "scale": 0.15000000596046448,
                     "fontID": 21,
                     "Alignment": "CENTER"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Leah_Attack",
+        "ID": 962,
+        "Prefab": {
+            "name": "Leah_Attack_Hover",
+            "version": 22,
+            "objToEntity": [
+                {
+                    "key": 0,
+                    "value": 962
+                },
+                {
+                    "key": 1,
+                    "value": 963
+                },
+                {
+                    "key": 2,
+                    "value": 964
+                },
+                {
+                    "key": 3,
+                    "value": 965
+                },
+                {
+                    "key": 4,
+                    "value": 966
+                }
+            ],
+            "registered": false
+        },
+        "isActive": true,
+        "Parent": 400,
+        "Child Entities": [
+            963,
+            964,
+            965,
+            966
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 204, -350, 1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 204, -350, 13 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Base",
+        "ID": 963,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 962,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 204, -350, 13 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 204, -350 }",
+                    "width": 214.0,
+                    "height": 300.0,
+                    "min": "{ 97, -500 }",
+                    "max": "{ 311, -200 }",
+                    "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 214,
+                            "height": 300,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "CardBaseFront_Attack",
+                    "shouldRender": true
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "",
+                    "eventType": "NO_EVENT",
+                    "lastCollided": false,
+                    "currCollided": false
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Title",
+        "ID": 964,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 962,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, -25, 1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 204, -375, 14 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "BEAM",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.07500000298023224,
+                    "fontID": 21,
+                    "Alignment": "CENTER"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Description",
+        "ID": 965,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 962,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, -65, 1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 204, -415, 14 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "Deals 1 Damage",
+                    "clr": {
+                        "r": 0.0,
+                        "g": 0.0,
+                        "b": 0.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.054999999701976776,
+                    "fontID": 18,
+                    "Alignment": "CENTER"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Icon",
+        "ID": 966,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 962,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 55.5, 1 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 204, -294.5, 14 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 119,
+                            "height": 111,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "CardIcon_LeahAttackBeam",
+                    "shouldRender": true
                 }
             }
         ]

@@ -1,6 +1,6 @@
 [
     {
-        "Name": "TeamLogo_IconText",
+        "Name": "FMOD_Logo",
         "ID": 0,
         "Prefab": null,
         "isActive": true,
@@ -10,21 +10,11 @@
             {
                 "Transform": {
                     "pos": "{ 0, 0, 0 }",
-                    "scale": "{ 0.25, 0.25, 1 }",
+                    "scale": "{ 0.5, 0.5, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 0, 0, 0 }",
-                    "worldScale": "{ 0.25, 0.25, 1 }",
+                    "worldScale": "{ 0.5, 0.5, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 0, 0 }",
-                    "width": 1920.0,
-                    "height": 1080.0,
-                    "min": "{ -960, -540 }",
-                    "max": "{ 960, 540 }",
-                    "render": false
                 }
             },
             {
@@ -39,12 +29,12 @@
                                 "x": 1.0,
                                 "y": 1.0
                             },
-                            "width": 1520,
-                            "height": 2480,
+                            "width": 1440,
+                            "height": 384,
                             "tint": {
-                                "r": 0.0,
-                                "g": 0.0,
-                                "b": 0.0,
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
                                 "a": 0.0
                             },
                             "multiply": {
@@ -55,7 +45,7 @@
                             }
                         }
                     },
-                    "spriteName": "TeamLogo_IconText",
+                    "spriteName": "FMOD_Logo",
                     "shouldRender": true
                 }
             },
@@ -67,12 +57,12 @@
                             "value": [
                                 {
                                     "trans": "{ 0, 0, 0 }",
-                                    "scale": "{ 0.25, 0.25, 1 }",
+                                    "scale": "{ 0.5, 0.5, 1 }",
                                     "rot": "{ 0, 0, 0 }",
                                     "spriteTint": {
-                                        "r": 1.0,
-                                        "g": 1.0,
-                                        "b": 1.0,
+                                        "r": 0.0,
+                                        "g": 0.0,
+                                        "b": 0.0,
                                         "a": 0.0
                                     },
                                     "spriteMult": {
@@ -92,7 +82,7 @@
                                 },
                                 {
                                     "trans": "{ 0, 0, 0 }",
-                                    "scale": "{ 0.25, 0.25, 1 }",
+                                    "scale": "{ 0.5, 0.5, 1 }",
                                     "rot": "{ 0, 0, 0 }",
                                     "spriteTint": {
                                         "r": 0.0,
@@ -107,17 +97,17 @@
                                         "a": 1.0
                                     },
                                     "textColor": {
-                                        "r": 0.0,
-                                        "g": 0.0,
-                                        "b": 0.0,
-                                        "a": 0.0
+                                        "r": 1.0,
+                                        "g": 1.0,
+                                        "b": 1.0,
+                                        "a": 1.0
                                     },
-                                    "duration": 0.2,
+                                    "duration": 0.3,
                                     "animationEvent": ""
                                 },
                                 {
                                     "trans": "{ 0, 0, 0 }",
-                                    "scale": "{ 0.25, 0.25, 1 }",
+                                    "scale": "{ 0.5, 0.5, 1 }",
                                     "rot": "{ 0, 0, 0 }",
                                     "spriteTint": {
                                         "r": 0.0,
@@ -138,7 +128,7 @@
                                         "a": 1.0
                                     },
                                     "duration": 1.0,
-                                    "animationEvent": "LogoSplashScreen"
+                                    "animationEvent": "FMODSplashScreen"
                                 }
                             ]
                         }
@@ -152,8 +142,49 @@
                 "Scripts": {
                     "scriptList": [
                         {
-                            "scriptName": "LogoSplashScreen",
+                            "scriptName": "FMODSplashScreen",
                             "entityID": 0,
+                            "scriptFieldInstList": []
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "Name": "BIG ASS BUTTON",
+        "ID": 1,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": null,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, 0, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 0, 0 }",
+                    "width": 1920.0,
+                    "height": 1080.0,
+                    "min": "{ -960, -540 }",
+                    "max": "{ 960, 540 }",
+                    "render": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "FMODSplashScreen",
+                            "entityID": 1,
                             "scriptFieldInstList": []
                         }
                     ]
@@ -171,14 +202,14 @@
     },
     {
         "Name": "FPSCounter",
-        "ID": 1,
+        "ID": 2,
         "Prefab": {
             "name": "FPSCounter",
             "version": 2,
             "objToEntity": [
                 {
                     "key": 0,
-                    "value": 1
+                    "value": 2
                 }
             ],
             "registered": true
@@ -202,7 +233,7 @@
                     "scriptList": [
                         {
                             "scriptName": "FPS",
-                            "entityID": 1,
+                            "entityID": 2,
                             "scriptFieldInstList": []
                         }
                     ]

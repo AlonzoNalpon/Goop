@@ -13,27 +13,43 @@ using GoopScripts.Mono;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace GoopScripts.UI
 {
   public class FPS : Entity
-  {
-    public FPS() { }
+	{
+		static bool shouldShow;
+		uint fpsEntity;
 
-    public void OnCreate()
-    {
-    }
+		public FPS()
+		{
+			shouldShow = false;
+			fpsEntity = Utils.GetEntity("FPSCounter");
+			Utils.SetTextColor(fpsEntity, 0, 0, 0, 0);
+		}
 
     public void OnUpdate(double deltaTime)
     {
+			if (Utils.IsKeyTriggered(Input.KeyCode.P))
       {
-        // SET FPS TEXT TO FPS
-        double fps = Utils.GetFPS();
-        string text = string.Format("{0:N2}", fps);
-        Utils.SetTextComponent((int)Utils.GetEntity("FPSCounter"), text);
-      }
+        shouldShow = !shouldShow;
+        if (!shouldShow)
+        {
+					Utils.SetTextColor(fpsEntity, 0, 0, 0, 0);
+				}
+        else
+				{
+					Utils.SetTextColor(fpsEntity, 240, 255, 0, 255);
+				}
+			}
+
+			// SET FPS TEXT TO FPS
+			double fps = Utils.GetFPS();
+			string text = string.Format("{0:N2}", fps);
+			Utils.SetTextComponent((int)fpsEntity, text);
     }
   }
 }

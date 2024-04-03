@@ -13,6 +13,9 @@ Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 #include <FrameRateController/FrameRateController.h>
 #include <Graphics/GraphicsEngine.h>
 #include <math.h>
+#ifdef _DEBUG
+SpriteManifest g_manifest;
+#endif
 namespace GE::Systems
 {
   constexpr double pi = 3.14159265358979323846;
@@ -38,6 +41,11 @@ namespace GE::Systems
       renderer.RenderObject(sprite->m_spriteData,
         transform->m_renderTransform
         );
+      if (sprite->m_spriteName.empty())
+        throw;
+#ifdef _DEBUG
+      g_manifest.usedSprites.emplace(gEngine.textureManager.GetTextureName(sprite->m_spriteData.texture));
+#endif
     }
     frc.EndSystemTimer("Render");
   }

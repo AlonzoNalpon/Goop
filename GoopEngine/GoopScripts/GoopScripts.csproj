@@ -102,6 +102,7 @@
     <Compile Include="Source\Button\ButtonInterface\IButtonHoverExit.cs" />
     <Compile Include="Source\Button\ButtonInterface\IButtonRelease.cs" />
     <Compile Include="Source\Button\DigipenSplashScreen.cs" />
+    <Compile Include="Source\Button\FMODSplashScreen.cs" />
     <Compile Include="Source\Button\GameLevel\BuffIconInteraction.cs" />
     <Compile Include="Source\Button\GameLevel\DisableEndTurn.cs" />
     <Compile Include="Source\Button\GameLevel\EndTurn.cs" />

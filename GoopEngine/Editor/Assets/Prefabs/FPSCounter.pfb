@@ -1,7 +1,7 @@
 {
     "Name": "FPSCounter",
     "isActive": true,
-    "Version": 1,
+    "Version": 2,
     "Components": [
         {
             "Transform": {
@@ -19,15 +19,7 @@
                     {
                         "scriptName": "FPS",
                         "entityID": 0,
-                        "scriptFieldInstList": [
-                            {
-                                "data": 17,
-                                "type": "System.Int32",
-                                "scriptField": {
-                                    "fieldName": "FPS_COUNTER"
-                                }
-                            }
-                        ]
+                        "scriptFieldInstList": []
                     }
                 ]
             }
@@ -36,13 +28,14 @@
             "Text": {
                 "text": "FPS",
                 "clr": {
-                    "r": 0.9411765336990356,
+                    "r": 0.9411764740943909,
                     "g": 1.0,
                     "b": 0.0,
-                    "a": 1.0
+                    "a": 0.0
                 },
                 "scale": 0.12300000339746475,
-                "fontID": 0
+                "fontID": 0,
+                "Alignment": "LEFT"
             }
         }
     ],
@@ -50,7 +43,7 @@
     "Removed Components": [
         {
             "id": 0,
-            "type": "BoxCollider",
+            "type": "void",
             "version": 1
         }
     ]

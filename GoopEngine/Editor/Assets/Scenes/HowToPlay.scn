@@ -216,29 +216,29 @@
     {
         "Name": "FPSCounter",
         "ID": 4,
-        "Prefab": null,
+        "Prefab": {
+            "name": "FPSCounter",
+            "version": 2,
+            "objToEntity": [
+                {
+                    "key": 0,
+                    "value": 4
+                }
+            ],
+            "registered": true
+        },
         "isActive": true,
         "Parent": null,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 861.577, 512.984, 1001 }",
+                    "pos": "{ 850, 480, 1001 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, -0, 0 }",
-                    "worldPos": "{ 861.577, 512.984, 1001 }",
+                    "worldPos": "{ 850, 480, 1001 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, -0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 861.577, 512.984 }",
-                    "width": 8.152580206657e-312,
-                    "height": 8.14846383731e-312,
-                    "min": "{ 861.577, 512.984 }",
-                    "max": "{ 861.577, 512.984 }",
-                    "render": true
                 }
             },
             {
@@ -256,10 +256,10 @@
                 "Text": {
                     "text": "FPS",
                     "clr": {
-                        "r": 0.9411765336990356,
+                        "r": 0.9411764740943909,
                         "g": 1.0,
                         "b": 0.0,
-                        "a": 1.0
+                        "a": 0.0
                     },
                     "scale": 0.12300000339746475,
                     "fontID": 0,
@@ -2024,7 +2024,7 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -1.4839e-10, 0, 0 }",
+                    "pos": "{ -3.52429e-11, 0, 0 }",
                     "scale": "{ 1.11911, 1.19609, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 175, -180, 0 }",
@@ -2344,7 +2344,7 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 1.4839e-10, 0, 0 }",
+                    "pos": "{ 3.52429e-11, 0, 0 }",
                     "scale": "{ 1.11911, 1.19609, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -175, -180, 0 }",
@@ -5012,7 +5012,7 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, -22.4599, 1 }",
+                    "pos": "{ 0, -22.46, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 0, -367.46, 2 }",
