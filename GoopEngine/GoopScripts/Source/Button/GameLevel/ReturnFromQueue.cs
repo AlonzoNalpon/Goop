@@ -51,6 +51,7 @@ namespace GoopScripts.Button
       QueueCardDisplay.DestroyCard();
       Utils.PlaySoundF("SFX_CardPlay1", 1.0f, Utils.ChannelType.SFX, false);
       player.UnqueueCardByID(cardId);
+      player.m_deckMngr.AlignHandCards();
     }
 
     public void OnHoverExit(uint entity)

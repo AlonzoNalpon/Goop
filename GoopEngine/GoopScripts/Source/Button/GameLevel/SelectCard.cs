@@ -50,6 +50,7 @@ namespace GoopScripts.Button
       Utils.SetIsActiveEntity(m_cardHover, false);
       Utils.PlaySoundF("SFX_CardPlay" + rng.Next(2,4), 0.7f + (float)rng.NextDouble() * 0.2f, Utils.ChannelType.SFX, false);
       player.QueueCardByID(cardId);
+      player.m_deckMngr.AlignHandCards();
     }
 
     /*!*********************************************************************

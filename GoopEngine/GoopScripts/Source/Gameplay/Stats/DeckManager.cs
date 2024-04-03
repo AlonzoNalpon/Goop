@@ -76,9 +76,9 @@ namespace GoopScripts.Gameplay
         Vec3<double> cardPos = new Vec3<double>(-handWidth * 0.5 - 60.0, -350.0, 10.0);
         cardPos.X += padding + CARD_WIDTH * 0.5;
 
-        for (int i = 0; i < m_hand.Count; ++i)
+        foreach (var c in m_hand)
         {
-          Utils.SetPosition(m_hand[i].Item2, cardPos);
+          Utils.SetPosition(c.Item2, cardPos);
           cardPos.X += padding + CARD_WIDTH;
         }
       }

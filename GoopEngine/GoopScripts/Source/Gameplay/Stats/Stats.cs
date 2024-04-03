@@ -442,7 +442,6 @@ namespace GoopScripts.Gameplay
           return;
         }
         Utils.SetCardToQueuedState(entity, m_queueElemPos[qIdx]);
-        m_deckMngr.AlignHandCards();
       }
     }
 
@@ -463,7 +462,6 @@ namespace GoopScripts.Gameplay
         return;
       }
       m_deckMngr.Queue(ind);
-      
     }
 
     /*!*********************************************************************
@@ -486,7 +484,7 @@ namespace GoopScripts.Gameplay
         m_deckMngr.Unqueue(i);
 
         Utils.SetCardToHandState(entity);
-        m_deckMngr.AlignHandCards();
+        break;
       }
     }
 
@@ -560,7 +558,6 @@ namespace GoopScripts.Gameplay
       {
         return;
       }
-
 
       CardBase.CardID cardType = m_deckMngr.m_hand[idx].Item1;
       m_deckMngr.m_hand[idx] = (cardType, Utils.SpawnPrefab(CardManager.m_cardPrefabs[cardType] + "_Tut"));
