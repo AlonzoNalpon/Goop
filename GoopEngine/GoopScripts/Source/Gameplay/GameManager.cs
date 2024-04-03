@@ -362,7 +362,6 @@ namespace GoopScripts.Gameplay
             }
             int voiceLineInd = rand.Next(playerVoiceLine.Count);
             PlaySoundF(playerVoiceLine[voiceLineInd], 1.0f, ChannelType.VOICE, false);
-            Console.WriteLine("play sound");
           }
           return;
         }
@@ -557,6 +556,7 @@ namespace GoopScripts.Gameplay
         m_playerStats.m_deckMngr.m_deck.AddCard(elem.Item1, elem.Item2);
       }
       m_playerStats.m_deckMngr.Init();
+      m_playerStats.m_buffs.SetType(CharacterType.PLAYER);
       m_playerStats.m_healthBar.Init(statsInfo.health, statsInfo.maxHealth, true, P_HEALTH_TEXT_UI, P_HEALTH_UI);
     }
     
@@ -576,6 +576,7 @@ namespace GoopScripts.Gameplay
       }
       m_enemyStats.m_deckMngr.Init();
       m_enemyStats.m_healthBar.Init(statsInfo.health, statsInfo.maxHealth, false, E_HEALTH_TEXT_UI, E_HEALTH_UI);
+      m_enemyStats.m_buffs.SetType(m_enemyStats.m_type);
       Utils.SpawnPrefab(statsInfo.background, new Vec3<double>(0, 0, -999));
       Utils.UpdateSprite(GetEntity("Enemy Portrait"), statsInfo.portrait);
     }

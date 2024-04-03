@@ -72,8 +72,8 @@ namespace GoopScripts.Gameplay
     public void OnCreate()
     {
       m_animManager = (AnimationManager)Utils.GetScriptFromID(entityID, "AnimationManager");
+      m_buffs = new BuffManager(m_buffsDisplay);
       m_animManager.m_statsEntity = entityID;
-      m_buffs = new BuffManager(m_buffsDisplay, m_type);
       // save the pos of each queue element
       for (int i = 0; i < 3; i++)
       {
@@ -89,7 +89,8 @@ namespace GoopScripts.Gameplay
     {
       m_buffsDisplay = 0;
       m_type = CharacterType.DAWSON_MINI;
-      m_buffs = new BuffManager(m_buffsDisplay, m_type);
+      m_buffs = new BuffManager(m_buffsDisplay);
+      m_buffs.SetType(m_type);
     }
 
     /*!*********************************************************************

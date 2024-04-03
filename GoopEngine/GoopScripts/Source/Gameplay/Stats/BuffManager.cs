@@ -12,6 +12,7 @@ Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 using GoopScripts.Mono;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Deployment.Application;
 using System.Linq;
 using System.Text;
@@ -146,12 +147,16 @@ namespace GoopScripts.Gameplay
     CharacterType m_characterType;
 
 
-    public BuffManager(int displayID, CharacterType type)
+    public BuffManager(int displayID)
     {
       m_buffs = new List<Buff>();
       buffsUI = displayID;
       m_maxNumOfBuffs = 0;
       m_buffIcons= new List<uint>();
+    }
+
+    public void SetType(CharacterType type)
+    {
       m_characterType = type;
     }
 
