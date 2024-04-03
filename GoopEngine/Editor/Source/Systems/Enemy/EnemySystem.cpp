@@ -17,7 +17,6 @@ to in the current frame.
 #include <Systems/Enemy/EnemySystem.h>
 #include <ScriptEngine/ScriptManager.h>
 #include <AssetManager/AssetManager.h>
-#include <ImNode/NodeEditor.h>
 
 using namespace GE;
 using namespace AI;

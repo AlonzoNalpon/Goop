@@ -16,7 +16,6 @@ Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 #include <pch.h>
 #include "ScriptManager.h"
 #include "../AssetManager/AssetManager.h"
-#include <ImNode/NodeEditor.h>
 #include <Component/Components.h>
 #include "mono/metadata/assembly.h"
 #include "mono/metadata/object.h"
