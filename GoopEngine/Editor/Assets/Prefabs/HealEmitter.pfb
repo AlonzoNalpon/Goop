@@ -1,0 +1,77 @@
+{
+    "Name": "HealEmitter",
+    "isActive": true,
+    "Version": 5,
+    "Components": [
+        {
+            "Transform": {
+                "pos": "{ 0, 0, 0 }",
+                "scale": "{ 1, 1, 1 }",
+                "rot": "{ 0, 0, 0 }",
+                "worldPos": "{ 0, 0, 0 }",
+                "worldScale": "{ 1, 1, 1 }",
+                "worldRot": "{ 0, 0, 0 }"
+            }
+        },
+        {
+            "Sprite": {
+                "spriteData": {
+                    "spriteSubData": {
+                        "texCoords": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "texDims": {
+                            "x": 1.0,
+                            "y": 1.0
+                        },
+                        "width": 28,
+                        "height": 28,
+                        "tint": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 0.0
+                        },
+                        "multiply": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        }
+                    }
+                },
+                "spriteName": "HP_Plus",
+                "shouldRender": true
+            }
+        },
+        {
+            "Tween": {
+                "tweens": [
+                    {
+                        "key": "Heal",
+                        "value": []
+                    }
+                ],
+                "paused": false,
+                "loop": false,
+                "playing": ""
+            }
+        },
+        {
+            "Emitter": {
+                "playOnStart": false,
+                "playing": true,
+                "gravity": "{ 0, 0, 0 }",
+                "minForce": "{ -100, 0, 0 }",
+                "maxForce": "{ 100, 200, 0 }",
+                "minDrag": 0.0,
+                "maxDrag": 0.0,
+                "maxLifeTime": 2.5,
+                "minLifeTime": 1.5,
+                "particlePerMin": 400
+            }
+        }
+    ],
+    "SubData": []
+}

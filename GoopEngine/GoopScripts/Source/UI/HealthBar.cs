@@ -16,6 +16,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
 
+
 namespace GoopScripts.UI
 {
   public class HealthBar
@@ -99,6 +100,7 @@ namespace GoopScripts.UI
         {
           UpdateHealthText();
           m_isPlayingAnim = false;
+          Utils.DestroyEntity(Utils.GetEntity("HealEmitter"));
         }
       }
     }
@@ -179,6 +181,9 @@ namespace GoopScripts.UI
       double posIncr = m_oneUnit * 0.5 * multiplier, scaleIncr = multiplier * ((double)m_targetHealth / (double)m_health - 1.0) / (double)amount;
       m_timeSlice = time / (double)amount;
 
+      // spawn emitter prefab
+      uint emitterInst = Utils.SpawnPrefab("HealEmitter");
+
       Utils.ClearTweenKeyFrames(m_playerBarID, "Heal");
       amount = (int)((double)amount / multiplier);
       for (int i = 0; i < amount; ++i)
@@ -186,12 +191,16 @@ namespace GoopScripts.UI
         currPos.X += posIncr;
         currScale.X += scaleIncr;
         Utils.AddTweenKeyFrame(m_playerBarID, "Heal", currPos, currScale, new Vec3<double>(), m_timeSlice * multiplier, (i % 2 == 0 || i == amount - 1) ? 1.0f : 0.0f);
+
+        Vec3<double> emitterPos = new Vec3<double>(currPos);
+        emitterPos.X += m_oneUnit * (double)(i + m_health) * 0.5 - m_oneUnit;
+        Utils.AddTweenKeyFrame(emitterInst, "Heal", emitterPos, new Vec3<double>(1.0, 1.0, 1.0), new Vec3<double>(), m_timeSlice * multiplier, (i % 2 == 0 || i == amount - 1) ? 1.0f : 0.0f);
       }
-      
+
       Utils.PlayTransformAnimation(m_playerBarID, "Heal");
+      Utils.PlayTransformAnimation(emitterInst, "Heal");
       m_isPlayingAnim = true;
       m_timer = 0.0;
-      Console.WriteLine(m_isPlayingAnim.ToString());
     }
 
     void UpdateHealthText()
