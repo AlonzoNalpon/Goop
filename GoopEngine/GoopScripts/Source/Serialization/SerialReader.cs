@@ -345,6 +345,10 @@ LEAH_STRIKE, 4
 LEAH_SHIELD, 4
 SPECIAL_FLASHBANG, 1";
 
+      if (!Directory.Exists(SAVE_DIRECTORY))
+      {
+        Directory.CreateDirectory(SAVE_DIRECTORY);
+      }
       File.WriteAllText(PLAYER_STATS_FILE, saveStr);
     }
   }
