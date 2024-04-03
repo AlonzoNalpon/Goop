@@ -9,6 +9,7 @@ Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 using GoopScripts.Cards;
 using GoopScripts.Mono;
+using GoopScripts.Serialization;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -30,7 +31,7 @@ namespace GoopScripts.Gameplay
     public void OnCreate()
     {
       //Serialization.SerialReader.IncrementLevel("./Assets/GameData/PlayerStats.sav");
-      var statsInfo = Serialization.SerialReader.LoadPlayerState(playerSavePath);
+      var statsInfo = Serialization.SerialReader.LoadPlayerState();
       statsInfo.SortDeck();
       m_levelToLoad = statsInfo.levelToLoad;
 
@@ -77,7 +78,7 @@ namespace GoopScripts.Gameplay
       {
         if (m_levelToLoad < 5)
         {
-          Serialization.SerialReader.IncrementLevel("./Assets/GameData/PlayerStats.sav");
+          Serialization.SerialReader.IncrementLevel();
           OnCreate();
         }
       }

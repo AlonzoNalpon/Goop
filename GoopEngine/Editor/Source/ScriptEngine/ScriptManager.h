@@ -736,5 +736,16 @@ namespace GE::MONO
 	********************************************************************/
 	void PlaySingleParticle(GE::ECS::Entity emitterEntityID);
 
+	/*!******************************************************************
+	\brief
+		Gets the entry of the given key from the config data held by
+		the assets manager
+	\param key
+		The key of the data
+	\return
+		The value corresponding to the key
+	********************************************************************/
+	MonoString* GetConfigData(MonoString* key);
+
 #include "ScriptManager.tpp"
 }

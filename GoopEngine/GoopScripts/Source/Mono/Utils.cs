@@ -515,5 +515,7 @@ namespace GoopScripts.Mono
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     extern public static void PlaySingleParticle(uint emitterId);
 
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    extern public static string GetConfigData(string key);
   }
 }

@@ -26,6 +26,8 @@ namespace GoopScripts.Serialization
   static public class SerialReader
   {
     static readonly string COMMENT_SYMBOL = "#";
+    static readonly string SAVE_DIRECTORY = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Goop\\DungeonPlunder\\";
+    static readonly string PLAYER_STATS_FILE = SAVE_DIRECTORY + "PlayerStats.sav";
 
     /*!*********************************************************************
     \brief
@@ -38,10 +40,13 @@ namespace GoopScripts.Serialization
     \param fileName
       The file to load
     ************************************************************************/
-    static public PlayerStatsInfo LoadPlayerState(string fileName)
+    static public PlayerStatsInfo LoadPlayerState(bool isTutorial = false)
     {
+      CheckSaveDirectory(true);
+
+      string file = isTutorial ? "./Assets/GameData/TutorialStats.sav" : PLAYER_STATS_FILE;
       PlayerStatsInfo ret = new PlayerStatsInfo();
-      using (StreamReader sr = new StreamReader(fileName))
+      using (StreamReader sr = new StreamReader(file))
       {
         string line = GetNextNonCommentLine(sr);
         if (!int.TryParse(line, out ret.levelToLoad))
@@ -157,9 +162,12 @@ namespace GoopScripts.Serialization
     \param fileName
       The file to save to
     ************************************************************************/
-    static public void SavePlayerState(ref Gameplay.Stats stats, int currentLevel, string fileName)
+    static public void SavePlayerState(ref Gameplay.Stats stats, int currentLevel)
     {
-      using (StreamWriter sw = new StreamWriter(fileName))
+      CheckSaveDirectory();
+
+
+      using (StreamWriter sw = new StreamWriter(PLAYER_STATS_FILE))
       {
         // serialize level
         sw.WriteLine(COMMENT_SYMBOL + " Level to load");
@@ -238,16 +246,18 @@ namespace GoopScripts.Serialization
     \param file
       The file to save to
     ************************************************************************/
-    public static void AddCardsToDeck(List<CardBase.CardID> cards, string file)
+    public static void AddCardsToDeck(List<CardBase.CardID> cards)
     {
-      string[] lines = File.ReadAllLines(file);
+      CheckSaveDirectory();
+
+      string[] lines = File.ReadAllLines(PLAYER_STATS_FILE);
       int targetIndex = Array.FindLastIndex(lines, line => !string.IsNullOrEmpty(line));
       if (targetIndex == -1)
       {
         targetIndex = lines.Length - 1;
       }
 
-      using (StreamWriter writer = new StreamWriter(file))
+      using (StreamWriter writer = new StreamWriter(PLAYER_STATS_FILE))
       {
         for (int i = 0; i <= targetIndex; ++i)
         {
@@ -267,21 +277,23 @@ namespace GoopScripts.Serialization
     \param file
       The file to modify
     ************************************************************************/
-    public static void IncrementLevel(string file)
+    public static void IncrementLevel()
     {
-      string[] lines = File.ReadAllLines(file);
+      CheckSaveDirectory();
+
+      string[] lines = File.ReadAllLines(PLAYER_STATS_FILE);
       int level;
       if (lines.Length == 0 || !int.TryParse(lines[1], out level))
       {
 #if (DEBUG)
-        Utils.SendString("Unable to increment level in file: " + file);
+        Utils.SendString("Unable to increment level in file: " + PLAYER_STATS_FILE);
 #endif
         return;
       }
       lines[1] = (level + 1).ToString();
       Console.WriteLine("Level is incremented from " + level + " to " + (level + 1));
 
-      File.WriteAllLines(file, lines);
+      File.WriteAllLines(PLAYER_STATS_FILE, lines);
     }
 
     /*!*********************************************************************
@@ -296,6 +308,44 @@ namespace GoopScripts.Serialization
       while ((line = sr.ReadLine()) != null && (line.StartsWith(COMMENT_SYMBOL) || string.IsNullOrWhiteSpace(line))) ;
 
       return line;
+    }
+
+    /*!*********************************************************************
+    \brief
+      Checks if SAVE_DIRECTORY exists. If it is missing, it will be
+      generated.
+    \param generateSaveFile
+      If true, checks for and generates a default save file if it doesn't
+      exist
+   ************************************************************************/
+    static void CheckSaveDirectory(bool generateSaveFile = false)
+    {
+      if (!Directory.Exists(SAVE_DIRECTORY))
+      {
+        Directory.CreateDirectory(SAVE_DIRECTORY);
+      }
+
+      if (generateSaveFile && !File.Exists(PLAYER_STATS_FILE))
+      {
+        GenerateDefaultSave();
+      }
+    }
+
+    static public void GenerateDefaultSave()
+    {
+      string saveStr = @"# Level to load
+0
+
+# Health, MaxHealth
+10, 10
+
+# Deck List
+LEAH_BEAM, 4
+LEAH_STRIKE, 4
+LEAH_SHIELD, 4
+SPECIAL_FLASHBANG, 1";
+
+      File.WriteAllText(PLAYER_STATS_FILE, saveStr);
     }
   }
 }

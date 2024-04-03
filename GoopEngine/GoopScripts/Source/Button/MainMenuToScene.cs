@@ -18,6 +18,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using GoopScripts.Serialization;
 
 namespace GoopScripts.Transition
 {
@@ -53,7 +54,7 @@ namespace GoopScripts.Transition
 					switch (Scene)
 					{
 						case 0:
-              File.Copy("./Assets/GameData/DefaultStats.sav", "./Assets/GameData/PlayerStats.sav", true);
+							SerialReader.GenerateDefaultSave();
               Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Cutscene");
 							break;
 						case 1: // LOAD GAME

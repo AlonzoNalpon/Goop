@@ -33,7 +33,7 @@ namespace GoopScripts.Gameplay
   {
     //static readonly double INTERVAL_TIME = 3.0;
     static readonly Vec3<double> ENEMY_POS = new Vec3<double>(336.318, 100.0, 0.0);
-    static readonly string GAME_DATA_DIR = "./Assets/GameData/";
+    static readonly string GAME_DATA_DIR = ".\\Assets\\GameData\\";
     static readonly double PLAYER_DRAW_ANIM_TIME = 0.6;
 
     public int PAUSE_MENU, HOWTOPLAY_MENU, QUIT_MENU;
@@ -409,12 +409,12 @@ namespace GoopScripts.Gameplay
           
           if (m_currentLevel == 4)
           {
-            File.Copy(GAME_DATA_DIR + "DefaultStats.sav", GAME_DATA_DIR + "PlayerStats.sav", true);
+            SerialReader.GenerateDefaultSave();
             Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Victory");
           }
           else
           {
-            SerialReader.SavePlayerState(ref m_playerStats, m_currentLevel, GAME_DATA_DIR + "PlayerStats.sav");
+            SerialReader.SavePlayerState(ref m_playerStats, m_currentLevel);
             Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "Reward");
           }
         }
@@ -527,7 +527,7 @@ namespace GoopScripts.Gameplay
     void LoadGame(string filePath)
     {
       // Load player and enemy stats
-      PlayerStatsInfo playerStats = Serialization.SerialReader.LoadPlayerState(filePath);
+      PlayerStatsInfo playerStats = Serialization.SerialReader.LoadPlayerState();
       LoadPlayer(playerStats);
 
       m_currentLevel = playerStats.levelToLoad;

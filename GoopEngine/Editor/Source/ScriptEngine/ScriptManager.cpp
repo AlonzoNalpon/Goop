@@ -192,6 +192,7 @@ void GE::MONO::ScriptManager::AddInternalCalls()
   mono_add_internal_call("GoopScripts.Mono.Utils::GetWorldPosition", GE::MONO::GetWorldPosition);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetRotation", GE::MONO::GetRotation);
   mono_add_internal_call("GoopScripts.Mono.Utils::GetScale", GE::MONO::GetScale);
+  mono_add_internal_call("GoopScripts.Mono.Utils::GetConfigData", GE::MONO::GetConfigData);
 
   // Set Functions
   mono_add_internal_call("GoopScripts.Mono.Utils::SetPosition", GE::MONO::SetPosition);
@@ -238,7 +239,7 @@ void GE::MONO::ScriptManager::AddInternalCalls()
   // magic
   mono_add_internal_call("GoopScripts.Mono.Utils::TransitionToScene", +[](MonoString* scene) { GE::GSM::GameStateManager::GetInstance().SetNextScene(MonoStringToSTD(scene)); });
   mono_add_internal_call("GoopScripts.Mono.Utils::GetFPS", +[](MonoString* scene) { return GE::FPS::FrameRateController::GetInstance().GetFPS(); });
-
+  
   // Game UI Stuff
   mono_add_internal_call("GoopScripts.Mono.Utils::GetLoseFocus", GE::MONO::GetLoseFocus);
   mono_add_internal_call("GoopScripts.Mono.Utils::SetLoseFocus", GE::MONO::SetLoseFocus);
@@ -1434,7 +1435,6 @@ void GE::MONO::DispatchQuitEvent()
 void GE::MONO::PlaySingleParticle(GE::ECS::Entity emitterEntityID)
 {
   static auto& ecs = GE::ECS::EntityComponentSystem::GetInstance();
-
   auto em = ecs.GetComponent<GE::Component::Emitter>(emitterEntityID);
   if (em)
   {
@@ -1442,4 +1442,9 @@ void GE::MONO::PlaySingleParticle(GE::ECS::Entity emitterEntityID)
     em->m_particleLifeCount = 1;
     em->m_playing = true;
   }
+}
+
+MonoString* GE::MONO::GetConfigData(MonoString* key)
+{
+  return STDToMonoString(GE::Assets::AssetManager::GetInstance().GetConfigData<std::string>(MonoStringToSTD(key)));
 }

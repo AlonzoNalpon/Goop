@@ -388,7 +388,7 @@ namespace GoopScripts.Gameplay
 
     void LoadGame(string filePath)
     {
-      PlayerStatsInfo playerStats = Serialization.SerialReader.LoadPlayerState(filePath);
+      PlayerStatsInfo playerStats = Serialization.SerialReader.LoadPlayerState(true);
       LoadPlayer(playerStats);
 
       string levelFile = GAME_DATA_DIR + "/Tutorial.dat";

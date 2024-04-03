@@ -41,9 +41,9 @@ namespace GoopScripts.Button
     public void OnCreate()
     {
       uint hover = Utils.SpawnPrefab("CardHover", new Vec3<double>(0.0, 0.0, 5.0));
-      var statsInfo = Serialization.SerialReader.LoadPlayerState(playerSavePath);
+      var statsInfo = Serialization.SerialReader.LoadPlayerState();
       int m_levelToLoad = statsInfo.levelToLoad;
-      Serialization.SerialReader.IncrementLevel("./Assets/GameData/PlayerStats.sav");
+      Serialization.SerialReader.IncrementLevel();
       Utils.SetIsActiveEntity(hover, false);
       RewardCard.m_cardHover = (uint)hover;
       if (m_levelToLoad <= 0) // tutorial
@@ -115,7 +115,7 @@ namespace GoopScripts.Button
       {
         selectedCards.Add(m_generatedPool[Array.IndexOf(m_cardEntities, e)]);
       }
-      Serialization.SerialReader.AddCardsToDeck(selectedCards, "./Assets/GameData/PlayerStats.sav");
+      Serialization.SerialReader.AddCardsToDeck(selectedCards);
     }
 
     static public bool IsFull()
