@@ -10,12 +10,17 @@ Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #ifndef GRAPHICS_TYPES_H
 #define GRAPHICS_TYPES_H
+#include <stdio.h>
+#include "conio.h"
+#include <windows.h>
+
 #include <Def.h>
 #include <type_traits>
 #include <bit>
 #include <vector>
 #include <initializer_list>
 #include <glm.hpp>
+
 namespace GE::Graphics {
 // Minimize this region if you want to see the instances below templates
 #pragma region TEMPLATES
@@ -216,5 +221,53 @@ namespace GE::Graphics {
     return { mult*clr.r, mult*clr.g, mult*clr.b, mult*clr.a};
   }
 }
+
+#ifdef _DEBUG
+#ifndef SPRITE_MANIFEST
+#define SPRITE_MANIFEST
+//#include <stdafx.h>
+
+
+struct SpriteManifest
+{
+  std::set<std::string> usedSprites;
+  std::set<std::string> totalSprites;
+  ~SpriteManifest()
+  {
+    std::set<std::string> result;
+    std::set_difference(totalSprites.begin(), totalSprites.end(), usedSprites.begin(), usedSprites.end(), std::inserter(result, result.begin()));
+    size_t numFiles{};
+    for (auto const& curr : usedSprites)
+      std::cout << "FILE " << ++numFiles << ": " << curr << std::endl;
+    numFiles = 0ull;
+
+    HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
+    WORD wOldColorAttrs;
+    CONSOLE_SCREEN_BUFFER_INFO csbiInfo;
+
+    /*
+     * First save the current color information
+     */
+    GetConsoleScreenBufferInfo(h, &csbiInfo);
+    wOldColorAttrs = csbiInfo.wAttributes;
+    /*
+   * Set the new color information
+   */
+    SetConsoleTextAttribute(h, FOREGROUND_RED | FOREGROUND_INTENSITY);
+
+    std::cout << "=======================================" << std::endl;
+    std::cout << "UNUSED ASSETS SO FAR: " << std::endl;
+    for (auto const& curr : result)
+      std::cout << " - FILE " << ++numFiles << ": " << curr << std::endl;
+
+    /*
+   * Restore the original colors
+   */
+    SetConsoleTextAttribute(h, wOldColorAttrs);
+  }
+};
+extern SpriteManifest g_manifest;
+#endif
+#endif
 
 #endif
