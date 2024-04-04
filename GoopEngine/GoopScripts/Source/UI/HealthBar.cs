@@ -180,7 +180,7 @@ namespace GoopScripts.UI
 
     public bool AnimatedHeal(int amount, double time)
     {
-      if (m_health == m_maxHealth)
+      if (amount == 0)
       {
         return false;
       }
