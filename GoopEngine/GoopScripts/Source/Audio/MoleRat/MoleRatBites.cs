@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace GoopScripts.Gameplay
 {
-  internal class MoleRatBite : IAnimationEvent
+  internal class MoleRatBites : IAnimationEvent
   {
     public int startRange, endRange;
     public void PlayEvent(uint entity)

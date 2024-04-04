@@ -1,7 +1,7 @@
 {
     "Name": "MoleRat",
     "isActive": true,
-    "Version": 8,
+    "Version": 9,
     "Components": [
         {
             "Transform": {
@@ -225,7 +225,7 @@
                         ]
                     },
                     {
-                        "scriptName": "MoleRatBite",
+                        "scriptName": "MoleRatBites",
                         "entityID": 0,
                         "scriptFieldInstList": [
                             {
