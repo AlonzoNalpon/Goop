@@ -171,6 +171,15 @@
         "flags": 0
     },
     {
+        "id": "SS_Leah_SmokeScreen",
+        "filePath": "SS_Leah_SmokeScreen",
+        "slices": 3,
+        "stacks": 4,
+        "frames": 12,
+        "speed": 0.1,
+        "flags": 0
+    },
+    {
         "id": "SS_MineWorm_Dash",
         "filePath": "SS_MineWorm_Dash",
         "slices": 3,

@@ -192,6 +192,23 @@
         ]
     },
     {
+        "key": "LeahSmokeScreen",
+        "value": [
+            {
+                "key": 0,
+                "value": [
+                    ""
+                ]
+            },
+            {
+                "key": 7,
+                "value": [
+                    "LeahSmokeScreen"
+                ]
+            }
+        ]
+    },
+    {
         "key": "MineWormDeath",
         "value": [
             {
