@@ -39,6 +39,7 @@ namespace GoopScripts.Button
       m_cardInstance = Utils.GetEntityName(Utils.GetParentEntity(entity)) + "_Hover";
       Vec3<double> pos = Utils.GetWorldPosition(entity);
       pos.X += X_OFFSET;
+      pos.Z = 15.0;
       Utils.SpawnPrefab(m_cardInstance, pos);
       m_isHovering = true;
     }
@@ -56,6 +57,7 @@ namespace GoopScripts.Button
       m_cardInstance = Utils.GetEntityName(entity) + "_Hover";
       Vec3<double> pos = Utils.GetWorldPosition(entity);
       pos.X -=  X_OFFSET;
+      pos.Z = 15.0;
       Utils.SpawnPrefab(m_cardInstance, pos);
       m_isHovering = true;
     }

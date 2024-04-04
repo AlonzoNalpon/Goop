@@ -13,11 +13,12 @@ Hovering over the icons will display text to show the type of buff.
 The turn ends once all cards and combos are resolved.
 
 Pausing:
-Pausing the game stops the audio as per rubric, but we also have audio controls in the options menu which now serve no purpose
+Pausing the game pauses the game scene.
 
 Controls:
 On the editor/engine, Pressing "G" when viewport is focused will hide the editor.
 "F11" on both gameplay and editor can toggle fullscreen modes
+"P" in-game will trigger the FPS counter on and off.
 
 Cheats (in game scene):
 Pressing "U" will reduce the enemy's health by 1.
@@ -25,12 +26,6 @@ Pressing "I" will heal the player's health by 1.
 Pressing "O" will draw an additional card (note that max hand size is 5)
 
 Known bugs:
-Pressing hotkeys like "Esc" and "U" during the game sometimes do not detect the input, due to C# running on a seperate thread. (Help)
-Environment effects sometimes vanishes
-Load Game will not work if "New Game" has not been clicked before as we have not fully implemented this feature.
-	It is recommended to go through the normal flow by clicking New Game first
-	Load will only work once you get past the tutorial.
-Hovering over the icon in How To Play screen will cause the screen to flash. We did not fix this for submission.
 [EDITOR ONLY] 
 If you were to declare a new public data member without defining it and hot reload, the inspector will crash when it tries to read that data member
 
