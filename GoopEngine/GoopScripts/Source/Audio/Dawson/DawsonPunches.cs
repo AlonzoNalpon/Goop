@@ -18,7 +18,7 @@ namespace GoopScripts.Source.Audio.Dawson
   {
     public void PlayEvent(uint entity)
     {
-      Utils.PlaySoundF("LightSaber", 0.7f, Utils.ChannelType.SFX, false);
+      Utils.PlaySoundF("SFX_Dawson_Punch", 0.7f, Utils.ChannelType.SFX, false);
     }
   }
 }
