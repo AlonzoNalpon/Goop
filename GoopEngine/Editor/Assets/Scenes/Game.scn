@@ -274,6 +274,11 @@
                                     }
                                 }
                             ]
+                        },
+                        {
+                            "scriptName": "LeahSmokeScreen",
+                            "entityID": 0,
+                            "scriptFieldInstList": []
                         }
                     ]
                 }
@@ -486,6 +491,10 @@
                         {
                             "first": 21,
                             "second": "LeahFlinches"
+                        },
+                        {
+                            "first": 24,
+                            "second": "LeahSmokeScreen"
                         }
                     ]
                 }
@@ -4219,7 +4228,7 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -307.537, -269.134, 4.71445e-12 }",
+                    "pos": "{ -307.537, -269.134, 2.97717e-12 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -419.265, 137.337, 20 }",
@@ -5297,7 +5306,7 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -307.537, -269.134, 4.71445e-12 }",
+                    "pos": "{ -307.537, -269.134, 2.97717e-12 }",
                     "scale": "{ 1, 1, 1.81818 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 319.853, 137.337, 20 }",

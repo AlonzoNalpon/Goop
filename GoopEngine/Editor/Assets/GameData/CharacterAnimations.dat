@@ -3,7 +3,7 @@ LEAH_BEAM, SS_Leah_Attack
 LEAH_STRIKE, SS_Leah_EmpoweredPunch
 LEAH_SHIELD, SS_Leah_BlockShield
 SPECIAL_FLASHBANG, SS_Leah_FlashBang
-SPECIAL_SMOKESCREEN, SS_Leah_FlashBang
+SPECIAL_SMOKESCREEN, SS_Leah_SmokeScreen
 SPECIAL_RAGE, SS_Leah_Rage
 
 MOLE_RAT

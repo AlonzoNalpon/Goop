@@ -1,7 +1,7 @@
 {
     "Name": "Dawson",
     "isActive": true,
-    "Version": 26,
+    "Version": 27,
     "Components": [
         {
             "Transform": {
@@ -344,84 +344,84 @@
                         "sound": "SFX_Dawson_Death_1",
                         "loop": false,
                         "playOnStart": false,
-                        "channel": "SFX",
+                        "channel": "VOICE",
                         "volume": 1.0
                     },
                     {
                         "sound": "SFX_Dawson_Death_2",
                         "loop": false,
                         "playOnStart": false,
-                        "channel": "SFX",
+                        "channel": "VOICE",
                         "volume": 1.0
                     },
                     {
                         "sound": "SFX_Dawson_Death_3",
                         "loop": false,
                         "playOnStart": false,
-                        "channel": "SFX",
+                        "channel": "VOICE",
                         "volume": 1.0
                     },
                     {
                         "sound": "SFX_Dawson_Death_4",
                         "loop": false,
                         "playOnStart": false,
-                        "channel": "SFX",
+                        "channel": "VOICE",
                         "volume": 1.0
                     },
                     {
                         "sound": "SFX_Dawson_ChargeUp_1",
                         "loop": false,
                         "playOnStart": false,
-                        "channel": "SFX",
+                        "channel": "VOICE",
                         "volume": 1.0
                     },
                     {
                         "sound": "SFX_Dawson_ChargeUp_2",
                         "loop": false,
                         "playOnStart": false,
-                        "channel": "SFX",
+                        "channel": "VOICE",
                         "volume": 1.0
                     },
                     {
                         "sound": "SFX_Dawson_ChargeUp_3",
                         "loop": false,
                         "playOnStart": false,
-                        "channel": "SFX",
+                        "channel": "VOICE",
                         "volume": 1.0
                     },
                     {
                         "sound": "SFX_Dawson_ChargeUp_4",
                         "loop": false,
                         "playOnStart": false,
-                        "channel": "SFX",
+                        "channel": "VOICE",
                         "volume": 1.0
                     },
                     {
                         "sound": "SFX_Dawson_Hurt_1",
                         "loop": false,
                         "playOnStart": false,
-                        "channel": "SFX",
+                        "channel": "VOICE",
                         "volume": 1.0
                     },
                     {
                         "sound": "SFX_Dawson_Hurt_2",
                         "loop": false,
                         "playOnStart": false,
-                        "channel": "SFX",
+                        "channel": "VOICE",
                         "volume": 1.0
                     },
                     {
                         "sound": "SFX_Dawson_Hurt_3",
                         "loop": false,
                         "playOnStart": false,
-                        "channel": "SFX",
+                        "channel": "VOICE",
                         "volume": 1.0
                     },
                     {
                         "sound": "SFX_Dawson_Hurt_4",
                         "loop": false,
                         "playOnStart": false,
-                        "channel": "SFX",
+                        "channel": "VOICE",
                         "volume": 1.0
                     },
                     {
@@ -435,105 +435,105 @@
                         "sound": "SFX_Dawson_Hurt_6",
                         "loop": false,
                         "playOnStart": false,
-                        "channel": "SFX",
+                        "channel": "VOICE",
                         "volume": 1.0
                     },
                     {
                         "sound": "SFX_Dawson_Hurt_7",
                         "loop": false,
                         "playOnStart": false,
-                        "channel": "SFX",
+                        "channel": "VOICE",
                         "volume": 1.0
                     },
                     {
                         "sound": "SFX_Dawson_Hurt_8",
                         "loop": false,
                         "playOnStart": false,
-                        "channel": "SFX",
+                        "channel": "VOICE",
                         "volume": 1.0
                     },
                     {
                         "sound": "SFX_Dawson_Hurt_9",
                         "loop": false,
                         "playOnStart": false,
-                        "channel": "SFX",
+                        "channel": "VOICE",
                         "volume": 1.0
                     },
                     {
                         "sound": "SFX_Dawson_Hurt_10",
                         "loop": false,
                         "playOnStart": false,
-                        "channel": "SFX",
+                        "channel": "VOICE",
                         "volume": 1.0
                     },
                     {
                         "sound": "VL_DawsonBoss_1",
                         "loop": false,
                         "playOnStart": false,
-                        "channel": "BGM",
+                        "channel": "VOICE",
                         "volume": 1.0
                     },
                     {
                         "sound": "VL_DawsonBoss_2",
                         "loop": false,
                         "playOnStart": false,
-                        "channel": "BGM",
+                        "channel": "VOICE",
                         "volume": 1.0
                     },
                     {
                         "sound": "VL_DawsonBoss_3",
                         "loop": false,
                         "playOnStart": false,
-                        "channel": "BGM",
+                        "channel": "VOICE",
                         "volume": 1.0
                     },
                     {
                         "sound": "VL_DawsonBoss_End",
                         "loop": false,
                         "playOnStart": false,
-                        "channel": "BGM",
+                        "channel": "VOICE",
                         "volume": 1.0
                     },
                     {
                         "sound": "VL_DawsonBoss_Start",
                         "loop": false,
                         "playOnStart": false,
-                        "channel": "BGM",
+                        "channel": "VOICE",
                         "volume": 1.0
                     },
                     {
                         "sound": "VL_DawsonMiniBoss_1",
                         "loop": false,
                         "playOnStart": false,
-                        "channel": "BGM",
+                        "channel": "VOICE",
                         "volume": 1.0
                     },
                     {
                         "sound": "VL_DawsonMiniBoss_2",
                         "loop": false,
                         "playOnStart": false,
-                        "channel": "BGM",
+                        "channel": "VOICE",
                         "volume": 1.0
                     },
                     {
                         "sound": "VL_DawsonMiniBoss_3",
                         "loop": false,
                         "playOnStart": false,
-                        "channel": "BGM",
+                        "channel": "VOICE",
                         "volume": 1.0
                     },
                     {
                         "sound": "VL_DawsonMiniBoss_End",
                         "loop": false,
                         "playOnStart": false,
-                        "channel": "BGM",
+                        "channel": "VOICE",
                         "volume": 1.0
                     },
                     {
                         "sound": "VL_DawsonMiniBoss_Start",
                         "loop": false,
                         "playOnStart": false,
-                        "channel": "BGM",
+                        "channel": "VOICE",
                         "volume": 1.0
                     }
                 ]
