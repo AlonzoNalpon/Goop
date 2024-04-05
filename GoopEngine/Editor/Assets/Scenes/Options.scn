@@ -214,7 +214,7 @@
                             }
                         }
                     },
-                    "spriteName": "Pause_Header2",
+                    "spriteName": "Pause_Header_Options",
                     "shouldRender": true
                 }
             }
