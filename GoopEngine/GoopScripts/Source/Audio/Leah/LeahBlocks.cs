@@ -1,7 +1,7 @@
 ﻿/*!*********************************************************************
 \file   LeahBlocks.cs
 \date   04-February-2024
-\brief  Script to play Leah shield sound
+\brief  Script to play SFX for Leah's Block card
 
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/

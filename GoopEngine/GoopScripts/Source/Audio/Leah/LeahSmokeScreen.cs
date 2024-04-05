@@ -1,9 +1,7 @@
 ﻿/*!*********************************************************************
-\file   LeahFlashBangs.cs
-\author w.chinkitbryan\@digipen.edu
+\file   LeahSmokeScreen.cs
 \date   04-March-2024
-\brief  
-	Script to play Leah smokescreen SFX
+\brief  Script to play Leah's smokescreen SFX
 
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/

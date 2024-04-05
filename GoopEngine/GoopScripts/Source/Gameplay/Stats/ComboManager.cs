@@ -2,10 +2,10 @@
 \file       ComboManager.cs
 \author     chengen.lau\@digipen.edu
 \co-author  c.phua\@digipen.edu
-\co-author  Han Qin Ding
+\co-author  han.q@digipen.edu
 \date       10-January-2024
 \brief  
-Resolves card combos and applied the effect to the respective characters.
+  Resolves card combos and applies the effect to the respective characters.
  
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
@@ -63,6 +63,18 @@ namespace GoopScripts.Gameplay
         new BuffCombo("Blind, +1 Atk", new List<Buff> { blind, atkUp }));
     }
 
+    /*!*********************************************************************
+		\brief
+		  Triggers a combo given the source, target and the index of the first
+      card of the combo in the queue. Looks up the 2 card types in the
+      dictionary for a combo. If no such combo exists, does nothing.
+    \param source
+      The source of the combo
+    \param target
+      The target of the combo
+    \param firstCardIndex
+      Index of the first card of the combo in the queue
+		************************************************************************/
     public static void Combo(ref Stats source, ref Stats target, int firstCardIndex)
     {
       CardBase.CardID card1 = source.m_deckMngr.m_queue[firstCardIndex].Item1,
@@ -72,7 +84,7 @@ namespace GoopScripts.Gameplay
       if (!m_comboList.TryGetValue(pair, out combo))
       {
 #if (DEBUG)
-       // Console.WriteLine("Combo does not exist! " + card1.ToString() + " + " + card2.ToString());
+        //Utils.SendString("Combo does not exist! " + card1.ToString() + " + " + card2.ToString());
 #endif
         return;
       }
@@ -85,7 +97,20 @@ namespace GoopScripts.Gameplay
       }
     }
 
-
+    /*!*********************************************************************
+		\brief
+		  Used by the AI's simulation to trigger a combo given the source,
+      target and the 2 card types. Behaves similarly to Combo(), except
+      it does not deal with UI elements.
+    \param source
+      The source of the combo
+    \param target
+      The target of the combo
+    \param c1
+      Type of the first card in the combo
+    \param c2
+      Type of the second card in the combo
+		************************************************************************/
     public static void PlayCombo(ref Stats source, ref Stats target, CardBase.CardType c1, CardBase.CardType c2)
     {
       ComboPair pair = new ComboPair(c1, c2);

@@ -161,12 +161,8 @@
     <Compile Include="Source\Cards\SpecialScreech.cs" />
     <Compile Include="Source\Cards\SpecialSmokeScreen.cs" />
     <Compile Include="Source\Cards\SpecialTimeWrap.cs" />
-    <Compile Include="Source\Demo\CrossFadeToBGM.cs" />
-    <Compile Include="Source\Demo\CrossFadeToGameBGM.cs" />
-    <Compile Include="Source\Demo\Demo.cs" />
-    <Compile Include="Source\Demo\LeahDemo.cs" />
-    <Compile Include="Source\Demo\PlayBGM.cs" />
-    <Compile Include="Source\Demo\StopBGM.cs" />
+    <Compile Include="Source\CrossFadeToBGM.cs" />
+    <Compile Include="Source\CrossFadeToGameBGM.cs" />
     <Compile Include="Source\Gameplay\HTP_Popup.cs" />
     <Compile Include="Source\Gameplay\Stats\AnimationManager.cs" />
     <Compile Include="Source\Gameplay\Stats\BuffManager.cs" />

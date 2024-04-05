@@ -1,5 +1,5 @@
 ﻿/*!*********************************************************************
-\file   HTP.cs
+\file   HTP_Popup.cs
 \author c.phua\@digipen.edu
 \date   15-March-2024
 \brief  Script for how to play screen with arrows to control the page.

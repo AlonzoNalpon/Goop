@@ -66,6 +66,9 @@ namespace GoopScripts.Gameplay
 		  Aligns the cards in the hand based on the width specified by
       PLAYER_HAND_WIDTH and CARD_WIDTH variables. The cards will start
       at the position specified by HAND_START_POS.
+      If the isTutorial flag is set to true, alignment values are different.
+    \param isTutorial
+      Whether the current level is the tutorial
 		************************************************************************/
     public void AlignHandCards(bool isTutorial = false)
     {
@@ -96,6 +99,16 @@ namespace GoopScripts.Gameplay
       }
     }
 
+    /*!*********************************************************************
+		\brief
+		  This function animates the cards in hand to make space for a new
+      card to be draw. Aligns the cards in the hand based on the width
+      specified by PLAYER_HAND_WIDTH and CARD_WIDTH variables. The cards
+      will start at the position specified by HAND_START_POS with an
+      offset of 1 card.
+    \return
+      The position the drawn card should move to
+		************************************************************************/
     public Vec3<double> AlignCardsForDraw()
     {
       double newCount = (double)(m_hand.Count + 1);
@@ -197,6 +210,11 @@ namespace GoopScripts.Gameplay
       }
     }
 
+    /*!*********************************************************************
+		\brief
+		  Function used by the AI's simulation to discard a character's queue.
+      Sends all cards in the queue to the discard pile.
+		************************************************************************/
     public void FakeDiscardQueue()
     {
       for (int i = 0; i < m_queue.Length; ++i)

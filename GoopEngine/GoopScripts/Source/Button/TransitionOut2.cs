@@ -1,4 +1,12 @@
-﻿using GoopScripts.Button;
+﻿/*!*********************************************************************
+\file   TransitionOut2.cs 
+\author w.chinkitbryan\@digipen.edu
+\date   09 March 2024
+\brief  Triggers the transition animation for a different scenario
+ 
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
+using GoopScripts.Button;
 using GoopScripts.Demo;
 using GoopScripts.Gameplay;
 using GoopScripts.Mono;

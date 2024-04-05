@@ -1,4 +1,13 @@
-﻿using GoopScripts.Gameplay;
+﻿/*!*********************************************************************
+\file   HTP_Back.cs
+\author c.phua\@digipen.edu
+\date   14-March-2024
+\brief  Inherits from the ArrowButton class to implement the back button
+        for the main menu's "How To Play" screen.
+
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
+using GoopScripts.Gameplay;
 using GoopScripts.Mono;
 using GoopScripts.Source.Button.Tutorial;
 using System;

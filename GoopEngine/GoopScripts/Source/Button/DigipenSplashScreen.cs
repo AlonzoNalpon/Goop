@@ -3,7 +3,7 @@
 \author w.chinkitbryan\@digipen.edu
 \date   09 March 2024
 \brief  
-  Digipen Splash Screen
+  Digipen Splash Screen that plays upon launching the game
  
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/

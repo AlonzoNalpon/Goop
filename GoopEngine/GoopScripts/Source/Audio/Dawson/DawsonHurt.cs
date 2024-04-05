@@ -1,7 +1,7 @@
 ﻿/*!*********************************************************************
-\file   DawsonDies.cs
+\file   DawsonHurt.cs
 \date   04-February-2024
-\brief  Script to play Dawson death sound
+\brief  Script to play SFX when Dawson takes damage
 
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/

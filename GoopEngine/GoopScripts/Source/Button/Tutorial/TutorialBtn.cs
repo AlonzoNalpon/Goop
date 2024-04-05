@@ -1,4 +1,13 @@
-﻿using GoopScripts.Mono;
+﻿/*!*********************************************************************
+\file   TutorialBtn.cs
+\author c.phua\@digipen.edu
+\date   14-March-2024
+\brief  Script for tutorial's end turn button behaviour. Functions
+				similar to the game scene's version.
+
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
+using GoopScripts.Mono;
 using System;
 using System.Collections.Generic;
 using System.Linq;
