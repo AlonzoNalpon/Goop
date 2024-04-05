@@ -14,13 +14,12 @@ using System.Threading.Tasks;
 
 namespace GoopScripts.Source.Audio.Dawson
 {
-  public class DawsonShoots
+  public class DawsonShoots : IAnimationEvent
   {
-    public int startRange, endRange;
-    Random rng = new Random();
+    public string soundName;
     public void PlayEvent(uint entity)
     {
-      Utils.PlaySoundF("DawsonFire", 1.0f, Utils.ChannelType.SFX, false);
+      Utils.PlaySoundF(soundName, 1.0f, Utils.ChannelType.SFX, false);
     }
   }
 }

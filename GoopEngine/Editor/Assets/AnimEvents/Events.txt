@@ -22,6 +22,17 @@
         ]
     },
     {
+        "key": "DawsonChargesUp",
+        "value": [
+            {
+                "key": 3,
+                "value": [
+                    "DawsonChargeUp"
+                ]
+            }
+        ]
+    },
+    {
         "key": "DawsonDies",
         "value": [
             {
@@ -50,7 +61,7 @@
             {
                 "key": 0,
                 "value": [
-                    "DawsonFlinches"
+                    "DawsonHurt"
                 ]
             }
         ]
@@ -174,7 +185,7 @@
             {
                 "key": 2,
                 "value": [
-                    "LeahFlinches"
+                    "LeahHurt"
                 ]
             }
         ]
@@ -215,6 +226,17 @@
                 "key": 1,
                 "value": [
                     "LeahDies"
+                ]
+            }
+        ]
+    },
+    {
+        "key": "MineWormFlinches",
+        "value": [
+            {
+                "key": 2,
+                "value": [
+                    "MineWormFlinches"
                 ]
             }
         ]
@@ -270,6 +292,17 @@
                 "key": 4,
                 "value": [
                     "MoleRatBlocks"
+                ]
+            }
+        ]
+    },
+    {
+        "key": "MoleRatFlinches",
+        "value": [
+            {
+                "key": 2,
+                "value": [
+                    "MoleRatFlinches"
                 ]
             }
         ]

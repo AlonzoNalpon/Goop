@@ -107,6 +107,7 @@ namespace GoopScripts.Source.Gameplay
     ************************************************************************/
     public void PlayFlinch()
     {
+      Utils.SendString("Played " + m_flinch);
       Utils.PlayAnimation(m_flinch, m_statsEntity);
       m_timeToHit = m_characterAnimTime[m_flinch];
       AnimationPlayed(true);

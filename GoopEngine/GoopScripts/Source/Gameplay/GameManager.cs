@@ -127,6 +127,7 @@ namespace GoopScripts.Gameplay
 
           if (m_playerStats.m_healthBar.AnimatedHeal((int)((m_playerStats.m_healthBar.m_maxHealth - m_playerStats.m_healthBar.m_health) * 0.5), HEAL_ANIM_TIME))
           {
+            Utils.SendString("Played custom for " + HEAL_ANIM_TIME);
             m_playerStats.m_animManager.PlayCustom(HEAL_ANIM_TIME);
           }
         }
@@ -177,10 +178,12 @@ namespace GoopScripts.Gameplay
           m_playerStats.Draw();
         }
 
+        m_playerStats.Update(deltaTime);
+        m_enemyStats.Update(deltaTime);
+        m_playerStats.m_healthBar.Update(deltaTime);
+
         if (isResolutionPhase)
         {
-          m_playerStats.Update(deltaTime);
-          m_enemyStats.Update(deltaTime);
           ResolutionPhase(deltaTime);
         }
         else if (isStartOfTurn)
@@ -189,15 +192,16 @@ namespace GoopScripts.Gameplay
           StartOfTurn();
         }
 
-        m_playerStats.m_healthBar.Update(deltaTime);
         if (isDrawingCard)
         {
           if (firstTurn)
           {
             firstTurn = false;
+            isDrawingCard = false;
           }
           else
           {
+            Utils.SendString("Drawing");
             m_playerDrawTimer += deltaTime;
 
             if (m_playerDrawTimer > PLAYER_DRAW_ANIM_TIME)
@@ -268,12 +272,15 @@ namespace GoopScripts.Gameplay
       // animation time. So our condition here would be the timer
 
       // only proceed if no animation is playing
+      Utils.SendString("Enter Resolution");
       if (m_playerStats.IsPlayingAnimation() || m_enemyStats.IsPlayingAnimation())
       {
+        Utils.SendString("Return from Resolution");
         return;
       }
       else if (m_playerSkipped)
       {
+        Utils.SendString("skipped");
         m_timer += deltaTime;
         if (m_timer >= SKIP_TURN_DELAY)
         {

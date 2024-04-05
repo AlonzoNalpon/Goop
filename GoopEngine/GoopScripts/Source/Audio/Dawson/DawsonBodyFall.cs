@@ -20,8 +20,6 @@ namespace GoopScripts.Gameplay
 		public int startRange, endRange;
 		public void PlayEvent(uint entity)
 		{
-      startRange = 0;
-      endRange = 0;
       Utils.PlayRandomSound(startRange, endRange, entity, 0.7f);
 		}
 	}

@@ -14,11 +14,11 @@ using System.Threading.Tasks;
 
 namespace GoopScripts.Gameplay
 {
-  internal class LeahAttacks : IAnimationEvent
+  public class LeahAttacks : IAnimationEvent
   {
     public void PlayEvent(uint entity)
     {
-      Utils.PlaySoundF("SFX_Beam", 0.7f, Utils.ChannelType.SFX, false);
+      Utils.PlaySoundF("SFX_Beam", 0.6f, Utils.ChannelType.SFX, false);
     }
   }
 }

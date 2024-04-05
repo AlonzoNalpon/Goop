@@ -1,7 +1,7 @@
 {
     "Name": "Dawson",
     "isActive": true,
-    "Version": 27,
+    "Version": 29,
     "Components": [
         {
             "Transform": {
@@ -204,17 +204,10 @@
                         "entityID": 0,
                         "scriptFieldInstList": [
                             {
-                                "data": 0,
-                                "type": "System.Int32",
+                                "data": "DawsonFire",
+                                "type": "System.String",
                                 "scriptField": {
-                                    "fieldName": "endRange"
-                                }
-                            },
-                            {
-                                "data": 2,
-                                "type": "System.Int32",
-                                "scriptField": {
-                                    "fieldName": "startRange"
+                                    "fieldName": "soundName"
                                 }
                             }
                         ]
@@ -222,7 +215,15 @@
                     {
                         "scriptName": "DawsonPunches",
                         "entityID": 0,
-                        "scriptFieldInstList": []
+                        "scriptFieldInstList": [
+                            {
+                                "data": "LightSaber",
+                                "type": "System.String",
+                                "scriptField": {
+                                    "fieldName": "soundName"
+                                }
+                            }
+                        ]
                     },
                     {
                         "scriptName": "DawsonShootParticle",
@@ -548,7 +549,7 @@
                     },
                     {
                         "first": 7,
-                        "second": "DawsonDiesWithShield"
+                        "second": "DawsonFlinches"
                     },
                     {
                         "first": 5,
@@ -560,11 +561,11 @@
                     },
                     {
                         "first": 6,
-                        "second": "LeahBlocks"
+                        "second": "DawsonDiesWithShield"
                     },
                     {
                         "first": 3,
-                        "second": "DawsonFlinches"
+                        "second": "DawsonChargesUp"
                     }
                 ]
             }

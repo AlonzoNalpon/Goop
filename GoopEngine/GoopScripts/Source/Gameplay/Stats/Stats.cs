@@ -530,9 +530,10 @@ namespace GoopScripts.Gameplay
 
     public void PlayDamagedAnimation(int damageReceived)
     {
+      Utils.SendString("Took " + damageReceived + " damage");
       if (damageReceived == 0)
       {
-        //m_animManager.PlayBlock();
+        m_animManager.PlayBlock();
       }
       else
       {

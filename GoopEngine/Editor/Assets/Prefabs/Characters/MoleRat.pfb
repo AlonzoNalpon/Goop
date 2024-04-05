@@ -1,7 +1,7 @@
 {
     "Name": "MoleRat",
     "isActive": true,
-    "Version": 9,
+    "Version": 10,
     "Components": [
         {
             "Transform": {
@@ -243,6 +243,19 @@
                                 }
                             }
                         ]
+                    },
+                    {
+                        "scriptName": "MoleRatFlinches",
+                        "entityID": 0,
+                        "scriptFieldInstList": [
+                            {
+                                "data": "SFX_Whack",
+                                "type": "System.String",
+                                "scriptField": {
+                                    "fieldName": "soundName"
+                                }
+                            }
+                        ]
                     }
                 ]
             }
@@ -397,7 +410,7 @@
                     },
                     {
                         "first": 32,
-                        "second": "LeahDies"
+                        "second": "MoleRatFlinches"
                     },
                     {
                         "first": 31,
