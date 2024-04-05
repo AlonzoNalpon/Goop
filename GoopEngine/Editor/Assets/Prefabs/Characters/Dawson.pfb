@@ -1,16 +1,16 @@
 {
     "Name": "Dawson",
     "isActive": true,
-    "Version": 33,
+    "Version": 35,
     "Components": [
         {
             "Transform": {
                 "pos": "{ 0, 0, 0 }",
-                "scale": "{ 1, 1, 1 }",
-                "rot": "{ 0, 0, 0 }",
+                "scale": "{ 0.94, 0.94, 0.94 }",
+                "rot": "{ 0, -0, 0 }",
                 "worldPos": "{ 0, 0, 0 }",
-                "worldScale": "{ 1, 1, 1 }",
-                "worldRot": "{ 0, 0, 0 }"
+                "worldScale": "{ 0.94, 0.94, 0.94 }",
+                "worldRot": "{ 0, -0, 0 }"
             }
         },
         {
@@ -211,7 +211,7 @@
                                 }
                             },
                             {
-                                "data": 0,
+                                "data": 2,
                                 "type": "System.Int32",
                                 "scriptField": {
                                     "fieldName": "startRange"
@@ -340,14 +340,14 @@
                         "volume": 1.0
                     },
                     {
-                        "sound": "SFX_BodyFallDawson1",
+                        "sound": "SFX_Dawson_Death_1",
                         "loop": false,
                         "playOnStart": false,
                         "channel": "SFX",
                         "volume": 1.0
                     },
                     {
-                        "sound": "SFX_BodyFallDawson2",
+                        "sound": "SFX_Dawson_Death_1",
                         "loop": false,
                         "playOnStart": false,
                         "channel": "SFX",
