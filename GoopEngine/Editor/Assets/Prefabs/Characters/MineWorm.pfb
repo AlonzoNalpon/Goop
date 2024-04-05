@@ -1,7 +1,7 @@
 {
     "Name": "MineWorm",
     "isActive": true,
-    "Version": 15,
+    "Version": 16,
     "Components": [
         {
             "Transform": {
@@ -374,7 +374,7 @@
             "AnimEvents": {
                 "eventList": [
                     {
-                        "first": 25,
+                        "first": 26,
                         "second": "LeahDies"
                     },
                     {

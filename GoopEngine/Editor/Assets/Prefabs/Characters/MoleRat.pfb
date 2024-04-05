@@ -1,7 +1,7 @@
 {
     "Name": "MoleRat",
     "isActive": true,
-    "Version": 8,
+    "Version": 9,
     "Components": [
         {
             "Transform": {
@@ -393,15 +393,19 @@
                     },
                     {
                         "first": 30,
-                        "second": "LeahDies"
+                        "second": "MoleRatBlocks"
                     },
                     {
                         "first": 32,
-                        "second": "MoleRatScreeches"
+                        "second": "LeahDies"
                     },
                     {
-                        "first": 29,
-                        "second": "MoleRatBlocks"
+                        "first": 31,
+                        "second": "LeahDies"
+                    },
+                    {
+                        "first": 33,
+                        "second": "MoleRatScreeches"
                     }
                 ]
             }
