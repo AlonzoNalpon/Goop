@@ -1,4 +1,13 @@
-﻿using GoopScripts.Gameplay;
+﻿/*!*********************************************************************
+\file   ContinueTutorial.cs
+\author c.phua\@digipen.edu
+\date   14-March-2024
+\brief  Script to continue with the tutorial from the "Skip Tutorial"
+        prompt.
+
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
+using GoopScripts.Gameplay;
 using GoopScripts.Mono;
 using System;
 using System.Collections.Generic;

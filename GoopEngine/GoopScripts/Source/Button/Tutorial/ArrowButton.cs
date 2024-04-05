@@ -1,4 +1,14 @@
-﻿using GoopScripts.Button;
+﻿/*!*********************************************************************
+\file   ArrowButton.cs
+\author c.phua\@digipen.edu
+\date   14-March-2024
+\brief  Definition of the ArrowButton class, which is inherited by
+				other classes to implement functionality for arrow buttons in
+				the game's UI.
+
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
+using GoopScripts.Button;
 using GoopScripts.Mono;
 using System;
 using System.Collections.Generic;

@@ -1,7 +1,7 @@
 ﻿/*!*********************************************************************
 \file   LeahDies.cs
 \date   04-February-2024
-\brief  Script to play Leah death SFX
+\brief  Script to play Leah's death SFX
 
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/

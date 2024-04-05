@@ -16,24 +16,24 @@ using static GoopScripts.Mono.Utils;
 
 namespace GoopScripts.Source.Gameplay
 {
-    internal class ComboPage : Entity
+  public class ComboPage : Entity
+  {
+    public void OnCreate()
     {
-        public void OnCreate()
-        {
-        }
-
-        public void OnUpdate(double deltaTime)
-        {
-
-            if (Utils.IsKeyHeld(Input.KeyCode.TAB))
-            {
-                Utils.SetIsActiveEntity(Utils.GetEntity("ComboList"), true);
-            }
-
-            if (Utils.IsKeyReleased(Input.KeyCode.TAB))
-            {
-                Utils.SetIsActiveEntity(Utils.GetEntity("ComboList"), false);
-            }
-        }
     }
+
+    public void OnUpdate(double deltaTime)
+    {
+
+      if (Utils.IsKeyHeld(Input.KeyCode.TAB))
+      {
+          Utils.SetIsActiveEntity(Utils.GetEntity("ComboList"), true);
+      }
+
+      if (Utils.IsKeyReleased(Input.KeyCode.TAB))
+      {
+          Utils.SetIsActiveEntity(Utils.GetEntity("ComboList"), false);
+      }
+    }
+  }
 }

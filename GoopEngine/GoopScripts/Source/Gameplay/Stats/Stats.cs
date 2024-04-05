@@ -85,6 +85,10 @@ namespace GoopScripts.Gameplay
       Utils.SetTextComponent(m_comboUI[1], "");
     }
 
+    /*!*********************************************************************
+    \brief
+      OnCreate function for the characters used by the AI's simulation.
+    ************************************************************************/
     public void FakeOnCreate()
     {
       m_buffsDisplay = 0;
@@ -95,7 +99,7 @@ namespace GoopScripts.Gameplay
 
     /*!*********************************************************************
     \brief  
-      Initialises character's hand with the correct number of cards
+      Initializes character's hand with the correct number of cards
     ************************************************************************/
     public void Init()
     {
@@ -105,6 +109,11 @@ namespace GoopScripts.Gameplay
       }
     }
 
+    /*!*********************************************************************
+    \brief  
+      Update function for the class. Takes in the deltaTime from GameManager
+      and updates the relevant members with it.
+    ************************************************************************/
     public void Update(double dt)
     {
       m_animManager.Update(dt);
@@ -164,7 +173,8 @@ namespace GoopScripts.Gameplay
       Total damage taken BEFORE buffs and debuffs.
     \param queueIndex
       The current index of the queue being resolved
-    \param the calculated damage taken
+    \return
+      The calculated damage taken
     ************************************************************************/
     public int TakeDamage(float damage, int queueIndex)
 		{
@@ -199,6 +209,18 @@ namespace GoopScripts.Gameplay
       return damageTaken;
     }
 
+    /*!*********************************************************************
+    \brief  
+      Used by the AI's simulation to calculate the total damage taken
+      and apply it to the character's stats.
+    Takes into account for buffs and debuffs.
+    \param damage
+      Total damage taken BEFORE buffs and debuffs.
+    \param queueIndex
+      The current index of the queue being resolved
+    \return
+      The calculated damage taken
+    ************************************************************************/
     public int FakeTakeDamage(float damage)
     {
       if (damage == 0.0f)
@@ -304,6 +326,10 @@ namespace GoopScripts.Gameplay
       m_buffs.UpdateBuffsUI();
     }
 
+    /*!*********************************************************************
+    \brief
+      Called by the AI's simulation to reset values at the end of the turn.
+    ************************************************************************/
     public void FakeEndOfTurn()
     {
       m_deckMngr.FakeDiscardQueue();
@@ -336,6 +362,14 @@ namespace GoopScripts.Gameplay
       }
     }
 
+    /*!*********************************************************************
+    \brief
+      Draw function for the player. Sets up a tween animation of the card
+      being drawn from the deck. The cards in the hand are first aligned
+      and shifted to the right before the animation is played.
+    \param playSound
+      If true, plays the draw SFX
+    ************************************************************************/
     public void PlayerDraw(bool playSound = true)
     {
       if (m_deckMngr.IsHandFull())
@@ -356,7 +390,6 @@ namespace GoopScripts.Gameplay
       Utils.AddTweenKeyFrame(pfbInst, "Draw", frame2Pos, new Vec3<double>(1.0, 1.0, 1.0), new Vec3<double>(), 0.15);
       Utils.AddTweenKeyFrame(pfbInst, "Draw", cardPos, new Vec3<double>(1.0, 1.0, 1.0), new Vec3<double>(), 0.15);
       Utils.PlayTransformAnimation(pfbInst, "Draw");
-      //m_deckMngr.AlignHandCards();
 
       if (playSound)
       {
@@ -364,6 +397,10 @@ namespace GoopScripts.Gameplay
       }
 }
 
+    /*!*********************************************************************
+    \brief
+      Draw function used by the AI's simulation
+    ************************************************************************/
     public void FakeDraw()
     {
       int idx = m_deckMngr.Draw();
@@ -445,6 +482,12 @@ namespace GoopScripts.Gameplay
       }
     }
 
+    /*!*********************************************************************
+     \brief
+       Adds a card from hand to the queue given the Card's CardID enum.
+     \param c
+       The CardID of the card
+   ************************************************************************/
     public void QueueCardByCardID(CardBase.CardID c)
     {
       
@@ -528,6 +571,14 @@ namespace GoopScripts.Gameplay
       m_animManager.PlayAnimation(card);
     }
 
+    /*!*********************************************************************
+    \brief
+      Plays the relevant flinch animation based on the damage received.
+      The default flinch animation will be played unless no damage is
+      received, in which the block animation will be played instead.
+    \param damageReceived
+      The damage received for this action
+    ************************************************************************/
     public void PlayDamagedAnimation(int damageReceived)
     {
       Utils.SendString("Took " + damageReceived + " damage");
@@ -541,6 +592,12 @@ namespace GoopScripts.Gameplay
       }
     }
 
+    /*!*********************************************************************
+    \brief
+      Checks if an animation by this character is currently being played
+    \return
+      True if an animation is playing and false otherwise
+    ************************************************************************/
     public bool IsPlayingAnimation()
     {
       return m_animManager.IsPlayingAnimation();
@@ -570,6 +627,12 @@ namespace GoopScripts.Gameplay
       }
     }
 
+    /*!*********************************************************************
+    \brief
+      Checks if the if the player's turn should be skipped
+    \return
+      True if the player has the SKIP_TURN debuff and false otherwise
+    ************************************************************************/
     public bool IsTurnSkipped()
     {
       return m_buffs.Buffs.Any(buff => buff.type == Buff.BuffType.SKIP_TURN);

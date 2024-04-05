@@ -1,7 +1,7 @@
 ﻿/*!*********************************************************************
 \file   LeahFlashBangs.cs
 \date   04-February-2024
-\brief  Script to play Leah flash bang SFX
+\brief  Script to play Leah's flash bang SFX
 
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/

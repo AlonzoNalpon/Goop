@@ -1,7 +1,7 @@
 ﻿/*!*********************************************************************
 \file   MoleRatBlocks.cs
 \date   04-February-2024
-\brief  Script to play mole rat block sound
+\brief  Script to play Mole Rat's block SFX
 
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/

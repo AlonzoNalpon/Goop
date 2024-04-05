@@ -1,7 +1,7 @@
 ﻿/*!*********************************************************************
-\file   DawsonDies.cs
+\file   DawsonChargeUp.cs
 \date   04-February-2024
-\brief  Script to play Dawson death sound
+\brief  Script to play SFX for Dawson's Charge Up card
 
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/

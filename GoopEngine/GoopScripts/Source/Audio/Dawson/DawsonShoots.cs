@@ -1,7 +1,7 @@
 ﻿/*!*********************************************************************
 \file   DawsonShoots.cs
 \date   04-February-2024
-\brief  Script to play Dawson shoot sound
+\brief  Script to play Dawson's shoot sound
 
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/

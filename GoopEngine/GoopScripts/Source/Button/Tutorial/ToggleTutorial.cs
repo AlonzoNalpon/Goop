@@ -1,4 +1,12 @@
-﻿using GoopScripts.Mono;
+﻿/*!*********************************************************************
+\file   ToggleTutorial.cs
+\author c.phua\@digipen.edu
+\date   14-March-2024
+\brief  Script for arrow button to trigger the next step in tutorial.
+
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
+using GoopScripts.Mono;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,7 +1,7 @@
 ﻿/*!*********************************************************************
 \file   LeahAttacks.cs
 \date   04-February-2024
-\brief  Script to play Leah attack sound
+\brief  Script to play SFX for Leah's Strike card
 
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/

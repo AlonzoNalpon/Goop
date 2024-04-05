@@ -1,7 +1,7 @@
 ﻿/*!*********************************************************************
-\file   MoleRatBites.cs
+\file   MoleRatScreeches.cs
 \date   04-February-2024
-\brief  Script to play mole rat attack sound
+\brief  Script to play SFX for Mole Rat's Rage card
 
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/

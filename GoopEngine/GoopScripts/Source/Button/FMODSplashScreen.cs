@@ -1,4 +1,13 @@
-﻿using GoopScripts.Button;
+﻿/*!*********************************************************************
+\file   FMODSplashScreen.cs 
+\author w.chinkitbryan\@digipen.edu
+\date   09 March 2024
+\brief 
+  FMOD Splash Screen that plays upon launching the game
+ 
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
+using GoopScripts.Button;
 using GoopScripts.Mono;
 using System;
 using System.Collections.Generic;

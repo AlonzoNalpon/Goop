@@ -1,11 +1,12 @@
 ﻿/*!*********************************************************************
-\file   BuffManager.cs
-\author chengen.lau\@digipen.edu
-\co-author c.phua\@digipen.edu
-\co-author Han Qin Ding
-\date   10-January-2024
+\file       BuffManager.cs
+\author     chengen.lau\@digipen.edu
+\co-author  c.phua\@digipen.edu
+\co-author  han.q@digipen.edu
+\date       10-January-2024
 \brief  
-Keeps track of buffs and allows modification to list of buffs for the character.
+  Keeps track of buffs and allows modification to the list of buffs for
+  the character.
  
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
@@ -155,11 +156,25 @@ namespace GoopScripts.Gameplay
       m_buffIcons= new List<uint>();
     }
 
+    /*!*********************************************************************
+    \brief  
+      Sets the type of the buff manager. This field will be used to
+      determine which healthbar to add the buff icons to.
+    \param type
+      The type to set
+    ************************************************************************/
     public void SetType(CharacterType type)
     {
       m_characterType = type;
     }
 
+    /*!*********************************************************************
+    \brief  
+      Adds a buff to the list of active buffs. Also creates the buff icon
+      above the relevant healthbar
+    \param buff
+      The buff to add
+    ************************************************************************/
     public void AddBuff(Buff buff)
     {
       Buff newBuff = new Buff(buff);
@@ -178,12 +193,22 @@ namespace GoopScripts.Gameplay
       UpdateBuffsUI();
     }
 
-
+    /*!*********************************************************************
+    \brief  
+      Setter for the list of buffs held by the class
+    \param b
+      The list of buffs
+    ************************************************************************/
     public void SetBuff(List<Buff> b)
     {
       m_buffs = b;
     }
 
+    /*!*********************************************************************
+    \brief  
+      Decrements the turn count of each buff by 1, then removes any buffs
+      that has expired
+    ************************************************************************/
     public void StepTurn()
 		{
       foreach (var buff in m_buffs)
@@ -206,12 +231,22 @@ namespace GoopScripts.Gameplay
       m_buffs.RemoveAll(buff => buff.turns <= 0);
     }
 
+    /*!*********************************************************************
+    \brief  
+      Destroys a buff icon. This should be called after a buff expires.
+    \param iconID
+      The entity ID of the buff icon
+    ************************************************************************/
     public void DestroyBuffIcon(uint iconID)
     {
       Utils.DestroyEntity(iconID);
       m_buffIcons.Remove(iconID);
     }
 
+    /*!*********************************************************************
+    \brief  
+      Updates the UI of the buffs based on the number of existing buffs.
+    ************************************************************************/
     public void UpdateBuffsUI()
     {
       int modifier = (m_characterType == CharacterType.PLAYER) ? 1 : -1;

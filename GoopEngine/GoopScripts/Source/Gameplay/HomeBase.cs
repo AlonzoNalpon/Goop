@@ -3,7 +3,9 @@
 \author loh.j\@digipen.edu
 \date   15 March 2024
 \brief  
-  Scene manager for deck viewer
+  Script for the game's deck viewer screen, which displays the list
+  of cards in the player's deck as well as a map showing the player's
+  current level.
  
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
@@ -28,6 +30,11 @@ namespace GoopScripts.Gameplay
     public int[] CardIDs = new int[6];
     public int m_mapID;
 
+    /*!*********************************************************************
+    \brief
+      OnCreate function to set the map based on the current level of the
+      player.
+    ************************************************************************/
     public void OnCreate()
     {
       //Serialization.SerialReader.IncrementLevel("./Assets/GameData/PlayerStats.sav");
@@ -35,7 +42,6 @@ namespace GoopScripts.Gameplay
       statsInfo.SortDeck();
       m_levelToLoad = statsInfo.levelToLoad;
 
-      // Console.WriteLine("Current Level: " + m_levelToLoad);
       if (m_levelToLoad <= 0)
       {
         Utils.UpdateSprite((uint)m_mapID, "UI_Map_01");
@@ -67,21 +73,15 @@ namespace GoopScripts.Gameplay
       }
     }
 
+    /*!*********************************************************************
+    \brief
+      Returns the level to be loaded
+    \return
+      The level to load
+    ************************************************************************/
     static public int GetLevelToLoad()
     {
       return m_levelToLoad;
-    }
-
-    public void OnUpdate(double deltaTime)
-    {
-      if (Utils.IsKeyTriggered(Input.KeyCode.L))
-      {
-        if (m_levelToLoad < 5)
-        {
-          Serialization.SerialReader.IncrementLevel();
-          OnCreate();
-        }
-      }
     }
   }
 }

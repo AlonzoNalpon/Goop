@@ -30,9 +30,23 @@ namespace GoopScripts.Gameplay
 		  Function all combos should define. Based on the type of combo,
       different effects will be applied to either source, target or
       both.
+    \param source
+      The source of the combo
+    \param target
+      The target of the combo
 		************************************************************************/
     public abstract bool ApplyEffect(ref Stats source, ref Stats target);
 
+    /*!*********************************************************************
+    \brief
+      Function used in the AI's simulation to apply a buff effect to a
+      character. Behaves similarly to ApplyEffect, except no UI elements
+      are updated.
+    \param source
+      The source of the combo
+    \param target
+      The target of the combo
+   ************************************************************************/
     public abstract bool FakeApplyEffect(ref Stats source, ref Stats target);
 
     /*!*********************************************************************
@@ -66,6 +80,15 @@ namespace GoopScripts.Gameplay
       m_chance= chance;
     }
 
+    /*!*********************************************************************
+		\brief
+		  Applies a buff/debuff to the source/target at a chance based on
+      m_chance, which was passed into the constructor upon its creation.
+    \param source
+      The source of the combo
+    \param target
+      The target of the combo
+		************************************************************************/
     override public bool ApplyEffect(ref Stats source, ref Stats target)
     {
       if (m_chance <= 100 && !(m_rand.Next(0, 100) < m_chance))
@@ -88,7 +111,15 @@ namespace GoopScripts.Gameplay
       return true;
     }
 
-
+    /*!*********************************************************************
+		\brief
+		  Applies a buff/debuff to the source/target at a chance based on
+      m_chance, which was passed into the constructor upon its creation.
+    \param source
+      The source of the combo
+    \param target
+      The target of the combo
+		************************************************************************/
     override public bool FakeApplyEffect(ref Stats source, ref Stats target)
     {
       if (m_chance <= 100 && !(m_rand.Next(0, 100) < m_chance))
@@ -115,12 +146,29 @@ namespace GoopScripts.Gameplay
   public class DrawCombo : Combo
   {
     public DrawCombo(string name) : base(name) { }
+
+    /*!*********************************************************************
+		\brief
+		  Draws a card for the source character
+    \param source
+      The source of the combo
+    \param target
+      The target of the combo
+		************************************************************************/
     override public bool ApplyEffect(ref Stats source, ref Stats target)
     {
       source.Draw();
       return true;
     }
 
+    /*!*********************************************************************
+		\brief
+		  Draws a card for the source character
+    \param source
+      The source of the combo
+    \param target
+      The target of the combo
+		************************************************************************/
     override public bool FakeApplyEffect(ref Stats source, ref Stats target)
     {
       source.FakeDraw();

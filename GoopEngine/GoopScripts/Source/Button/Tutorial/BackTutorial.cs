@@ -1,4 +1,13 @@
-﻿using GoopScripts.Mono;
+﻿/*!*********************************************************************
+\file   BackTutorial.cs
+\author c.phua\@digipen.edu
+\date   14-March-2024
+\brief  Script for arrow button to return to the previous step in
+        tutorial.
+
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
+using GoopScripts.Mono;
 using System;
 using System.Collections.Generic;
 using System.Linq;

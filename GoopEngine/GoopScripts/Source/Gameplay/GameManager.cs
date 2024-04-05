@@ -589,7 +589,11 @@ namespace GoopScripts.Gameplay
       Utils.UpdateSprite(GetEntity("Enemy Portrait"), statsInfo.portrait);
     }
 
-		public void OnDestroy(uint entityid)
+    /*!*********************************************************************
+    \brief
+      Resets the pause state of the game when the game scene is destroyed
+    ************************************************************************/
+    public void OnDestroy(uint entityid)
 		{
       PauseManager.SetPauseState(0);
 		}

@@ -1,7 +1,7 @@
 ﻿/*!*********************************************************************
 \file   DawsonPunches.cs
 \date   04-February-2024
-\brief  Script to play Dawson punch sound
+\brief  Script to play Dawson's punch sound
 
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/

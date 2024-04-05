@@ -1,8 +1,8 @@
 ﻿/*!*********************************************************************
-\file   SelectCard.cs
-\author chengen.lau\@digipen.edu
-\date   27-January-2024
-\brief  Script for button events related to cards in the hand. Moves
+\file   TutorialSelectCard.cs
+\author c.phua\@digipen.edu
+\date   14-March-2024
+\brief  Tutorial script to handle card selection. Moves
         the selected card to the queue on click and triggers on hover
         events.
 
