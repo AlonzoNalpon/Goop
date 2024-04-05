@@ -340,7 +340,7 @@ namespace GoopScripts.Serialization
 0
 
 # Health, MaxHealth
-10, 10
+15, 15
 
 # Deck List
 LEAH_BEAM, 4
