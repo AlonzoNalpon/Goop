@@ -27,6 +27,7 @@ using GoopScripts.UI;
 using GoopScripts.Demo;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
+
 namespace GoopScripts.Gameplay
 {
   public class GameManager : Entity, IOnDestroy
@@ -35,6 +36,7 @@ namespace GoopScripts.Gameplay
     static readonly Vec3<double> ENEMY_POS = new Vec3<double>(336.318, 100.0, 0.0);
     static readonly string GAME_DATA_DIR = ".\\Assets\\GameData\\";
     static readonly double PLAYER_DRAW_ANIM_TIME = 0.6;
+    static readonly double HEAL_ANIM_TIME = 2.0;
 
     public int PAUSE_MENU, HOWTOPLAY_MENU, QUIT_MENU;
     public int P_QUEUE_HIGHLIGHT, E_QUEUE_HIGHLIGHT;
@@ -52,7 +54,7 @@ namespace GoopScripts.Gameplay
     //tools for resolving cards
     int m_slotToResolve = 0;
     double m_timer, m_playerDrawTimer;
-    bool m_playerSkipped = false;
+    bool m_playerSkipped = false, firstTurn = true;
     static bool isStartOfTurn = true;
     static bool gameStarted = false; // called once at the start of game
 
@@ -123,9 +125,9 @@ namespace GoopScripts.Gameplay
               }
           }
 
-          if (m_playerStats.m_healthBar.AnimatedHeal((int)((m_playerStats.m_healthBar.m_maxHealth - m_playerStats.m_healthBar.m_health) * 0.5), 2.0))
+          if (m_playerStats.m_healthBar.AnimatedHeal((int)((m_playerStats.m_healthBar.m_maxHealth - m_playerStats.m_healthBar.m_health) * 0.5), HEAL_ANIM_TIME))
           {
-            m_playerStats.m_animManager.PlayCustom(2.0);
+            m_playerStats.m_animManager.PlayCustom(HEAL_ANIM_TIME);
           }
         }
 
@@ -188,7 +190,7 @@ namespace GoopScripts.Gameplay
         }
 
         m_playerStats.m_healthBar.Update(deltaTime);
-        if (isDrawingCard)
+        if (!firstTurn && isDrawingCard)
         {
           m_playerDrawTimer += deltaTime;
 
