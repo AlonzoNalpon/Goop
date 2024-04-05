@@ -124,6 +124,17 @@
         ]
     },
     {
+        "key": "LeahBerserk",
+        "value": [
+            {
+                "key": 0,
+                "value": [
+                    "LeahBerserk"
+                ]
+            }
+        ]
+    },
+    {
         "key": "LeahBlocks",
         "value": [
             {

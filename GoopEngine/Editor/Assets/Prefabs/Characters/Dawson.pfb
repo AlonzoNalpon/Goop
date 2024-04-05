@@ -1,7 +1,7 @@
 {
     "Name": "Dawson",
     "isActive": true,
-    "Version": 29,
+    "Version": 33,
     "Components": [
         {
             "Transform": {
@@ -204,10 +204,17 @@
                         "entityID": 0,
                         "scriptFieldInstList": [
                             {
-                                "data": "DawsonFire",
-                                "type": "System.String",
+                                "data": 0,
+                                "type": "System.Int32",
                                 "scriptField": {
-                                    "fieldName": "soundName"
+                                    "fieldName": "endRange"
+                                }
+                            },
+                            {
+                                "data": 0,
+                                "type": "System.Int32",
+                                "scriptField": {
+                                    "fieldName": "startRange"
                                 }
                             }
                         ]
@@ -217,7 +224,7 @@
                         "entityID": 0,
                         "scriptFieldInstList": [
                             {
-                                "data": "LightSaber",
+                                "data": "DawsonFire",
                                 "type": "System.String",
                                 "scriptField": {
                                     "fieldName": "soundName"
@@ -294,6 +301,11 @@
                                 }
                             }
                         ]
+                    },
+                    {
+                        "scriptName": "LeahBlocks",
+                        "entityID": 0,
+                        "scriptFieldInstList": []
                     }
                 ]
             }
@@ -549,7 +561,7 @@
                     },
                     {
                         "first": 7,
-                        "second": "DawsonFlinches"
+                        "second": "DawsonDiesWithShield"
                     },
                     {
                         "first": 5,
@@ -561,10 +573,14 @@
                     },
                     {
                         "first": 6,
-                        "second": "DawsonDiesWithShield"
+                        "second": "LeahBlocks"
                     },
                     {
                         "first": 3,
+                        "second": "DawsonFlinches"
+                    },
+                    {
+                        "first": 1,
                         "second": "DawsonChargesUp"
                     }
                 ]
