@@ -23,6 +23,7 @@ namespace GoopScripts.UI
   {
     static readonly string HEAL_EMITTER_PREFAB = "HealEmitter";
     static readonly string HEALTH_BAR_GLOW_PREFAB = "HealthBarGlow";
+    static readonly double HEAL_ANIM_BUFFER = 0.25;  // buffer time to revert scale of healthbar after the animation
 
     bool m_isPlayer;
     public int m_healthBarUI;
@@ -185,6 +186,7 @@ namespace GoopScripts.UI
         return false;
       }
 
+      time -= HEAL_ANIM_BUFFER;
       m_targetHealth = m_health + amount;
       double multiplier = 0.5;
       Vec3<double> currPos = Utils.GetPosition(m_playerBarID);
@@ -215,7 +217,7 @@ namespace GoopScripts.UI
         emitterPos.X += (double)m_oneUnit * (double)(i + m_health) * 0.5 - (double)m_oneUnit;
         Utils.AddTweenKeyFrame(emitterInst, "Heal", emitterPos, new Vec3<double>(1.0, 1.0, 1.0), new Vec3<double>(), m_timeSlice * multiplier);
       }
-      Utils.AddTweenKeyFrame(m_playerBarID, "Heal", currPos, currScale, new Vec3<double>(), 0.5);
+      Utils.AddTweenKeyFrame(m_playerBarID, "Heal", currPos, currScale, new Vec3<double>(), HEAL_ANIM_BUFFER);
       Utils.AddTweenKeyFrame(m_playerBarID, "Heal", currPos, new Vec3<double>(1.0, 1.0, 1.0), new Vec3<double>(), 0.0, 1.0f, "ResetHealthBar");
 
       Utils.PlayTransformAnimation(m_playerBarID, "Heal");
