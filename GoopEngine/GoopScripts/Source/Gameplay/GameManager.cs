@@ -190,14 +190,21 @@ namespace GoopScripts.Gameplay
         }
 
         m_playerStats.m_healthBar.Update(deltaTime);
-        if (!firstTurn && isDrawingCard)
+        if (isDrawingCard)
         {
-          m_playerDrawTimer += deltaTime;
-
-          if (m_playerDrawTimer > PLAYER_DRAW_ANIM_TIME)
+          if (firstTurn)
           {
-            isDrawingCard = false;
-            m_playerDrawTimer = 0.0;
+            firstTurn = false;
+          }
+          else
+          {
+            m_playerDrawTimer += deltaTime;
+
+            if (m_playerDrawTimer > PLAYER_DRAW_ANIM_TIME)
+            {
+              isDrawingCard = false;
+              m_playerDrawTimer = 0.0;
+            }
           }
         }
 
