@@ -85,6 +85,7 @@
     <Compile Include="Source\Audio\Dawson\DawsonPunches.cs" />
     <Compile Include="Source\Audio\Dawson\DawsonShoots.cs" />
     <Compile Include="Source\Audio\Leah\LeahAttacks.cs" />
+    <Compile Include="Source\Audio\Leah\LeahBerserk.cs" />
     <Compile Include="Source\Audio\Leah\LeahBlocks.cs" />
     <Compile Include="Source\Audio\Leah\LeahBodyFall.cs" />
     <Compile Include="Source\Audio\Leah\LeahDies.cs" />
@@ -92,9 +93,11 @@
     <Compile Include="Source\Audio\Leah\LeahHurt.cs" />
     <Compile Include="Source\Audio\Leah\LeahShoots.cs" />
     <Compile Include="Source\Audio\Leah\LeahSmokeScreen.cs" />
+    <Compile Include="Source\Audio\MineWorm\MineWormFlinches.cs" />
     <Compile Include="Source\Audio\MineWorm\MineWormScratches.cs" />
     <Compile Include="Source\Audio\MoleRat\MoleRatBites.cs" />
     <Compile Include="Source\Audio\MoleRat\MoleRatBlocks.cs" />
+    <Compile Include="Source\Audio\MoleRat\MoleRatFlinches.cs" />
     <Compile Include="Source\Audio\MoleRat\MoleRatScreeches.cs" />
     <Compile Include="Source\Audio\StartMainMenuBGM.cs" />
     <Compile Include="Source\Audio\StopGameAudio.cs" />

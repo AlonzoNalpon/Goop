@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace GoopScripts.Source.Audio.MineWorm
 {
-  public class MineWormScratches
+  public class MineWormScratches : IAnimationEvent
   {
     public int startRange, endRange;
     public void PlayEvent(uint entity)

@@ -107,6 +107,7 @@ namespace GoopScripts.Source.Gameplay
     ************************************************************************/
     public void PlayFlinch()
     {
+      Utils.SendString("Played " + m_flinch);
       Utils.PlayAnimation(m_flinch, m_statsEntity);
       m_timeToHit = m_characterAnimTime[m_flinch];
       AnimationPlayed(true);
@@ -145,18 +146,6 @@ namespace GoopScripts.Source.Gameplay
     {
       Utils.PlayAnimation(m_deathShield, (uint)m_statsEntity);
       m_timeToHit = m_characterAnimTime[m_deathShield];
-      AnimationPlayed(false);
-    }
-
-    /*!*********************************************************************
-    \brief
-      This function is used to keep track of an external animation being
-      played. Uses the existing timer in the animation manager.
-      IsPlayingAnimation() should be called to determine when the time is up.
-    ************************************************************************/
-    public void PlayCustom(double animTime)
-    {
-      m_timeToHit = animTime;
       AnimationPlayed(false);
     }
 

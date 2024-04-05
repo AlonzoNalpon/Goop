@@ -1,7 +1,7 @@
 {
     "Name": "MineWorm",
     "isActive": true,
-    "Version": 15,
+    "Version": 20,
     "Components": [
         {
             "Transform": {
@@ -243,6 +243,19 @@
                                 }
                             }
                         ]
+                    },
+                    {
+                        "scriptName": "MineWormFlinches",
+                        "entityID": 0,
+                        "scriptFieldInstList": [
+                            {
+                                "data": "SFX_Whack",
+                                "type": "System.String",
+                                "scriptField": {
+                                    "fieldName": "soundName"
+                                }
+                            }
+                        ]
                     }
                 ]
             }
@@ -374,7 +387,7 @@
             "AnimEvents": {
                 "eventList": [
                     {
-                        "first": 25,
+                        "first": 26,
                         "second": "LeahDies"
                     },
                     {
@@ -387,6 +400,10 @@
                     },
                     {
                         "first": 27,
+                        "second": "MineWormFlinches"
+                    },
+                    {
+                        "first": 28,
                         "second": "MoleRatBlocks"
                     }
                 ]

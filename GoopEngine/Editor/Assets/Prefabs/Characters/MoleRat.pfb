@@ -1,7 +1,7 @@
 {
     "Name": "MoleRat",
     "isActive": true,
-    "Version": 9,
+    "Version": 10,
     "Components": [
         {
             "Transform": {
@@ -243,6 +243,19 @@
                                 }
                             }
                         ]
+                    },
+                    {
+                        "scriptName": "MoleRatFlinches",
+                        "entityID": 0,
+                        "scriptFieldInstList": [
+                            {
+                                "data": "SFX_Whack",
+                                "type": "System.String",
+                                "scriptField": {
+                                    "fieldName": "soundName"
+                                }
+                            }
+                        ]
                     }
                 ]
             }
@@ -393,15 +406,19 @@
                     },
                     {
                         "first": 30,
-                        "second": "LeahDies"
+                        "second": "MoleRatBlocks"
                     },
                     {
                         "first": 32,
-                        "second": "MoleRatScreeches"
+                        "second": "MoleRatFlinches"
                     },
                     {
-                        "first": 29,
-                        "second": "MoleRatBlocks"
+                        "first": 31,
+                        "second": "LeahDies"
+                    },
+                    {
+                        "first": 33,
+                        "second": "MoleRatScreeches"
                     }
                 ]
             }

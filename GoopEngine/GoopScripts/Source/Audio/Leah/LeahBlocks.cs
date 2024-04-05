@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace GoopScripts.Gameplay
 {
-  internal class LeahBlocks : IAnimationEvent
+  public class LeahBlocks : IAnimationEvent
   {
     public void PlayEvent(uint entity)
     {

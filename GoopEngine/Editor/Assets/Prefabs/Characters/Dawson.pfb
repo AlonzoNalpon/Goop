@@ -1,7 +1,7 @@
 {
     "Name": "Dawson",
     "isActive": true,
-    "Version": 27,
+    "Version": 33,
     "Components": [
         {
             "Transform": {
@@ -211,7 +211,7 @@
                                 }
                             },
                             {
-                                "data": 2,
+                                "data": 0,
                                 "type": "System.Int32",
                                 "scriptField": {
                                     "fieldName": "startRange"
@@ -222,7 +222,15 @@
                     {
                         "scriptName": "DawsonPunches",
                         "entityID": 0,
-                        "scriptFieldInstList": []
+                        "scriptFieldInstList": [
+                            {
+                                "data": "DawsonFire",
+                                "type": "System.String",
+                                "scriptField": {
+                                    "fieldName": "soundName"
+                                }
+                            }
+                        ]
                     },
                     {
                         "scriptName": "DawsonShootParticle",
@@ -293,6 +301,11 @@
                                 }
                             }
                         ]
+                    },
+                    {
+                        "scriptName": "LeahBlocks",
+                        "entityID": 0,
+                        "scriptFieldInstList": []
                     }
                 ]
             }
@@ -565,6 +578,10 @@
                     {
                         "first": 3,
                         "second": "DawsonFlinches"
+                    },
+                    {
+                        "first": 1,
+                        "second": "DawsonChargesUp"
                     }
                 ]
             }

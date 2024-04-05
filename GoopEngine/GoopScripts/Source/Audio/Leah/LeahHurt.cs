@@ -14,13 +14,12 @@ using System.Threading.Tasks;
 
 namespace GoopScripts.Gameplay
 {
-  internal class LeahHurt : IAnimationEvent
+  public class LeahHurt : IAnimationEvent
   {
     public int startRange, endRange;
     public void PlayEvent(uint entity)
     {
-      startRange = 0;
-      endRange = 0;
+      Utils.SendString("Played flinch sound");
       Utils.PlayRandomSound(startRange, endRange, entity, 0.75f);
     }
   }

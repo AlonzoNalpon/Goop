@@ -18,7 +18,7 @@ namespace GoopScripts.Gameplay
   {
     public void PlayEvent(uint entity)
     {
-      Utils.PlaySoundF("SFX_Block", 1.0f, Utils.ChannelType.SFX, false);
+      Utils.PlaySoundF("SFX_Block2", 1.0f, Utils.ChannelType.SFX, false);
     }
   }
 }

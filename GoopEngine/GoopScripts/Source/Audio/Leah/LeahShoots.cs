@@ -14,12 +14,12 @@ using System.Threading.Tasks;
 
 namespace GoopScripts.Gameplay
 {
-  public class LeahShoots : Entity, IAnimationEvent
+  public class LeahShoots : IAnimationEvent
   {
     public int startRange, endRange;
     public void PlayEvent(uint entity)
     {
-      Utils.PlayRandomSound(startRange, endRange, entity, 0.7f);
+      Utils.PlayRandomSound(startRange, endRange, entity, 0.6f);
     }
   }
 }

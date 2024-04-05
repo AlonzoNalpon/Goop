@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace GoopScripts.Source.Audio.Dawson
 {
-  public class DawsonHurt
+  public class DawsonHurt : IAnimationEvent
   {
     public int startRange, endRange;
     public void PlayEvent(uint entity)

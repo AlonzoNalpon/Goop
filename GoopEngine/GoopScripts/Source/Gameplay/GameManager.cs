@@ -125,10 +125,7 @@ namespace GoopScripts.Gameplay
               }
           }
 
-          if (m_playerStats.m_healthBar.AnimatedHeal((int)((m_playerStats.m_healthBar.m_maxHealth - m_playerStats.m_healthBar.m_health) * 0.5), HEAL_ANIM_TIME))
-          {
-            m_playerStats.m_animManager.PlayCustom(HEAL_ANIM_TIME);
-          }
+          m_playerStats.m_healthBar.AnimatedHeal((int)((m_playerStats.m_healthBar.m_maxHealth - m_playerStats.m_healthBar.m_health) * 0.5), HEAL_ANIM_TIME);
         }
 
         if (Utils.GetLoseFocus())
@@ -177,10 +174,12 @@ namespace GoopScripts.Gameplay
           m_playerStats.Draw();
         }
 
+        m_playerStats.Update(deltaTime);
+        m_enemyStats.Update(deltaTime);
+        m_playerStats.m_healthBar.Update(deltaTime);
+
         if (isResolutionPhase)
         {
-          m_playerStats.Update(deltaTime);
-          m_enemyStats.Update(deltaTime);
           ResolutionPhase(deltaTime);
         }
         else if (isStartOfTurn)
@@ -189,15 +188,22 @@ namespace GoopScripts.Gameplay
           StartOfTurn();
         }
 
-        m_playerStats.m_healthBar.Update(deltaTime);
-        if (!firstTurn && isDrawingCard)
+        if (isDrawingCard)
         {
-          m_playerDrawTimer += deltaTime;
-
-          if (m_playerDrawTimer > PLAYER_DRAW_ANIM_TIME)
+          if (firstTurn)
           {
+            firstTurn = false;
             isDrawingCard = false;
-            m_playerDrawTimer = 0.0;
+          }
+          else
+          {
+            m_playerDrawTimer += deltaTime;
+
+            if (m_playerDrawTimer > PLAYER_DRAW_ANIM_TIME)
+            {
+              isDrawingCard = false;
+              m_playerDrawTimer = 0.0;
+            }
           }
         }
 
@@ -261,7 +267,7 @@ namespace GoopScripts.Gameplay
       // animation time. So our condition here would be the timer
 
       // only proceed if no animation is playing
-      if (m_playerStats.IsPlayingAnimation() || m_enemyStats.IsPlayingAnimation())
+      if (m_playerStats.IsPlayingAnimation() || m_enemyStats.IsPlayingAnimation() || m_playerStats.m_healthBar.IsHealing())
       {
         return;
       }

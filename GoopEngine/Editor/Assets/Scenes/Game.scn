@@ -279,6 +279,19 @@
                             "scriptName": "LeahSmokeScreen",
                             "entityID": 0,
                             "scriptFieldInstList": []
+                        },
+                        {
+                            "scriptName": "LeahBerserk",
+                            "entityID": 0,
+                            "scriptFieldInstList": [
+                                {
+                                    "data": "woosh_scifi",
+                                    "type": "System.String",
+                                    "scriptField": {
+                                        "fieldName": "soundName"
+                                    }
+                                }
+                            ]
                         }
                     ]
                 }
@@ -495,6 +508,10 @@
                         {
                             "first": 24,
                             "second": "LeahSmokeScreen"
+                        },
+                        {
+                            "first": 23,
+                            "second": "LeahBerserk"
                         }
                     ]
                 }
@@ -531,89 +548,6 @@
                     "scale": 0.13500000536441803,
                     "fontID": 21,
                     "Alignment": "CENTER"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Skipped",
-        "ID": 2,
-        "Prefab": null,
-        "isActive": false,
-        "Parent": null,
-        "Child Entities": [
-            87
-        ],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 110.771, 46.0346, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 110.771, 46.0346, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 0, 0 }",
-                    "width": 35.0,
-                    "height": 35.0,
-                    "min": "{ -17.5, -17.5 }",
-                    "max": "{ 17.5, 17.5 }",
-                    "render": false
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 35,
-                            "height": 35,
-                            "tint": {
-                                "r": 1.0,
-                                "g": 1.0,
-                                "b": 1.0,
-                                "a": 0.0
-                            },
-                            "multiply": {
-                                "r": 1.0,
-                                "g": 1.0,
-                                "b": 1.0,
-                                "a": 1.0
-                            }
-                        }
-                    },
-                    "spriteName": "Skipped",
-                    "shouldRender": true
-                }
-            },
-            {
-                "Scripts": {
-                    "scriptList": [
-                        {
-                            "scriptName": "BuffIconInteraction",
-                            "entityID": 2,
-                            "scriptFieldInstList": []
-                        }
-                    ]
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "",
-                    "eventType": "NO_EVENT",
-                    "lastCollided": false,
-                    "currCollided": false
                 }
             }
         ]
@@ -682,10 +616,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -333.001, 212.829, 20 }",
+                    "pos": "{ -204.576, 212.829, 20 }",
                     "scale": "{ 0.2805, 0.2805, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -333.001, 212.829, 20 }",
+                    "worldPos": "{ -204.576, 212.829, 20 }",
                     "worldScale": "{ 0.2805, 0.2805, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -729,7 +663,7 @@
                             "key": "FloatUp",
                             "value": [
                                 {
-                                    "trans": "{ -333.001, 212.829, 0 }",
+                                    "trans": "{ -204.576, 212.829, 0 }",
                                     "scale": "{ 0.2805, 0.2805, 1 }",
                                     "rot": "{ 0, 0, 0 }",
                                     "spriteTint": {
@@ -754,7 +688,7 @@
                                     "animationEvent": ""
                                 },
                                 {
-                                    "trans": "{ -333.001, 500, 0 }",
+                                    "trans": "{ -204.576, 500, 0 }",
                                     "scale": "{ 0.2805, 0.2805, 1 }",
                                     "rot": "{ 0, 0, 0 }",
                                     "spriteTint": {
@@ -1654,8 +1588,8 @@
                 "Text": {
                     "text": "FPS",
                     "clr": {
-                        "r": 0.9411764740943909,
-                        "g": 1.0,
+                        "r": 0.0,
+                        "g": 0.0,
                         "b": 0.0,
                         "a": 0.0
                     },
@@ -4228,10 +4162,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -307.537, -269.134, 2.16716e-13 }",
+                    "pos": "{ -307.537, -269.134, 1.21858e-12 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -419.265, 137.337, 20 }",
+                    "worldPos": "{ -290.84, 137.337, 20 }",
                     "worldScale": "{ 0.2805, 0.2805, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -5110,10 +5044,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 406.117, 212.829, 20 }",
+                    "pos": "{ 154.543, 212.829, 20 }",
                     "scale": "{ 0.2805, 0.2805, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 406.117, 212.829, 20 }",
+                    "worldPos": "{ 154.543, 212.829, 20 }",
                     "worldScale": "{ 0.2805, 0.2805, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -5157,7 +5091,7 @@
                             "key": "FloatUp",
                             "value": [
                                 {
-                                    "trans": "{ 406.117, 212.829, 0 }",
+                                    "trans": "{ 154.543, 212.829, 0 }",
                                     "scale": "{ 0.2805, 0.2805, 1 }",
                                     "rot": "{ 0, 0, 0 }",
                                     "spriteTint": {
@@ -5182,7 +5116,7 @@
                                     "animationEvent": ""
                                 },
                                 {
-                                    "trans": "{ 406.117, 500, 0 }",
+                                    "trans": "{ 154.543, 500, 0 }",
                                     "scale": "{ 0.2805, 0.2805, 1 }",
                                     "rot": "{ 0, 0, 0 }",
                                     "spriteTint": {
@@ -5306,10 +5240,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -307.537, -269.134, 2.16716e-13 }",
+                    "pos": "{ -307.537, -269.134, 1.21858e-12 }",
                     "scale": "{ 1, 1, 1.81818 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 319.853, 137.337, 20 }",
+                    "worldPos": "{ 68.279, 137.337, 20 }",
                     "worldScale": "{ 0.2805, 0.2805, 1.81818 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -5430,62 +5364,6 @@
                     "worldPos": "{ 744.076, 484.25, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "BuffIconText",
-        "ID": 87,
-        "Prefab": null,
-        "isActive": false,
-        "Parent": 2,
-        "Child Entities": [
-            88
-        ],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 63.4408, 22.1395, 10 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 174.212, 68.1741, 10 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Text",
-        "ID": 88,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 87,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ -45.9674, -8.25143, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 128.244, 59.9227, 10 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "Skipped",
-                    "clr": {
-                        "r": 1.0,
-                        "g": 1.0,
-                        "b": 1.0,
-                        "a": 1.0
-                    },
-                    "scale": 0.10000000149011612,
-                    "fontID": 0,
-                    "Alignment": "LEFT"
                 }
             }
         ]
