@@ -222,6 +222,8 @@ namespace GoopScripts.UI
 
       Utils.PlayTransformAnimation(m_playerBarID, "Heal");
       Utils.PlayTransformAnimation(emitterInst, "Heal");
+      Utils.PlaySoundF("SFX_Heal", 0.25f, Utils.ChannelType.SFX, false);
+
       m_isPlayingAnim = true;
       m_timer = 0.0;
       return true;
