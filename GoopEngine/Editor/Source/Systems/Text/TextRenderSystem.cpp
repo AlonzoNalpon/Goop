@@ -30,7 +30,6 @@ namespace GE::Systems
         textComp.m_textLinesInfo.clear();
         // Get the newlines
         fontMan.GetTextLinesInfo(textComp.m_fontID, textComp.m_text, textComp.m_textLinesInfo, textComp.m_alignment);
-        //fontMan.TextNewLines(textComp.m_text.cbegin(), textComp.m_text.cend(), textComp.m_newLines);
         textComp.m_dirty = false;
       }
 

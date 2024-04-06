@@ -36,9 +36,7 @@ std::string const SHADER_PATH{ ASSETS_PATH + "Shaders/" };
 #endif
 
 #ifdef _DEBUG
-// Alonzo: I am using this for additional checks to help debugging
-// see SpriteAnimationManager.cpp for an example
-// thanks for that ^ - Alonzo
+
 #define INVALID_VALUE_CHECK 
 #endif
 #endif
