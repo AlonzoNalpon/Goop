@@ -1,7 +1,7 @@
 {
     "Name": "Leah_Flashbang_Tut",
     "isActive": true,
-    "Version": 3,
+    "Version": 4,
     "Components": [
         {
             "Transform": {
@@ -213,10 +213,10 @@
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ 0, -65, 1 }",
+                        "pos": "{ 0, -85, 1 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ 0, -65, 1 }",
+                        "worldPos": "{ 0, -85, 1 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
@@ -241,14 +241,14 @@
             "ID": 5,
             "isActive": true,
             "Name": "Description2",
-            "Parent": 0,
+            "Parent": 4,
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ 0, -80, 1 }",
+                        "pos": "{ 0, -15, 0 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ 0, -80, 1 }",
+                        "worldPos": "{ 0, -15, 0 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
