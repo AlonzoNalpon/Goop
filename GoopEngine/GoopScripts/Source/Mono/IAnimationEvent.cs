@@ -1,7 +1,8 @@
 ﻿/*!*********************************************************************
 \file   IAnimationEvent.cs
 \date   04-February-2024
-\brief  Definition of IAnimationEvent interface.
+\brief  Definition of IAnimationEvent interface, which is called when
+				an animation event is triggered.
 
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/

@@ -1,7 +1,7 @@
 ﻿/*!*********************************************************************
 \file   MenuHowToPlay.cs
 \author loh.j\@digipen.edu
-\date   08 Febuary 2024
+\date   08-Febuary-2024
 \brief
   Button script used to transition from pause menu to how to play screen.
 
@@ -21,6 +21,12 @@ namespace GoopScripts.Button
   {
     public int PauseMenuID, DeeperPauseMenuID;
 
+    /*!*********************************************************************
+    \brief
+      Triggers the How to Play screen from the pause menu
+    \param entity
+      The entity ID of the current object
+    ************************************************************************/
     public override void OnRelease(uint entity)
     {
       HTP_Popup.m_page = 1;

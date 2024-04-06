@@ -1,7 +1,7 @@
 ﻿/*!*********************************************************************
 \file   MenuToQuit.cs
 \author loh.j\@digipen.edu
-\date   15 March 2024
+\date   15-March-2024
 \brief  
   Script to attach to button to verify quitting.
  
@@ -20,7 +20,13 @@ namespace GoopScripts.Source.Button.Pause
 
   public class MenuToQuit : TextButtonBase
   {
-		public override void OnRelease(uint entity)
+    /*!*********************************************************************
+    \brief
+      Displays the confirmation popup for quitting
+    \param entity
+      The entity ID of the current object
+    ************************************************************************/
+    public override void OnRelease(uint entity)
     {
       base.OnRelease(entity);
 			Utils.PlaySoundF("Quit", (float)m_rng.NextDouble() * (0.6f - 0.75f) + 0.6f, Utils.ChannelType.SFX, false);
@@ -28,6 +34,12 @@ namespace GoopScripts.Source.Button.Pause
       
     }
 
+    /*!*********************************************************************
+    \brief
+      Triggers the hover effect of the button
+    \param entity
+      The entity ID of the current object
+    ************************************************************************/
     public override void OnHoverEnter(uint entity)
     {
       base.OnHoverEnter(entity);

@@ -54,6 +54,10 @@ namespace GoopScripts.Gameplay
       
     }
 
+    /*!*********************************************************************
+    \brief
+      OnCreate function for Tutorial
+    ************************************************************************/
     public void OnCreate()
     {
       m_playerStats = (Stats)Utils.GetScript("Player", "Stats");
@@ -66,6 +70,13 @@ namespace GoopScripts.Gameplay
 			Utils.SetLoseFocus(false);
 		}
 
+    /*!*********************************************************************
+    \brief
+      OnUpdate function for Tutorial. Runs the behaviour for the game loop
+      to trigger the resolution phase when the player ends the turn.
+    \param deltaTime
+      delta time since last frame
+    ************************************************************************/
     public void OnUpdate(double deltaTime)
     {
       try
@@ -180,6 +191,11 @@ namespace GoopScripts.Gameplay
       }
     }
 
+    /*!*********************************************************************
+    \brief
+      This function is triggered when the start of turn occurs. Player and
+      enemy will draw cards. Also triggers the Enemy's AI.
+    ************************************************************************/
     public void StartOfTurn()
     {
       QueueCardDisplay.DestroyCard();
@@ -205,6 +221,14 @@ namespace GoopScripts.Gameplay
 			btn.Enable();
 		}
 
+    /*!*********************************************************************
+      \brief
+        This function handles the resolution phase. It plays the animation
+        based on the cards played. It also trigger combos if player/enemy
+        plays more than 1 card.
+      \param deltaTime
+        delta time since last frame
+    ************************************************************************/
     public void ResolutionPhase(double deltaTime)
     {
       // only proceed if no animation is playing
@@ -319,10 +343,10 @@ namespace GoopScripts.Gameplay
     }
 
     /*!*********************************************************************
-      \brief
-        This function is triggered t the satrt of resolution phase. This reset the variables
-        used when resolving the resolution phase
-      ************************************************************************/
+    \brief
+      This function is triggered t the satrt of resolution phase. 
+      This reset the variables used when resolving the resolution phase
+    ************************************************************************/
     private void StartResolution()
     {
       SetHighlightActive(true);
@@ -337,10 +361,10 @@ namespace GoopScripts.Gameplay
     }
 
     /*!*********************************************************************
-      \brief
-        This funciton is triggered when the user clicks the end turn button. THis function
-        starts the resolution phase
-      ************************************************************************/
+    \brief
+      This funciton is triggered when the user clicks the end turn button.
+      This function starts the resolution phase
+    ************************************************************************/
     public void EndTurn()
     {
       isResolutionPhase = true;
@@ -377,6 +401,10 @@ namespace GoopScripts.Gameplay
       Utils.SetPosition((uint)E_QUEUE_HIGHLIGHT, ePos);
     }
 
+    /*!*********************************************************************
+    \brief
+      Resets the tutorial to its default values
+    ************************************************************************/
     static public void ResetTutorial()
     {
       isResolutionPhase = isStartOfTurn = gameStarted = m_tutorialToggled = gameEnded = false;
@@ -384,8 +412,23 @@ namespace GoopScripts.Gameplay
       m_tut = 0;
     }
 
+    /*!*********************************************************************
+    \brief
+      Checks if the game is currently in the resolution phase
+    \return
+      True if the game is in resolution phase and false otherwise
+    ************************************************************************/
     static public bool IsResolutionPhase() { return isResolutionPhase; }
 
+    /*!*********************************************************************
+    \brief
+      Loads the player's health and deck from the save file and loads the
+      corresponding enemy based on the level.
+      Additionally, the relevant animations of the player and enemy are
+      also read from a separate file and loaded accordingly.
+    \param filePath
+      The path of the save file
+    ************************************************************************/
     void LoadGame(string filePath)
     {
       PlayerStatsInfo playerStats = Serialization.SerialReader.LoadPlayerState(true);
@@ -399,6 +442,13 @@ namespace GoopScripts.Gameplay
       m_playerStats.m_animManager.LoadAnimations(charToAnims[CharacterType.PLAYER]);
       m_enemyStats.m_animManager.LoadAnimations(charToAnims[m_enemyStats.m_type]);
     }
+
+    /*!*********************************************************************
+    \brief
+      Loads the player's deck and initializes its healthbar
+    \param statsInfo
+      The player's information contained in a PlayerStatsInfo object
+    ************************************************************************/
     void LoadPlayer(PlayerStatsInfo statsInfo)
     {
       m_playerStats.m_type = CharacterType.PLAYER;
@@ -410,6 +460,13 @@ namespace GoopScripts.Gameplay
       m_playerStats.m_healthBar.Init(statsInfo.health, statsInfo.maxHealth, true, P_HEALTH_TEXT_UI, P_HEALTH_UI);
     }
 
+    /*!*********************************************************************
+    \brief
+      Creates the enemy by spawning its prefab and initializes its deck and
+      healthbar. The enemy portrait and background is also loaded here.
+    \param statsInfo
+      The level's information contained in a EnemyStatsInfo object
+    ************************************************************************/
     void LoadEnemy(EnemyStatsInfo statsInfo)
     {
       uint enemyID = Utils.SpawnPrefab(statsInfo.prefab, ENEMY_POS);

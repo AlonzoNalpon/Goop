@@ -1,10 +1,9 @@
 ﻿/*!*********************************************************************
 \file   Vec2.cs
 \author han.q\@digipen.edu
-\date   28 September 2023
+\date   28-September-2023
 \brief
 	This file contains a simple vec2 template struct.
-
 
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/

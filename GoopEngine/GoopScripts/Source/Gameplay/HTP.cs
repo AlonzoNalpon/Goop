@@ -2,7 +2,7 @@
 \file   HTP.cs
 \author c.phua\@digipen.edu
 \date   15-March-2024
-\brief  Script for how to play screen with arrows to control the page.
+\brief  Script for "How to Play" screen with arrows to control the page.
 
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
@@ -19,12 +19,23 @@ namespace GoopScripts.Gameplay
   {
     static public int m_page;
 
+    /*!*********************************************************************
+    \brief
+      Function to open the how to play popup upon script's creation
+    ************************************************************************/
     public void OnCreate()
     {
       m_page = 1;
       Utils.SetIsActiveEntity(Utils.GetEntity($"Page_{m_page}"), true);
     }
 
+    /*!*********************************************************************
+    \brief
+      OnUpdate function to display the correct arrows based on the current
+      page number
+    \param deltaTime
+      The delta time of the current frame
+    ************************************************************************/
     public void OnUpdate(double deltaTime)
     {
       if (m_page == 1)

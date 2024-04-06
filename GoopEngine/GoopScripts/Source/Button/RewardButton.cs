@@ -1,7 +1,7 @@
 ﻿/*!*********************************************************************
 \file   RewardButton.cs
 \author loh.j\@digipen.edu
-\date   15 March 2024
+\date   15-March-2024
 \brief  
   Script to attach to button to reward button.
  
@@ -19,7 +19,13 @@ namespace GoopScripts.Source.Button
 {
   public class RewardButton : TextButtonBase
   {
-
+    /*!*********************************************************************
+    \brief
+      Calls the reward manager to register the selected cards into the
+      deck
+    \param entity
+      The entity ID of the current object
+    ************************************************************************/
     public override void OnRelease(uint entity)
     {
       m_clicked = false;

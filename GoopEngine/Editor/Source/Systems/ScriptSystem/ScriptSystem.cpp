@@ -1,7 +1,7 @@
 /*!*********************************************************************
 \file   ScriptSystem.cpp
 \author c.phua\@digipen.edu
-\date   20 September 2023
+\date   20-September-2023
 \brief
 	Updates all updatable script on the entities
 

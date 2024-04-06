@@ -1,7 +1,7 @@
 ﻿/*!*********************************************************************
 \file   DigipenSplashScreen.cs 
 \author w.chinkitbryan\@digipen.edu
-\date   09 March 2024
+\date   09-March-2024
 \brief  
   Team Logo Splash Screen that plays upon launching the game
  

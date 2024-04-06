@@ -1,7 +1,7 @@
 ﻿/*!*********************************************************************
 \file   TransitionOut.cs 
 \author w.chinkitbryan\@digipen.edu
-\date   09 March 2024
+\date   09-March-2024
 \brief  
 	Triggers the transition animation
  

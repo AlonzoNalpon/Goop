@@ -5,7 +5,7 @@
 \co-author loh.j\@digipen.edu
 \co-author a.nalpon\@digipen.edu
 \co-author chengen.lau\@digipen.edu
-\date   28 September 2023
+\date   28-September-2023
 \brief
   Script Manager Singleton in charge of initializing and cleaning the Mono.
   Provides function to retrieve C# class data

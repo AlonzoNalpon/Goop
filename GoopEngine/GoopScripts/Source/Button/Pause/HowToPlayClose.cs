@@ -1,7 +1,7 @@
 ﻿/*!*********************************************************************
 \file   HowToPlayClose.cs
 \author w.chinkitbryan\@digipen.edu
-\date   09 March 2024
+\date   09-March-2024
 \brief
   Button script used for closing the how to play menu.
 
@@ -22,7 +22,14 @@ namespace GoopScripts.Button.Pause
 		public int DeeperPauseMenuID;
 		public HowToPlayClose() { }
 
-		public void OnRelease(uint entity)
+    /*!*********************************************************************
+    \brief
+      Displays the corresponding page based on the state of the pause
+			menu
+    \param entity
+      The entity ID of the current object
+    ************************************************************************/
+    public void OnRelease(uint entity)
 		{
 			switch (UI.PauseManager.GetPauseState())
 			{

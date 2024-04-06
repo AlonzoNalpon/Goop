@@ -2,7 +2,7 @@
 \file       ObjectFactory.h
 \author     loh.j\@digipen.edu
 \co-author  chengen.lau\@digipen.edu
-\date       28 September 2023
+\date       28-September-2023
 \brief
   Contains the definition of the ObjectFactory singleton class, which 
   encapsulates functions and data members to facilitate the creation 

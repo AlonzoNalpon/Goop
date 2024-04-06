@@ -1,7 +1,7 @@
 ﻿/*!*********************************************************************
 \file   HealthBar.cs
 \author loh.j\@digipen.edu
-\date   09 March 2024
+\date   09-March-2024
 \brief
         Script used to generate healthbar UI for both player and enemy.
 

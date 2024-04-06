@@ -1,7 +1,7 @@
 /*!*********************************************************************
 \file   AssetManager.cpp
 \author loh.j\@digipen.edu
-\date   13 September 2023
+\date   13-September-2023
 \brief
 	Asset Manager is capable of:
 		- LoadDirectory

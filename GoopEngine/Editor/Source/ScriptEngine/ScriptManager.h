@@ -2,7 +2,7 @@
 /*!*********************************************************************
 \file   ScriptManager.h
 \author han.q\@digipen.edu
-\date   28 September 2023
+\date   28-September-2023
 \brief
 	Script Manager Singleton in charge of initializing and cleaning the Mono.
 	Provides function to retrieve C# class data

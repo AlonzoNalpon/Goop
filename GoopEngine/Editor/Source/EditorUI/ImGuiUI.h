@@ -1,7 +1,7 @@
 /*!*********************************************************************
 \file   ImGuiUI.h 
 \author w.chinkitbryan\@digipen.edu
-\date   24 September 2023
+\date   24-September-2023
 \brief  
   ImGui Editor UI Wrapper
 

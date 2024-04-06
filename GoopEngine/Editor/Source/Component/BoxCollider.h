@@ -1,7 +1,7 @@
 /*!*********************************************************************
 \file   BoxCollider.h
 \author c.phua\@digipen.edu
-\date   16 September 2023
+\date   16-September-2023
 \brief
 	Component for AABB collider box.
 

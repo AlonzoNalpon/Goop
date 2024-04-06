@@ -1,7 +1,7 @@
 ﻿/*!*********************************************************************
 \file   ChangeToOptions.cs
 \author loh.j\@digipen.edu
-\date   08 Febuary 2024
+\date   08-Febuary-2024
 \brief
   Script used to trigger the changing of scenes to Options.
 

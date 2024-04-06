@@ -1,7 +1,7 @@
 ﻿/*!*********************************************************************
 \file   HomeBase.cs
 \author loh.j\@digipen.edu
-\date   15 March 2024
+\date   15-March-2024
 \brief  
   Script for the game's deck viewer screen, which displays the list
   of cards in the player's deck as well as a map showing the player's

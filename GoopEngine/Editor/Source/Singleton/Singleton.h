@@ -1,7 +1,7 @@
 /*!******************************************************************
 \file   Singleton.h 
 \author w.chinkitbryan\@digipen.edu
-\date   6 September 2023
+\date   6-September-2023
 \brief  
   Singleton template class. Manages a "global" instance of any
 	class of type Singleton.

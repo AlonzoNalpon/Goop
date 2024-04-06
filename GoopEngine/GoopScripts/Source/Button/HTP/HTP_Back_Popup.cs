@@ -18,8 +18,14 @@ using System.Threading.Tasks;
 
 namespace GoopScripts.Button
 {
-  internal class HTP_Back_Popup : ArrowButton
+  public class HTP_Back_Popup : ArrowButton
   {
+    /*!*********************************************************************
+    \brief
+      Decrements the page number and displays the previous page
+    \param entity
+      The entity ID of the current object
+    ************************************************************************/
     public override void OnRelease(uint entity)
 		{
 			base.OnRelease(entity);

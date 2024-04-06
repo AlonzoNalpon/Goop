@@ -1,10 +1,10 @@
 ﻿/*!*********************************************************************
 \file   MenuQuitGame.cs
 \author loh.j\@digipen.edu
-\date   08 Febuary 2024
+\date   08-Febuary-2024
 \brief
   Button script to go deeper into the menu confirming if the player
-wants to "Surrender".
+  wants to "Surrender".
 
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
@@ -21,6 +21,13 @@ namespace GoopScripts.Button
   {
     public int Command;
     public int PauseMenuID, DeeperPauseMenuID;
+
+    /*!*********************************************************************
+    \brief
+      Opens the second layer of the pause menu
+    \param entity
+      The entity ID of the current object
+    ************************************************************************/
     public override void OnRelease(uint entity)
     {
       base.OnRelease(entity);

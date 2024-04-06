@@ -2,7 +2,7 @@
 /*!*********************************************************************
 \file   AssetManager.tpp
 \author loh.j\@digipen.edu
-\date   28 September 2023
+\date   28-September-2023
 \brief
   Contains the template functions of GetConfigData.
 

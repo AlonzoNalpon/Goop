@@ -2,7 +2,7 @@
 \file   TweenSystem.h
 \author c.phua\@digipen.edu
 \co-authors a.nalpon\@digipen.edu
-\date   20 September 2023
+\date   20-September-2023
 \brief
 	Uses tweening to update entity's position.
 

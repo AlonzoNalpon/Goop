@@ -18,8 +18,14 @@ using System.Threading.Tasks;
 
 namespace GoopScripts.Button
 {
-  internal class HTP_Next : ArrowButton
+  public class HTP_Next : ArrowButton
 	{
+    /*!*********************************************************************
+    \brief
+      Increments the page number and displays the next page
+    \param entity
+      The entity ID of the current object
+    ************************************************************************/
     public override void OnRelease(uint entity)
     {
       base.OnRelease(entity);

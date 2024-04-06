@@ -1,11 +1,11 @@
 ﻿/*!*********************************************************************
 \file   MainMenuToScene.cs
 \author loh.j\@digipen.edu
-\date   08 Febuary 2024
+\date   08-Febuary-2024
 \brief
   Script used to trigger specific animation of the TransitionOut 
-entity to trigger the specific script attached to it after the animation
-ends.
+	entity to trigger the specific script attached to it after the
+	animation ends.
 
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
@@ -36,7 +36,13 @@ namespace GoopScripts.Transition
 			m_shouldTransition = false;
 		}
 
-    
+    /*!*********************************************************************
+    \brief
+      Triggers the animation for the main menu to move the menu buttons
+			up when transitioning to another scene
+    \param entity
+      The entity ID of the current object
+    ************************************************************************/
     public override void OnRelease(uint entity)
     {      
 			base.OnRelease(entity);
@@ -45,7 +51,14 @@ namespace GoopScripts.Transition
 			m_currentTime = 0.0f;
     }
 
-		public void OnUpdate(double dt)
+    /*!*********************************************************************
+    \brief
+      Sets the next scene to transition to based on the option indicated
+			in the button parameters
+    \param dt
+      The deltaTime of the current frame
+    ************************************************************************/
+    public void OnUpdate(double dt)
 		{
       if (m_shouldTransition)
 			{

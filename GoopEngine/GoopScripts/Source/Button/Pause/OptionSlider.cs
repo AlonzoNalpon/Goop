@@ -1,7 +1,7 @@
 ﻿/*!*********************************************************************
 \file   OptionSlider.cs
 \author loh.j\@digipen.edu
-\date   08 Febuary 2024
+\date   08-Febuary-2024
 \brief
   Script used link the visual option slider to the actual volume.
 
@@ -31,6 +31,10 @@ namespace GoopScripts.Button
 
     public OptionSlider(uint entity) : base (entity) { }
 
+    /*!*********************************************************************
+    \brief
+      OnCreate function to initialize variables for the class
+    ************************************************************************/
     public void OnCreate()
     {
       Vec3<double> pos = Utils.GetPosition(entityID);
@@ -56,17 +60,36 @@ namespace GoopScripts.Button
       }
     }
 
+    /*!*********************************************************************
+    \brief
+      Sets the sliding flag to true upon click detection
+    \param entity
+      The entity ID of the current object
+    ************************************************************************/
     public void OnClick(uint entity)
     {
       m_slide = true;
     }
 
+    /*!*********************************************************************
+    \brief
+      Helper function to retrieve the current X position of the object
+    \return
+      The X position of the object
+    ************************************************************************/
     float GetFloatPos()
     {
       double currentPos = Utils.GetPosition(entityID).X;
       return (float)((currentPos - m_minX) / (Range * 2));
     }
 
+    /*!*********************************************************************
+    \brief
+      Sets the volume of the relevant channels based on where the player
+      drags the sliders to
+    \param deltaTime
+      The delta time of the current frame
+    ************************************************************************/
     public void OnUpdate(double deltaTime)
     {
       if (Index == 3 && Utils.GetMasterVolume() != volume)

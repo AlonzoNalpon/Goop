@@ -1,7 +1,7 @@
 ﻿/*!*********************************************************************
 \file   IButtonClick.cs 
 \author w.chinkitbryan\@digipen.edu
-\date   06 March 2024
+\date   06-March-2024
 \brief  
   Entity mouse click callback interface
  

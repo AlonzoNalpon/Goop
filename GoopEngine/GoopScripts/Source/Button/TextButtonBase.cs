@@ -1,7 +1,7 @@
 ﻿/*!*********************************************************************
 \file   TextButtonBase.cs 
 \author w.chinkitbryan\@digipen.edu
-\date   06 March 2024
+\date   06-March-2024
 \brief  
   Base class for all text buttons. All have default base behaviour.
  

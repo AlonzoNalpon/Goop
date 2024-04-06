@@ -2,7 +2,7 @@
 /*!*********************************************************************
 \file   KeyCode.h
 \author han.q\@digipen.edu
-\date   17 September 2023
+\date   17-September-2023
 \brief
 	Keycode enums for Input Manager. The value of the key enums will be the same as 
 	GLFW defined keys

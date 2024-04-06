@@ -1,10 +1,10 @@
 ﻿/*!*********************************************************************
 \file   KeyCode.cs
 \author han.q\@digipen.edu
-\date   28 September 2023
+\date   28-September-2023
 \brief
-	This file is a copy of Keycode enums for Input Manager. The value of the key enums will be the same as 
-	GLFW defined keys. 
+	This file is a copy of Keycode enums for Input Manager. The value of
+  the key enums will be the same as GLFW defined keys. 
 
 
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.

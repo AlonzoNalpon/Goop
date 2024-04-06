@@ -1344,7 +1344,7 @@ static inline ImDrawFlags FixRectCornerFlags(ImDrawFlags flags)
     /*
     IM_STATIC_ASSERT(ImDrawFlags_RoundCornersTopLeft == (1 << 4));
 #ifndef IMGUI_DISABLE_OBSOLETE_FUNCTIONS
-    // Obsoleted in 1.82 (from February 2021). This code was stripped/simplified and mostly commented in 1.90 (from September 2023)
+    // Obsoleted in 1.82 (from February 2021). This code was stripped/simplified and mostly commented in 1.90 (from-September-2023)
     // - Legacy Support for hard coded ~0 (used to be a suggested equivalent to ImDrawCornerFlags_All)
     if (flags == ~0)                    { return ImDrawFlags_RoundCornersAll; }
     // - Legacy Support for hard coded 0x01 to 0x0F (matching 15 out of 16 old flags combinations). Read details in older version of this code.

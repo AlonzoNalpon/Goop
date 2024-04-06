@@ -3,8 +3,10 @@
 \author Han Qin Ding
 
 \brief
-C# script containing all the internal function calls
-**************************************************************************/
+  C# script containing all the internal function calls to C++
+
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 using GoopScripts.Cards;
 using GoopScripts.Input;
 using GoopScripts.Source.Mono;

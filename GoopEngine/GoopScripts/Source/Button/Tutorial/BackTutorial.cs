@@ -20,6 +20,12 @@ namespace GoopScripts.Button
 {
   public class BackTutorial : ArrowButton
   {
+    /*!*********************************************************************
+    \brief
+      Decrements the tutorial's step and displays the previous page
+    \param entity
+      The entity ID of the current object
+    ************************************************************************/
     public override void OnRelease(uint entity)
 		{
 			base.OnRelease(entity);

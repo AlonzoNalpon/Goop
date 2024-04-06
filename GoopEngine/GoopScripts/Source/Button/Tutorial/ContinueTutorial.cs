@@ -19,6 +19,13 @@ namespace GoopScripts.Button
 { 
   public class ContinueTutorial : TextButtonBase
   {
+    /*!*********************************************************************
+    \brief
+      Hides and shows the relevant buttons upon clicking the option in the
+      prompt
+    \param entity
+      The entity ID of the current object
+    ************************************************************************/
     public override void OnRelease(uint entity)
     { 
       base.OnRelease(entity);

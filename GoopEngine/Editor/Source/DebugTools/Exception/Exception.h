@@ -1,7 +1,7 @@
 /*!*********************************************************************
 \file   Exception.h
 \author w.chinkitbryan\@digipen.edu
-\date   17 September 2023
+\date   17-September-2023
 \brief
   Custom exception class with spdlog integration.
 

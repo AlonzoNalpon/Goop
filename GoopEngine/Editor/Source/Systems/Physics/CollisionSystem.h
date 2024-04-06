@@ -1,7 +1,7 @@
 /*!*********************************************************************
 \file   CollisionSystem.h
 \author c.phua\@digipen.edu
-\date   16 September 2023
+\date   16-September-2023
 \brief
 	Collision system.
 	Checks for AABB-to-AABB collision.

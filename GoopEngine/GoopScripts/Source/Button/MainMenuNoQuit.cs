@@ -1,7 +1,7 @@
 ﻿/*!*********************************************************************
 \file   MainMenuNoQuit.cs
 \author loh.j\@digipen.edu
-\date   06 March 2024
+\date   06-March-2024
 \brief  
   Script to attach to button to move scene
  
@@ -17,9 +17,15 @@ using System.Threading.Tasks;
 
 namespace GoopScripts.Source.Button
 {
-	internal class MainMenuNoQuit : TextButtonBase
+	public class MainMenuNoQuit : TextButtonBase
 	{
-		public override void OnRelease(uint entity)
+    /*!*********************************************************************
+    \brief
+      Hides the quit confirmation upon clicking of the button
+    \param entity
+      The entity ID of the current object
+    ************************************************************************/
+    public override void OnRelease(uint entity)
 		{
 			base.OnRelease(entity);
 			Utils.SetIsActiveEntity(Utils.GetEntity("Confirm Quit"), false);
