@@ -58,13 +58,9 @@ namespace GoopScripts.Gameplay
       {
         Utils.UpdateSprite((uint)m_mapID, "UI_Map_04");
       }
-      if (m_levelToLoad == 4)
+      if (m_levelToLoad >= 4)
       {
         Utils.UpdateSprite((uint)m_mapID, "UI_Map_05");
-      }
-      if (m_levelToLoad >= 5)
-      {
-        Utils.UpdateSprite((uint)m_mapID, "UI_Map_06");
       }
       int counter = 0;
       foreach (var card in statsInfo.deckList)

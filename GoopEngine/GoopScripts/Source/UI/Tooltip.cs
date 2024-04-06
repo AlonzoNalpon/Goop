@@ -19,7 +19,7 @@ namespace GoopScripts.Source.UI
 {
   public class Tooltip : IButtonHoverEnter, IButtonHoverExit
   {
-    static readonly int LEVELS = 6;
+    static readonly int LEVELS = 5;
     public int[] tooltipID = new int[LEVELS];
     int m_levelToLoad;
 
