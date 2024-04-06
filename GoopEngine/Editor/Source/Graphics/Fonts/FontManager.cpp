@@ -241,8 +241,4 @@ namespace GE::Graphics::Fonts
       ++currIdx;
     }
   }
-
-  void Graphics::Fonts::FontManager::UpdateTextInfo(TextObjGroup& group)
-  {
-  }
 }

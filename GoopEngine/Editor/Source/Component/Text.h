@@ -14,7 +14,6 @@ Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 #include <string>
 #include <Graphics/GraphicsEngine.h>
 #include <Graphics/Def/GraphicsTypes.h>
-#include <Graphics/Fonts/TextObjGroup.h>
 namespace GE
 {
 	namespace Component
