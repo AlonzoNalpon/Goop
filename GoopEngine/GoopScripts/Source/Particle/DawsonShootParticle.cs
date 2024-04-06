@@ -1,4 +1,13 @@
-﻿using GoopScripts.Mono;
+﻿/*!*********************************************************************
+\file   DawsonShootParticle.cs
+\author w.chinkitbryan\@digipen.edu
+\date   02-March-2024
+\brief  Script to trigger particle effects for Dawson's attack
+				animation
+
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
+using GoopScripts.Mono;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,7 +1,7 @@
 ﻿/*!*********************************************************************
 \file   MenuMainMenu.cs
 \author loh.j\@digipen.edu
-\date   08-Febuary-2024
+\date   08-February-2024
 \brief
   Button script used to send to main menu screen, while setting the 
   pause menu to default state.

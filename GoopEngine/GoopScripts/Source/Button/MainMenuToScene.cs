@@ -1,7 +1,7 @@
 ﻿/*!*********************************************************************
 \file   MainMenuToScene.cs
 \author loh.j\@digipen.edu
-\date   08-Febuary-2024
+\date   08-February-2024
 \brief
   Script used to trigger specific animation of the TransitionOut 
 	entity to trigger the specific script attached to it after the

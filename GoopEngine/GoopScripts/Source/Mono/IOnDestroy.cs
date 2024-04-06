@@ -1,5 +1,5 @@
 ﻿/*!*********************************************************************
-\file   IAnimationEvent.cs
+\file   IOnDestroy.cs
 \date   04-February-2024
 \brief  Definition of IOnDestroy interface, which is called when the
         entity is destroyed.

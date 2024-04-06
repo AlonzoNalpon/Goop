@@ -1,9 +1,10 @@
 ﻿/*!*********************************************************************
-\file   HealthBar.cs
-\author loh.j\@digipen.edu
-\date   09-March-2024
+\file       HealthBar.cs
+\author     loh.j\@digipen.edu
+\co-author  chengen.lau\@digipen.edu
+\date       09-March-2024
 \brief
-        Script used to generate healthbar UI for both player and enemy.
+            Script used to generate healthbar UI for both player and enemy.
 
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
@@ -47,6 +48,21 @@ namespace GoopScripts.UI
 
     }
 
+    /*!******************************************************************
+		\brief
+			Initializes the healthbar given the health, max health, entity
+      IDs of the UI elements and whether its the player or enemy
+		\param health
+		  The current health of the character
+    \param maxHealth
+      The maximum health of the character
+    \param isPlayer
+      Whether the character is the player
+     \param textUI
+      The entity ID of the text element
+    \param healthBarUI
+      The entityID of the health bar element
+		********************************************************************/
     public void Init(int health, int maxHealth, bool isPlayer, int textUI, int healthBarUI)
     {
       m_health = health;
@@ -89,6 +105,12 @@ namespace GoopScripts.UI
       UpdateBar();
     }
 
+    /*!******************************************************************
+		\brief
+			Triggers the
+		\param dt
+			The delta time of the current frame
+		********************************************************************/
     public void Update(double dt)
     {
       if (!m_isPlayingAnim)
@@ -114,6 +136,11 @@ namespace GoopScripts.UI
       }
     }
 
+    /*!******************************************************************
+		\brief
+			Updates the healthbar by setting it to the correct width based
+      on the current health
+		********************************************************************/
     public void UpdateBar()
     {
       int newWidth;
@@ -129,6 +156,12 @@ namespace GoopScripts.UI
       UpdateHealthText();
     }
 
+    /*!******************************************************************
+		\brief
+			Decreases the health in the healthbar
+		\param amount
+			The amount of health lost
+		********************************************************************/
     public void DecreaseHealth(int amount = 1)
     {
       m_health -= amount;
@@ -152,6 +185,12 @@ namespace GoopScripts.UI
       Utils.SetPosition(m_playerBarID, a);
     }
 
+    /*!******************************************************************
+		\brief
+			Increases the health in the healthbar
+		\param amount
+			The amount of health gained
+		********************************************************************/
     public void IncreaseHealth(int amount = 1)
     {
       m_health += amount;
@@ -171,16 +210,36 @@ namespace GoopScripts.UI
       Utils.SetPosition(m_playerBarID, a);
     }
 
+    /*!******************************************************************
+		\brief
+			Sets the health of the healthbar
+		\param amount
+			The amount of health to set
+		********************************************************************/
     public void SetHealth(int amount)
     {
       m_health = amount;
     }
 
+    /*!******************************************************************
+		\brief
+			Sets the max health of the healthbar
+		\param amount
+			The amount of health to set
+		********************************************************************/
     public void SetMaxHealth(int amount)
     {
       m_maxHealth = amount;
     }
 
+    /*!******************************************************************
+		\brief
+			Triggers the heal animation for the player
+		\param amount
+			The amount of health to heal
+    \param time
+      The time for the animation
+		********************************************************************/
     public void AnimatedHeal(int amount, double time)
     {
       if (amount == 0)
@@ -230,17 +289,32 @@ namespace GoopScripts.UI
       m_timer = 0.0;
     }
 
+    /*!******************************************************************
+		\brief
+			Updates the text to match the current health
+		********************************************************************/
     void UpdateHealthText()
     {
       Utils.SetTextComponent(m_textUI, m_health + " / " + m_maxHealth);
     }
 
+    /*!******************************************************************
+		\brief
+			Resets the health bar to default scale and width after the
+      animation
+		********************************************************************/
     public void Reset()
     {
       UpdateBar();
       m_isHealing = false;
     }
 
+    /*!******************************************************************
+		\brief
+			Checks if the heal animation is currently playing
+		\return
+      True if the animation is ongoing and false otherwise
+		********************************************************************/
     public bool IsHealing()
     {
       return m_isHealing;

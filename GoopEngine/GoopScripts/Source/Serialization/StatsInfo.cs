@@ -22,6 +22,10 @@ namespace GoopScripts.Serialization
     public int health, maxHealth;
     public int levelToLoad;
 
+    /*!*********************************************************************
+    \brief
+      Sorts the deck by combining matching cards into the same entry
+   ************************************************************************/
     public void SortDeck()
     {
       Dictionary<CardBase.CardID, uint> cardMap = new Dictionary<CardBase.CardID, uint>();
