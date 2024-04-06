@@ -147,7 +147,7 @@
         "id": "SS_Leah_Flinch",
         "filePath": "SS_Leah_Flinch",
         "slices": 4,
-        "stacks": 1,
+        "stacks": 2,
         "frames": 4,
         "speed": 0.1,
         "flags": 0
