@@ -44,27 +44,6 @@ namespace GoopScripts.AI
       }
     }
 
-
-
-    /*!*********************************************************************
-   \brief
-     Awake function for the SequenceNode script. 
-   ************************************************************************/
-    public void Awake()
-    {
-      // Logic for Awake
-    }
-
-
-    /*!*********************************************************************
-   \brief
-     Start function for the SequenceNode script. 
-   ************************************************************************/
-    public void Start()
-    {
-      // Logic for Start
-    }
-
     /*!*********************************************************************
     \brief
      Update function for the SequenceNode script. This function is called every frame
@@ -187,32 +166,6 @@ namespace GoopScripts.AI
       }
 
     }
-
-    public void OnExit()
-    {
-
-    }
-
-
-    /*!*********************************************************************
-    \brief
-     Update function for the SequenceNode script. This function is called every frame
-     if the script is attached to an entity
-    ************************************************************************/
-    public void Update()
-    {
-
-    }
-
-    /*!*********************************************************************
-    \brief
-     late Update function for the SequenceNode script
-    ************************************************************************/
-    public void LateUpdate()
-    {
-      // Logic for lateUpdate
-    }
-
 
 
   }

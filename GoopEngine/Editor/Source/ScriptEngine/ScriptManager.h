@@ -530,7 +530,14 @@ namespace GE::MONO
 	************************************************************************/
 	MonoString* STDToMonoString(const std::string& str);
 
-
+	/*!*********************************************************************
+	\brief
+		Function to convert a mono array to a vector of std::string
+	\param arr
+		The array to convert
+	\return
+		The vector of strings
+	************************************************************************/
 	template<typename T>
 	std::vector<T> MonoArrayToSTD(MonoArray* arr);
 

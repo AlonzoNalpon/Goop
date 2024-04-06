@@ -185,10 +185,17 @@ namespace GoopScripts.Gameplay
           }
         }
       }
+#if (DEBUG)
       catch (Exception ex)
       {
-        Console.WriteLine($"Exception in game loop: {ex.Message}");
+        Utils.SendString($"Exception in game loop: {ex.Message}");
       }
+#else
+      catch (Exception)
+      {
+        Utils.PlayTransformAnimation(Utils.GetEntity("TransitionOut"), "MainMenu");
+      }
+#endif
     }
 
     /*!*********************************************************************

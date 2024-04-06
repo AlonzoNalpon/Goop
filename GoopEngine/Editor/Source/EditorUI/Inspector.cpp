@@ -1166,7 +1166,6 @@ void GE::EditorGUI::Inspector::CreateContent()
 							auto it2 = std::find_if(ne->m_allScriptNames.begin(), ne->m_allScriptNames.end(), [sn](const std::string pair) { return pair == sn; });
 							if (it == allScripts->m_scriptList.end() && it2 == ne->m_allScriptNames.end())
 							{
-								std::cout << sn << "\n";
 								allScripts->m_scriptList.emplace_back(sn,entity);
 								break;
 							}

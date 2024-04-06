@@ -46,7 +46,7 @@ namespace GoopScripts.Source.AI.Enemy.Dawson
 
     /*!*********************************************************************
   \brief
-    Non default constructor of IsOutsideAttackRange class
+    Non default constructor of MinMaxPlayCard class
 
   \params enityID
    ID of the owner of this scipt
@@ -59,26 +59,19 @@ namespace GoopScripts.Source.AI.Enemy.Dawson
     }
 
 
-    /*!*********************************************************************
-   \brief
-     Awake function for the IsOutsideAttackRange script. 
-   ************************************************************************/
-    public void Awake()
-    {
-      // Logic for Awake
-    }
-
 
     /*!*********************************************************************
    \brief
-     Start function for the IsOutsideAttackRange script. 
-   ************************************************************************/
-    public void Start()
-    {
-      // Logic for Start
-    }
+    Function to simulate each permutations. On update will generate a list of permutations.
+    This function will be in charge of simulating each permutation. Function will be given a range
+    of permutations to run.
 
+   \params start
+    starting index of the permutation
 
+   \params size
+   Number of permutations this function will run
+  ************************************************************************/
     public void SimulatePermutations(int start, int size)
     {
       Stats fakePlayer = new Stats(0);
@@ -294,8 +287,11 @@ namespace GoopScripts.Source.AI.Enemy.Dawson
 
     /*!*********************************************************************
     \brief
-     Update function for the IsOutsideAttackRange script. This function is called every frame
-     if the script is attached to a leaf node
+     Update function for the MinMaxPLayCard script. This function is called every frame
+     if the script is attached to a leaf node. when this function is called at the start of
+    each turn, it will generate a list of permutation/actions the enemy can take. Over the next few frames,
+    This script will run/simulate each of these permutations. Once all the permutations have been ran, 
+    the enemy will choose the action/permutation with the most optimal outcome.
     
     \param[entityID] uint
     ID of the entity
@@ -511,57 +507,5 @@ namespace GoopScripts.Source.AI.Enemy.Dawson
           }
       }
     }
-
-    /*!*********************************************************************
-    \brief
-     onFail function for the IsOutsideAttackRange script. This function is called when the script fails.
-    it informs the tree that this script failed and jump back to the parent node
-    ************************************************************************/
-    public void OnFail()
-    {
-    }
-
-    /*!*********************************************************************
-    \brief
-     onSuccess function for the IsOutsideAttackRange script. This function is called when the script succeed.
-    it informs the tree that this script succeed and jump back to the parent node
-    ************************************************************************/
-    public void OnSuccess()
-    {
-    }
-
-
-    public void ReturnFromChild(uint entityID)
-    {
-
-    }
-
-    public void OnExit()
-    {
-
-    }
-
-
-    /*!*********************************************************************
-    \brief
-     Update function for the IsOutsideAttackRange script. This function is called every frame
-     if the script is attached to an entity
-    ************************************************************************/
-    public void Update()
-    {
-
-    }
-
-    /*!*********************************************************************
-    \brief
-     late Update function for the IsOutsideAttackRange script
-    ************************************************************************/
-    public void LateUpdate()
-    {
-      // Logic for lateUpdate
-    }
-
-
-
   }
 }

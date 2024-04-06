@@ -42,26 +42,6 @@ namespace GoopScripts.AI.Enemy.MineWorm
       m_nodeID = currID;
     }
 
-
-    /*!*********************************************************************
-   \brief
-     Awake function for the PlaySpecialCard script. 
-   ************************************************************************/
-    public void Awake()
-    {
-      // Logic for Awake
-    }
-
-
-    /*!*********************************************************************
-   \brief
-     Start function for the PlaySpecialCard script. 
-   ************************************************************************/
-    public void Start()
-    {
-      // Logic for Start
-    }
-
     /*!*********************************************************************
     \brief
      Update function for the PlaySpecialCard script. This function is called every frame
@@ -113,39 +93,6 @@ namespace GoopScripts.AI.Enemy.MineWorm
       SetResult((int)NODE_STATES.STATE_SUCCEED, m_nodeID);
       JumpToParent();
     }
-
-
-    public void ReturnFromChild(uint entityID)
-    {
-
-    }
-
-    public void OnExit()
-    {
-
-    }
-
-
-    /*!*********************************************************************
-    \brief
-     Update function for the PlaySpecialCard script. This function is called every frame
-     if the script is attached to an entity
-    ************************************************************************/
-    public void Update()
-    {
-
-    }
-
-    /*!*********************************************************************
-    \brief
-     late Update function for the PlaySpecialCard script
-    ************************************************************************/
-    public void LateUpdate()
-    {
-      // Logic for lateUpdate
-    }
-
-
 
   }
 }

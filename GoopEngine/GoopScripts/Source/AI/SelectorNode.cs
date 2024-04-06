@@ -44,26 +44,6 @@ namespace GoopScripts.AI
       }
     }
 
-
-    /*!*********************************************************************
-   \brief
-     Awake function for the SelectorNode script. 
-   ************************************************************************/
-    public void Awake()
-    {
-      // Logic for Awake
-    }
-
-
-    /*!*********************************************************************
-   \brief
-     Start function for the SelectorNode script. 
-   ************************************************************************/
-    public void Start()
-    {
-      // Logic for Start
-    }
-
     /*!*********************************************************************
     \brief
      Update function for the SelectorNode script. This function is called every frame
@@ -185,31 +165,6 @@ namespace GoopScripts.AI
         SetResult((int)NODE_STATES.STATE_WAITING, m_nodeID);
       }
 
-    }
-
-    public void OnExit()
-    {
-
-    }
-
-
-    /*!*********************************************************************
-    \brief
-     Update function for the SelectorNode script. This function is called every frame
-     if the script is attached to an entity
-    ************************************************************************/
-    public void Update()
-    {
-
-    }
-
-    /*!*********************************************************************
-    \brief
-     late Update function for the SelectorNode script
-    ************************************************************************/
-    public void LateUpdate()
-    {
-      // Logic for lateUpdate
     }
 
 

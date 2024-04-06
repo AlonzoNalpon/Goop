@@ -61,8 +61,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Source\AI\Enemy\Dawson\MinMaxPlayCard.cs" />
-    <Compile Include="Source\AI\Enemy\IsOutsideAttackRange.cs" />
-    <Compile Include="Source\AI\Enemy\IsWithinPlayerRange.cs" />
     <Compile Include="Source\AI\Enemy\MineWorm\CheckCombo.cs" />
     <Compile Include="Source\AI\Enemy\MineWorm\CheckForSpecialCard.cs" />
     <Compile Include="Source\AI\Enemy\MineWorm\DoNothing.cs" />
@@ -71,10 +69,6 @@
     <Compile Include="Source\AI\Enemy\MineWorm\PerformCombo.cs" />
     <Compile Include="Source\AI\Enemy\MineWorm\PlayLastCard.cs" />
     <Compile Include="Source\AI\Enemy\MineWorm\PlaySpecialCard.cs" />
-    <Compile Include="Source\AI\Enemy\MoveToPlayer.cs" />
-    <Compile Include="Source\AI\Enemy\RunFromPlayer.cs" />
-    <Compile Include="Source\AI\FailNode.cs" />
-    <Compile Include="Source\AI\LeafNode.cs" />
     <Compile Include="Source\AI\RootNode.cs" />
     <Compile Include="Source\AI\SelectorNode.cs" />
     <Compile Include="Source\AI\SequenceNode.cs" />

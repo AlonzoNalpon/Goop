@@ -78,16 +78,17 @@ For new prefabs, do File > New Prefab. A pop out will appear.
 To edit existing prefabs, right click a prefab in the asset browser (found under "Prefabs" directory)
 and select "Edit Prefab"
 All supported features of the inspector, viewport and scene hierarchy work the same way here.
-Allows adding and removing of components to the current prefab, as well as child entities and its
-respective components.
+Allows adding and removing of components to the current prefab, as well as components of child entities.
 To leave the prefab editor, press "ESC" key. You will be prompted with options to save, return or discard
 changes.
 Note that any entities left unparented (other than the original prefab entity) will be ignored
 during saving.
 
+** Deleting a child entity from a prefab is currently unstable due to new features added
 
 [ Undo/Redo ]
-
+CTRL-Z to undo and CTRL-SHIFT-Z to redo
+*Currently only works for Transform component
 
 [ Node Editor ]
 Allows user to edit enemy's behaviour tree. Any changes made will be displayed in the game at runtime, if the tree is valid (will explain more about it bellow)

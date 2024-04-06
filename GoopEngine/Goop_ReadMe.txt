@@ -26,9 +26,7 @@ Pressing "I" will heal the player's health by 1.
 Pressing "O" will draw an additional card (note that max hand size is 5)
 
 Known bugs:
-[EDITOR ONLY] 
-If you were to declare a new public data member without defining it and hot reload, the inspector will crash when it tries to read that data member
-
+[EDITOR ONLY]
 
 Team Roster:
 Wong Chin Kit Bryan - Tech Lead, Product Manager
