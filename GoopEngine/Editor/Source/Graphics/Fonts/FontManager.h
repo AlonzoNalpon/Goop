@@ -18,7 +18,6 @@ Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 #include <string>
 #include <def.h>
 #include <Graphics/Fonts/Character.h>
-#include <Graphics/Fonts/TextObjGroup.h>
 #include <Graphics/Model.h>
 namespace GE::Graphics::Fonts
 {
@@ -140,7 +139,6 @@ namespace GE::Graphics::Fonts
     ************************************************************************/
     void FreeFonts();
 
-    //GLfloat GetTextWidth(std::string const& text, Graphics::gObjID fontID, GLfloat scale);
     GLfloat GetTextWidth(std::string::const_iterator begin, std::string::const_iterator end, 
       Graphics::gObjID fontID, GLfloat scale);
 
@@ -149,9 +147,6 @@ namespace GE::Graphics::Fonts
 
     void    GetTextLinesInfo(Graphics::gObjID fontID, std::string const& text, 
       std::vector<GE::Graphics::Fonts::FontManager::FontLineInfo>& nlInfo, FontAlign align = FontAlign::LEFT)const;
-    //void    TextNewLines(std::string const& text, std::vector<size_t>& nlInfo);
-
-    void              UpdateTextInfo(TextObjGroup& group);
   };
 }
 
