@@ -12,10 +12,7 @@ using GoopScripts.Mono;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
 
 
 namespace GoopScripts.UI
@@ -122,10 +119,6 @@ namespace GoopScripts.UI
       m_timer += dt;
       if (m_timer >= m_timeSlice * TIMESLICE_MULTIPLIER)
       {
-        ++m_health;
-        UpdateHealthText();
-        m_timer -= m_timeSlice;
-
         if (m_health >= m_targetHealth)
         {
           m_health = m_targetHealth;
@@ -134,6 +127,10 @@ namespace GoopScripts.UI
           Utils.DestroyEntity(Utils.GetEntity(HEALTH_BAR_GLOW_PREFAB));
           return;
         }
+
+        ++m_health;
+        UpdateHealthText();
+        m_timer -= m_timeSlice;
       }
     }
 
@@ -250,6 +247,7 @@ namespace GoopScripts.UI
 
       m_isHealing = true;
       time -= HEAL_ANIM_BUFFER;
+      time -= time / (double)amount;
       m_targetHealth = m_health + amount;
       Vec3<double> currPos = Utils.GetPosition(m_playerBarID);
       currPos.X = HEALTH_BAR_START.X + 0.5 * (double)(m_oneUnit * m_health) - 2.0;
