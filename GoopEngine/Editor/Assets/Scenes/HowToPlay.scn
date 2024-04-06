@@ -893,10 +893,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, -65, 1 }",
+                    "pos": "{ 0, -90, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -400, -164, 1 }",
+                    "worldPos": "{ -400, -189, 1 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -1072,10 +1072,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, -65, 1 }",
+                    "pos": "{ 0, -90, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 0, -164, 1 }",
+                    "worldPos": "{ 0, -189, 1 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -1356,10 +1356,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, -65, 1 }",
+                    "pos": "{ 0, -85, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 400, -164, 1 }",
+                    "worldPos": "{ 400, -184, 1 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -1390,10 +1390,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, -80, 1 }",
+                    "pos": "{ 0, -100, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 400, -179, 1 }",
+                    "worldPos": "{ 400, -199, 1 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -2024,7 +2024,7 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -3.52429e-11, 0, 0 }",
+                    "pos": "{ -3.25144e-11, 0, 0 }",
                     "scale": "{ 1.11911, 1.19609, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 175, -180, 0 }",
@@ -2344,7 +2344,7 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 3.52429e-11, 0, 0 }",
+                    "pos": "{ 3.25144e-11, 0, 0 }",
                     "scale": "{ 1.11911, 1.19609, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -175, -180, 0 }",
@@ -2859,6 +2859,107 @@
         ]
     },
     {
+        "Name": "AtkUp",
+        "ID": 66,
+        "Prefab": {
+            "name": "AtkUp",
+            "version": 7,
+            "objToEntity": [
+                {
+                    "key": 0,
+                    "value": 66
+                },
+                {
+                    "key": 1,
+                    "value": 68
+                },
+                {
+                    "key": 2,
+                    "value": 71
+                }
+            ],
+            "registered": true
+        },
+        "isActive": true,
+        "Parent": 72,
+        "Child Entities": [
+            68
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, -200, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 0, -200, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 0, -200 }",
+                    "width": 60.0,
+                    "height": 60.0,
+                    "min": "{ -30, -230 }",
+                    "max": "{ 30, -170 }",
+                    "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 60,
+                            "height": 60,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "Atk Up",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "BuffIconInteraction",
+                            "entityID": 66,
+                            "scriptFieldInstList": []
+                        }
+                    ]
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "",
+                    "eventType": "NO_EVENT",
+                    "lastCollided": false,
+                    "currCollided": false
+                }
+            }
+        ]
+    },
+    {
         "Name": "page 11",
         "ID": 67,
         "Prefab": null,
@@ -2888,6 +2989,28 @@
                     "scale": 0.25,
                     "fontID": 18,
                     "Alignment": "CENTER"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "BuffIconText",
+        "ID": 68,
+        "Prefab": null,
+        "isActive": false,
+        "Parent": 66,
+        "Child Entities": [
+            71
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 63.4408, -55, 10 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 63.4408, -255, 10 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
                 }
             }
         ]
@@ -2961,21 +3084,59 @@
         ]
     },
     {
+        "Name": "Text",
+        "ID": 71,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 68,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -40.7832, -8.156, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 22.6576, -263.156, 10 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "Atk Up",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.10000000149011612,
+                    "fontID": 0,
+                    "Alignment": "LEFT"
+                }
+            }
+        ]
+    },
+    {
         "Name": "Page_8",
         "ID": 72,
         "Prefab": null,
         "isActive": false,
         "Parent": 75,
         "Child Entities": [
+            66,
             83,
             84,
             85,
             86,
             87,
-            88,
-            92,
-            96,
-            121
+            106,
+            121,
+            130,
+            133,
+            137,
+            140,
+            143
         ],
         "Components": [
             {
@@ -3496,582 +3657,6 @@
         ]
     },
     {
-        "Name": "Dmg Up",
-        "ID": 88,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 72,
-        "Child Entities": [
-            89
-        ],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ -118.186, -215, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -118.186, -215, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ -118.186, -215 }",
-                    "width": 60.0,
-                    "height": 60.0,
-                    "min": "{ -148.186, -245 }",
-                    "max": "{ -88.186, -185 }",
-                    "render": false
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 60,
-                            "height": 60,
-                            "tint": {
-                                "r": 1.0,
-                                "g": 1.0,
-                                "b": 1.0,
-                                "a": 0.0
-                            },
-                            "multiply": {
-                                "r": 1.0,
-                                "g": 1.0,
-                                "b": 1.0,
-                                "a": 1.0
-                            }
-                        }
-                    },
-                    "spriteName": "Dmg Up",
-                    "shouldRender": true
-                }
-            },
-            {
-                "Scripts": {
-                    "scriptList": [
-                        {
-                            "scriptName": "BuffIconInteraction",
-                            "entityID": 88,
-                            "scriptFieldInstList": []
-                        }
-                    ]
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "",
-                    "eventType": "NO_EVENT",
-                    "lastCollided": false,
-                    "currCollided": false
-                }
-            }
-        ]
-    },
-    {
-        "Name": "BuffIconText",
-        "ID": 89,
-        "Prefab": null,
-        "isActive": false,
-        "Parent": 88,
-        "Child Entities": [
-            90,
-            91
-        ],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 63.4414, -51.471, 10 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -54.7446, -266.471, 10 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Backing",
-        "ID": 90,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 89,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 0, 1, 0 }",
-                    "scale": "{ 0.59, 0.345365, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -54.7446, -265.471, 10 }",
-                    "worldScale": "{ 0.59, 0.345365, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 200,
-                            "height": 110,
-                            "tint": {
-                                "r": 1.0,
-                                "g": 1.0,
-                                "b": 1.0,
-                                "a": 0.0
-                            },
-                            "multiply": {
-                                "r": 1.0,
-                                "g": 1.0,
-                                "b": 1.0,
-                                "a": 1.0
-                            }
-                        }
-                    },
-                    "spriteName": "Pause_GreyOverlay",
-                    "shouldRender": true
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Text",
-        "ID": 91,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 89,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ -47.9674, -7.223, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -102.712, -273.694, 10 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "Dmg Up",
-                    "clr": {
-                        "r": 1.0,
-                        "g": 1.0,
-                        "b": 1.0,
-                        "a": 1.0
-                    },
-                    "scale": 0.10000000149011612,
-                    "fontID": 0,
-                    "Alignment": "LEFT"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Dmg Down",
-        "ID": 92,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 72,
-        "Child Entities": [
-            93
-        ],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 119.74, -215, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 119.74, -215, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 119.74, -215 }",
-                    "width": 60.0,
-                    "height": 60.0,
-                    "min": "{ 89.74, -245 }",
-                    "max": "{ 149.74, -185 }",
-                    "render": false
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 60,
-                            "height": 60,
-                            "tint": {
-                                "r": 1.0,
-                                "g": 1.0,
-                                "b": 1.0,
-                                "a": 0.0
-                            },
-                            "multiply": {
-                                "r": 1.0,
-                                "g": 1.0,
-                                "b": 1.0,
-                                "a": 1.0
-                            }
-                        }
-                    },
-                    "spriteName": "Dmg Down",
-                    "shouldRender": true
-                }
-            },
-            {
-                "Scripts": {
-                    "scriptList": [
-                        {
-                            "scriptName": "BuffIconInteraction",
-                            "entityID": 92,
-                            "scriptFieldInstList": []
-                        }
-                    ]
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "",
-                    "eventType": "NO_EVENT",
-                    "lastCollided": false,
-                    "currCollided": false
-                }
-            }
-        ]
-    },
-    {
-        "Name": "BuffIconText",
-        "ID": 93,
-        "Prefab": null,
-        "isActive": false,
-        "Parent": 92,
-        "Child Entities": [
-            94,
-            95
-        ],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 63.441, -50.429, 10 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 183.181, -265.429, 10 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Backing",
-        "ID": 94,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 93,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 0, 0, 0 }",
-                    "scale": "{ 0.59, 0.345365, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 183.181, -265.429, 10 }",
-                    "worldScale": "{ 0.59, 0.345365, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 200,
-                            "height": 100,
-                            "tint": {
-                                "r": 1.0,
-                                "g": 1.0,
-                                "b": 1.0,
-                                "a": 0.0
-                            },
-                            "multiply": {
-                                "r": 1.0,
-                                "g": 1.0,
-                                "b": 1.0,
-                                "a": 1.0
-                            }
-                        }
-                    },
-                    "spriteName": "Pause_GreyOverlay",
-                    "shouldRender": true
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Text",
-        "ID": 95,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 93,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ -53.967, -7.223, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 129.214, -272.652, 10 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "Dmg Down",
-                    "clr": {
-                        "r": 1.0,
-                        "g": 1.0,
-                        "b": 1.0,
-                        "a": 1.0
-                    },
-                    "scale": 0.08299999684095383,
-                    "fontID": 0,
-                    "Alignment": "LEFT"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Blinded",
-        "ID": 96,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 72,
-        "Child Entities": [
-            97
-        ],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 0, -215, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 0, -215, 0 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "BoxCollider": {
-                    "center": "{ 0, -215 }",
-                    "width": 60.0,
-                    "height": 60.0,
-                    "min": "{ -30, -245 }",
-                    "max": "{ 30, -185 }",
-                    "render": false
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 60,
-                            "height": 60,
-                            "tint": {
-                                "r": 1.0,
-                                "g": 1.0,
-                                "b": 1.0,
-                                "a": 0.0
-                            },
-                            "multiply": {
-                                "r": 1.0,
-                                "g": 1.0,
-                                "b": 1.0,
-                                "a": 1.0
-                            }
-                        }
-                    },
-                    "spriteName": "Blinded",
-                    "shouldRender": true
-                }
-            },
-            {
-                "Scripts": {
-                    "scriptList": [
-                        {
-                            "scriptName": "BuffIconInteraction",
-                            "entityID": 96,
-                            "scriptFieldInstList": []
-                        }
-                    ]
-                }
-            },
-            {
-                "GE_Button": {
-                    "param": "",
-                    "eventType": "NO_EVENT",
-                    "lastCollided": false,
-                    "currCollided": false
-                }
-            }
-        ]
-    },
-    {
-        "Name": "BuffIconText",
-        "ID": 97,
-        "Prefab": null,
-        "isActive": false,
-        "Parent": 96,
-        "Child Entities": [
-            98,
-            99
-        ],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 63.4408, -50.43, 10 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 63.4408, -265.43, 10 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Backing",
-        "ID": 98,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 97,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ 0, 0, 0 }",
-                    "scale": "{ 0.59, 0.345365, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 63.4408, -265.43, 10 }",
-                    "worldScale": "{ 0.59, 0.345365, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Sprite": {
-                    "spriteData": {
-                        "spriteSubData": {
-                            "texCoords": {
-                                "x": 0.0,
-                                "y": 0.0
-                            },
-                            "texDims": {
-                                "x": 1.0,
-                                "y": 1.0
-                            },
-                            "width": 180,
-                            "height": 100,
-                            "tint": {
-                                "r": 1.0,
-                                "g": 1.0,
-                                "b": 1.0,
-                                "a": 0.0
-                            },
-                            "multiply": {
-                                "r": 1.0,
-                                "g": 1.0,
-                                "b": 1.0,
-                                "a": 1.0
-                            }
-                        }
-                    },
-                    "spriteName": "Pause_GreyOverlay",
-                    "shouldRender": true
-                }
-            }
-        ]
-    },
-    {
-        "Name": "Text",
-        "ID": 99,
-        "Prefab": null,
-        "isActive": true,
-        "Parent": 97,
-        "Child Entities": [],
-        "Components": [
-            {
-                "Transform": {
-                    "pos": "{ -42.9674, -9.279, 0 }",
-                    "scale": "{ 1, 1, 1 }",
-                    "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 20.4734, -274.709, 10 }",
-                    "worldScale": "{ 1, 1, 1 }",
-                    "worldRot": "{ 0, 0, 0 }"
-                }
-            },
-            {
-                "Text": {
-                    "text": "Blinded",
-                    "clr": {
-                        "r": 1.0,
-                        "g": 1.0,
-                        "b": 1.0,
-                        "a": 1.0
-                    },
-                    "scale": 0.10000000149011612,
-                    "fontID": 0,
-                    "Alignment": "LEFT"
-                }
-            }
-        ]
-    },
-    {
         "Name": "Page_9",
         "ID": 100,
         "Prefab": null,
@@ -4269,6 +3854,107 @@
         ]
     },
     {
+        "Name": "Blinded",
+        "ID": 106,
+        "Prefab": {
+            "name": "Blinded",
+            "version": 6,
+            "objToEntity": [
+                {
+                    "key": 0,
+                    "value": 106
+                },
+                {
+                    "key": 1,
+                    "value": 112
+                },
+                {
+                    "key": 2,
+                    "value": 113
+                }
+            ],
+            "registered": true
+        },
+        "isActive": true,
+        "Parent": 72,
+        "Child Entities": [
+            112
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -80, -200, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -80, -200, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ -80, -200 }",
+                    "width": 60.0,
+                    "height": 60.0,
+                    "min": "{ -110, -230 }",
+                    "max": "{ -50, -170 }",
+                    "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 60,
+                            "height": 60,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "Blinded",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "BuffIconInteraction",
+                            "entityID": 106,
+                            "scriptFieldInstList": []
+                        }
+                    ]
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "",
+                    "eventType": "NO_EVENT",
+                    "lastCollided": false,
+                    "currCollided": false
+                }
+            }
+        ]
+    },
+    {
         "Name": "Page_10",
         "ID": 107,
         "Prefab": null,
@@ -4425,6 +4111,62 @@
                     },
                     "scale": 0.22499999403953552,
                     "fontID": 18,
+                    "Alignment": "LEFT"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "BuffIconText",
+        "ID": 112,
+        "Prefab": null,
+        "isActive": false,
+        "Parent": 106,
+        "Child Entities": [
+            113
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 63.4408, -55, 10 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -16.5592, -255, 10 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Text",
+        "ID": 113,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 112,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -42.9674, -9.279, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -59.5266, -264.279, 10 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "Blinded",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.10000000149011612,
+                    "fontID": 0,
                     "Alignment": "LEFT"
                 }
             }
@@ -5134,6 +4876,816 @@
                     "scale": 0.20000000298023224,
                     "fontID": 21,
                     "Alignment": "CENTER"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "BlockUp",
+        "ID": 130,
+        "Prefab": {
+            "name": "BlockUp",
+            "version": 5,
+            "objToEntity": [
+                {
+                    "key": 0,
+                    "value": 130
+                },
+                {
+                    "key": 1,
+                    "value": 131
+                },
+                {
+                    "key": 2,
+                    "value": 132
+                }
+            ],
+            "registered": true
+        },
+        "isActive": true,
+        "Parent": 72,
+        "Child Entities": [
+            131
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 80, -200, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 80, -200, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 80, -200 }",
+                    "width": 60.0,
+                    "height": 60.0,
+                    "min": "{ 50, -230 }",
+                    "max": "{ 110, -170 }",
+                    "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 60,
+                            "height": 60,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "Block Up",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "BuffIconInteraction",
+                            "entityID": 130,
+                            "scriptFieldInstList": []
+                        }
+                    ]
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "",
+                    "eventType": "NO_EVENT",
+                    "lastCollided": false,
+                    "currCollided": false
+                }
+            }
+        ]
+    },
+    {
+        "Name": "BuffIconText",
+        "ID": 131,
+        "Prefab": null,
+        "isActive": false,
+        "Parent": 130,
+        "Child Entities": [
+            132
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 63.441, -55, 10 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 143.441, -255, 10 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Text",
+        "ID": 132,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 131,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -51.9679, -9.279, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 91.4731, -264.279, 10 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "Block Up",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.10000000149011612,
+                    "fontID": 0,
+                    "Alignment": "LEFT"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "DamageImmunity",
+        "ID": 133,
+        "Prefab": {
+            "name": "DamageImmunity",
+            "version": 3,
+            "objToEntity": [
+                {
+                    "key": 0,
+                    "value": 133
+                },
+                {
+                    "key": 1,
+                    "value": 134
+                },
+                {
+                    "key": 2,
+                    "value": 135
+                },
+                {
+                    "key": 3,
+                    "value": 136
+                }
+            ],
+            "registered": true
+        },
+        "isActive": true,
+        "Parent": 72,
+        "Child Entities": [
+            134
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -160, -200, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -160, -200, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ -160, -200 }",
+                    "width": 60.0,
+                    "height": 60.0,
+                    "min": "{ -190, -230 }",
+                    "max": "{ -130, -170 }",
+                    "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 60,
+                            "height": 60,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "Block Up",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "BuffIconInteraction",
+                            "entityID": 133,
+                            "scriptFieldInstList": []
+                        }
+                    ]
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "",
+                    "eventType": "NO_EVENT",
+                    "lastCollided": false,
+                    "currCollided": false
+                }
+            }
+        ]
+    },
+    {
+        "Name": "BuffIconText",
+        "ID": 134,
+        "Prefab": null,
+        "isActive": false,
+        "Parent": 133,
+        "Child Entities": [
+            135,
+            136
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 63.4408, -55, 10 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -96.5592, -255, 10 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Backing",
+        "ID": 135,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 134,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 0, 0, 0 }",
+                    "scale": "{ 0.59, 0.345365, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -96.5592, -255, 10 }",
+                    "worldScale": "{ 0.59, 0.345365, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Text",
+        "ID": 136,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 134,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -51.9678, -9.279, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -148.527, -264.279, 10 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "Immune to Damage",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.10000000149011612,
+                    "fontID": 0,
+                    "Alignment": "LEFT"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "DmgDown",
+        "ID": 137,
+        "Prefab": {
+            "name": "DmgDown",
+            "version": 6,
+            "objToEntity": [
+                {
+                    "key": 0,
+                    "value": 137
+                },
+                {
+                    "key": 1,
+                    "value": 138
+                },
+                {
+                    "key": 2,
+                    "value": 139
+                }
+            ],
+            "registered": true
+        },
+        "isActive": true,
+        "Parent": 72,
+        "Child Entities": [
+            138
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 160, -200, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 160, -200, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 160, -200 }",
+                    "width": 60.0,
+                    "height": 60.0,
+                    "min": "{ 130, -230 }",
+                    "max": "{ 190, -170 }",
+                    "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 60,
+                            "height": 60,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "Dmg Down",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "BuffIconInteraction",
+                            "entityID": 137,
+                            "scriptFieldInstList": []
+                        }
+                    ]
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "",
+                    "eventType": "NO_EVENT",
+                    "lastCollided": false,
+                    "currCollided": false
+                }
+            }
+        ]
+    },
+    {
+        "Name": "BuffIconText",
+        "ID": 138,
+        "Prefab": null,
+        "isActive": false,
+        "Parent": 137,
+        "Child Entities": [
+            139
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 63.441, -55, 10 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 223.441, -255, 10 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Text",
+        "ID": 139,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 138,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -53.968, -7.222, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 169.473, -262.222, 10 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "Dmg Down",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.08299999684095383,
+                    "fontID": 0,
+                    "Alignment": "LEFT"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "DmgUp",
+        "ID": 140,
+        "Prefab": {
+            "name": "DmgUp",
+            "version": 7,
+            "objToEntity": [
+                {
+                    "key": 0,
+                    "value": 140
+                },
+                {
+                    "key": 1,
+                    "value": 141
+                },
+                {
+                    "key": 2,
+                    "value": 142
+                }
+            ],
+            "registered": true
+        },
+        "isActive": true,
+        "Parent": 72,
+        "Child Entities": [
+            141
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -240, -200, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -240, -200, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ -240, -200 }",
+                    "width": 60.0,
+                    "height": 60.0,
+                    "min": "{ -270, -230 }",
+                    "max": "{ -210, -170 }",
+                    "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 60,
+                            "height": 60,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "Dmg Up",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "BuffIconInteraction",
+                            "entityID": 140,
+                            "scriptFieldInstList": []
+                        }
+                    ]
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "",
+                    "eventType": "NO_EVENT",
+                    "lastCollided": false,
+                    "currCollided": false
+                }
+            }
+        ]
+    },
+    {
+        "Name": "BuffIconText",
+        "ID": 141,
+        "Prefab": null,
+        "isActive": false,
+        "Parent": 140,
+        "Child Entities": [
+            142
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 63.441, -55, 10 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -176.559, -255, 10 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Text",
+        "ID": 142,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 141,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -47.248, -7.222, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ -223.807, -262.222, 10 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "+1 Atk",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.10000000149011612,
+                    "fontID": 0,
+                    "Alignment": "LEFT"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Skipped",
+        "ID": 143,
+        "Prefab": {
+            "name": "Skipped",
+            "version": 9,
+            "objToEntity": [
+                {
+                    "key": 0,
+                    "value": 143
+                },
+                {
+                    "key": 1,
+                    "value": 144
+                },
+                {
+                    "key": 2,
+                    "value": 145
+                }
+            ],
+            "registered": true
+        },
+        "isActive": true,
+        "Parent": 72,
+        "Child Entities": [
+            144
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 240, -200, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 240, -200, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "BoxCollider": {
+                    "center": "{ 240, -200 }",
+                    "width": 60.0,
+                    "height": 60.0,
+                    "min": "{ 210, -230 }",
+                    "max": "{ 270, -170 }",
+                    "render": false
+                }
+            },
+            {
+                "Sprite": {
+                    "spriteData": {
+                        "spriteSubData": {
+                            "texCoords": {
+                                "x": 0.0,
+                                "y": 0.0
+                            },
+                            "texDims": {
+                                "x": 1.0,
+                                "y": 1.0
+                            },
+                            "width": 60,
+                            "height": 60,
+                            "tint": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 0.0
+                            },
+                            "multiply": {
+                                "r": 1.0,
+                                "g": 1.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        }
+                    },
+                    "spriteName": "Skipped",
+                    "shouldRender": true
+                }
+            },
+            {
+                "Scripts": {
+                    "scriptList": [
+                        {
+                            "scriptName": "BuffIconInteraction",
+                            "entityID": 143,
+                            "scriptFieldInstList": []
+                        }
+                    ]
+                }
+            },
+            {
+                "GE_Button": {
+                    "param": "",
+                    "eventType": "NO_EVENT",
+                    "lastCollided": false,
+                    "currCollided": false
+                }
+            }
+        ]
+    },
+    {
+        "Name": "BuffIconText",
+        "ID": 144,
+        "Prefab": null,
+        "isActive": false,
+        "Parent": 143,
+        "Child Entities": [
+            145
+        ],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ 63.441, -55, 10 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 303.441, -255, 10 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            }
+        ]
+    },
+    {
+        "Name": "Text",
+        "ID": 145,
+        "Prefab": null,
+        "isActive": true,
+        "Parent": 144,
+        "Child Entities": [],
+        "Components": [
+            {
+                "Transform": {
+                    "pos": "{ -45.968, -8.251, 0 }",
+                    "scale": "{ 1, 1, 1 }",
+                    "rot": "{ 0, 0, 0 }",
+                    "worldPos": "{ 257.473, -263.251, 10 }",
+                    "worldScale": "{ 1, 1, 1 }",
+                    "worldRot": "{ 0, 0, 0 }"
+                }
+            },
+            {
+                "Text": {
+                    "text": "Skipped",
+                    "clr": {
+                        "r": 1.0,
+                        "g": 1.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "scale": 0.10000000149011612,
+                    "fontID": 0,
+                    "Alignment": "LEFT"
                 }
             }
         ]
