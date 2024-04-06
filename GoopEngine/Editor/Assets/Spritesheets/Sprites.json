@@ -243,15 +243,6 @@
         "flags": 0
     },
     {
-        "id": "SS_MineWorm_Spit",
-        "filePath": "SS_MineWorm_Spit",
-        "slices": 3,
-        "stacks": 3,
-        "frames": 8,
-        "speed": 0.1,
-        "flags": 0
-    },
-    {
         "id": "SS_MoleRat_Bite",
         "filePath": "SS_MoleRat_Bite",
         "slices": 3,

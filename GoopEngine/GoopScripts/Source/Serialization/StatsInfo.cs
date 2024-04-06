@@ -41,7 +41,6 @@ namespace GoopScripts.Serialization
       deckList.Clear();
       foreach (var cardData in cardMap)
       {
-        Utils.SendString(cardData.Key.ToString());
         deckList.Add(new Tuple<CardBase.CardID, uint>(cardData.Key, cardData.Value));
       }
     }
