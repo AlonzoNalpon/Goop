@@ -9,7 +9,12 @@ An icon for buffs and debuffs applied will appear above the character's respecti
 Hovering over the icons will display text to show the type of buff.
 The turn ends once all cards and combos are resolved.
 
-Note: The game stores the save file under "Documents\Goop\DungeonPlunder\" directory
+Notes:
+  - The game stores the save file under "Documents\Goop\DungeonPlunder\" directory
+  - The "Load Game" option brings you back to the beginning of the last level you stopped at
+    You can use this option to continue a run from the level you lost
+    This will however skip the tutorial if used at the start of the game so we recommend
+    the "New Game" button for a normal playthrough.
 
 Pausing:
   - Press ESC key to pause
