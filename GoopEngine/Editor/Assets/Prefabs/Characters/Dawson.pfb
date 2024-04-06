@@ -1,7 +1,7 @@
 {
     "Name": "Dawson",
     "isActive": true,
-    "Version": 35,
+    "Version": 36,
     "Components": [
         {
             "Transform": {
@@ -241,26 +241,6 @@
                         "scriptName": "DawsonAttackParticle",
                         "entityID": 0,
                         "scriptFieldInstList": []
-                    },
-                    {
-                        "scriptName": "DawsonBodyFall",
-                        "entityID": 0,
-                        "scriptFieldInstList": [
-                            {
-                                "data": 3,
-                                "type": "System.Int32",
-                                "scriptField": {
-                                    "fieldName": "endRange"
-                                }
-                            },
-                            {
-                                "data": 4,
-                                "type": "System.Int32",
-                                "scriptField": {
-                                    "fieldName": "startRange"
-                                }
-                            }
-                        ]
                     },
                     {
                         "scriptName": "DawsonChargeUp",
