@@ -57,6 +57,7 @@ namespace GoopScripts.Gameplay
     bool m_playerSkipped = false, firstTurn = true;
     static bool isStartOfTurn = true;
     static bool gameStarted = false; // called once at the start of game
+    static bool shouldApplyChargeUp = false;
 
     GameManager(uint entityID):base(entityID)
     {
@@ -287,9 +288,9 @@ namespace GoopScripts.Gameplay
 
       if (m_slotToResolve > 2)
       {
-          isResolutionPhase = false;
-          isStartOfTurn = true;
-          m_slotToResolve = 0;
+        isResolutionPhase = false;
+        isStartOfTurn = true;
+        m_slotToResolve = 0;
         return;
       }
 
@@ -404,6 +405,15 @@ namespace GoopScripts.Gameplay
         }
         HighlightQueueSlot(m_slotToResolve);
         ++m_slotToResolve;
+
+        // apply chargeup buff if needed
+        if (m_slotToResolve > 2 && shouldApplyChargeUp)
+        {
+          m_enemyStats.m_buffs.AddBuff(new Buff(Buff.BuffType.SKIP_TURN, 0.0f, 1));
+          m_enemyStats.m_buffs.AddBuff(new Buff(Buff.BuffType.FLAT_ATK_UP, 2.0f, 2));
+          shouldApplyChargeUp = false;
+        }
+
         m_playerStats.ClearAtKBlk();
         m_enemyStats.ClearAtKBlk();
       }
@@ -435,7 +445,7 @@ namespace GoopScripts.Gameplay
 
     /*!*********************************************************************
     \brief
-      This function is triggered t the satrt of resolution phase. 
+      This function is triggered at the satrt of resolution phase. 
       This reset the variables used when resolving the resolution phase
     ************************************************************************/
     private void StartResolution()
@@ -480,8 +490,6 @@ namespace GoopScripts.Gameplay
         }
         
       }
-      
-     
     }
 
 
@@ -628,6 +636,15 @@ namespace GoopScripts.Gameplay
       m_enemyStats.m_buffs.SetType(m_enemyStats.m_type);
       Utils.SpawnPrefab(statsInfo.background, new Vec3<double>(0, 0, -999));
       Utils.UpdateSprite(GetEntity("Enemy Portrait"), statsInfo.portrait);
+    }
+
+    /*!*********************************************************************
+    \brief
+      Sets the flag to apply charge up buff on enemy
+    ************************************************************************/
+    static public void ApplyChargeUp()
+    {
+      shouldApplyChargeUp = true;
     }
 
     /*!*********************************************************************

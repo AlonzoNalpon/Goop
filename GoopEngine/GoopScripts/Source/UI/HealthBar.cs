@@ -296,7 +296,6 @@ namespace GoopScripts.UI
 		********************************************************************/
     void UpdateHealthText()
     {
-      Utils.SendString("Updating text of entity " + m_textUI);
       Utils.SetTextComponent(m_textUI, m_health + " / " + m_maxHealth);
     }
 
