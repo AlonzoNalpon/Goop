@@ -710,7 +710,7 @@
                                         41,
                                         68,
                                         73,
-                                        78,
+                                        83,
                                         83
                                     ],
                                     "type": "System.Int32[]",
@@ -2587,7 +2587,7 @@
         "ID": 88,
         "Prefab": {
             "name": "Leah_Attack2_Hover",
-            "version": 19,
+            "version": 20,
             "objToEntity": [
                 {
                     "key": 0,
@@ -2624,10 +2624,10 @@
             {
                 "Transform": {
                     "pos": "{ -230, 170, 0 }",
-                    "scale": "{ 1.1, 1.1, 1 }",
+                    "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -230, 170, 0 }",
-                    "worldScale": "{ 1.1, 1.1, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             }
@@ -2646,8 +2646,8 @@
                     "pos": "{ 0, -25, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -230, 142.5, 1 }",
-                    "worldScale": "{ 1.1, 1.1, 1 }",
+                    "worldPos": "{ -230, 145, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -2677,11 +2677,11 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, -67, 1 }",
+                    "pos": "{ 0, -90, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -230, 96.3, 1 }",
-                    "worldScale": "{ 1.1, 1.1, 1 }",
+                    "worldPos": "{ -230, 80, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -2714,8 +2714,8 @@
                     "pos": "{ 0, 55.5, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -230, 231.05, 1 }",
-                    "worldScale": "{ 1.1, 1.1, 1 }",
+                    "worldPos": "{ -230, 225.5, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -2763,11 +2763,11 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, -8.52651e-14, 0 }",
+                    "pos": "{ 0, 0, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -230, 170, 0 }",
-                    "worldScale": "{ 1.1, 1.1, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -2828,7 +2828,7 @@
         "ID": 93,
         "Prefab": {
             "name": "Leah_Attack_Hover",
-            "version": 22,
+            "version": 23,
             "objToEntity": [
                 {
                     "key": 0,
@@ -2865,10 +2865,10 @@
             {
                 "Transform": {
                     "pos": "{ -650, 170, 0 }",
-                    "scale": "{ 1.1, 1.1, 1 }",
+                    "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -650, 170, 0 }",
-                    "worldScale": "{ 1.1, 1.1, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             }
@@ -2884,11 +2884,11 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 1.7053e-12, -8.52651e-14, 0 }",
+                    "pos": "{ 0, 0, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -650, 170, 0 }",
-                    "worldScale": "{ 1.1, 1.1, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -2954,11 +2954,11 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 1.7053e-12, -25, 1 }",
+                    "pos": "{ 0, -25, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -650, 142.5, 1 }",
-                    "worldScale": "{ 1.1, 1.1, 1 }",
+                    "worldPos": "{ -650, 145, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -2988,11 +2988,11 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 1.7053e-12, -65, 1 }",
+                    "pos": "{ 0, -90, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -650, 98.5, 1 }",
-                    "worldScale": "{ 1.1, 1.1, 1 }",
+                    "worldPos": "{ -650, 80, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -3022,11 +3022,11 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 1.7053e-12, 55.5, 1 }",
+                    "pos": "{ 0, 55.5, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -650, 231.05, 1 }",
-                    "worldScale": "{ 1.1, 1.1, 1 }",
+                    "worldPos": "{ -650, 225.5, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -3069,7 +3069,7 @@
         "ID": 98,
         "Prefab": {
             "name": "Leah_Block_Hover",
-            "version": 14,
+            "version": 15,
             "objToEntity": [
                 {
                     "key": 0,
@@ -3106,10 +3106,10 @@
             {
                 "Transform": {
                     "pos": "{ 200, 170, 0 }",
-                    "scale": "{ 1.1, 1.1, 1 }",
+                    "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 200, 170, 0 }",
-                    "worldScale": "{ 1.1, 1.1, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             }
@@ -3128,8 +3128,8 @@
                     "pos": "{ 0, -25, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 200, 142.5, 1 }",
-                    "worldScale": "{ 1.1, 1.1, 1 }",
+                    "worldPos": "{ 200, 145, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -3159,11 +3159,11 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, -65, 1 }",
+                    "pos": "{ 0, -90, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 200, 98.5, 1 }",
-                    "worldScale": "{ 1.1, 1.1, 1 }",
+                    "worldPos": "{ 200, 80, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -3196,8 +3196,8 @@
                     "pos": "{ 0, 55.5, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 200, 231.05, 1 }",
-                    "worldScale": "{ 1.1, 1.1, 1 }",
+                    "worldPos": "{ 200, 225.5, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -3245,11 +3245,11 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, -8.52651e-14, 0 }",
+                    "pos": "{ 0, 0, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 200, 170, 0 }",
-                    "worldScale": "{ 1.1, 1.1, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -3310,7 +3310,7 @@
         "ID": 103,
         "Prefab": {
             "name": "Leah_Berserk_Hover",
-            "version": 15,
+            "version": 16,
             "objToEntity": [
                 {
                     "key": 0,
@@ -3352,10 +3352,10 @@
             {
                 "Transform": {
                     "pos": "{ 200, -270, 0 }",
-                    "scale": "{ 1.1, 1.1, 1 }",
+                    "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 200, -270, 0 }",
-                    "worldScale": "{ 1.1, 1.1, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             }
@@ -3374,8 +3374,8 @@
                     "pos": "{ 0, -25, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 200, -297.5, 1 }",
-                    "worldScale": "{ 1.1, 1.1, 1 }",
+                    "worldPos": "{ 200, -295, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -3405,11 +3405,11 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, -65, 1 }",
+                    "pos": "{ 0, -85, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 200, -341.5, 1 }",
-                    "worldScale": "{ 1.1, 1.1, 1 }",
+                    "worldPos": "{ 200, -355, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -3439,11 +3439,11 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, -80, 1 }",
+                    "pos": "{ 0, -15, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 200, -358, 1 }",
-                    "worldScale": "{ 1.1, 1.1, 1 }",
+                    "worldPos": "{ 200, -285, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -3476,8 +3476,8 @@
                     "pos": "{ 0, 55.5, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 200, -208.95, 1 }",
-                    "worldScale": "{ 1.1, 1.1, 1 }",
+                    "worldPos": "{ 200, -214.5, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -3529,7 +3529,7 @@
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ 200, -270, 0 }",
-                    "worldScale": "{ 1.1, 1.1, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -3590,7 +3590,7 @@
         "ID": 109,
         "Prefab": {
             "name": "Leah_Flashbang_Hover",
-            "version": 17,
+            "version": 18,
             "objToEntity": [
                 {
                     "key": 0,
@@ -3632,10 +3632,10 @@
             {
                 "Transform": {
                     "pos": "{ -650, -270, 0 }",
-                    "scale": "{ 1.1, 1.1, 1 }",
+                    "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -650, -270, 0 }",
-                    "worldScale": "{ 1.1, 1.1, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             }
@@ -3651,11 +3651,11 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 1.7053e-12, 0, 0 }",
+                    "pos": "{ 0, 0, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -650, -270, 0 }",
-                    "worldScale": "{ 1.1, 1.1, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -3721,11 +3721,11 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 1.7053e-12, -25, 1 }",
+                    "pos": "{ 0, -25, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -650, -297.5, 1 }",
-                    "worldScale": "{ 1.1, 1.1, 1 }",
+                    "worldPos": "{ -650, -295, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -3755,11 +3755,11 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 1.7053e-12, -65, 1 }",
+                    "pos": "{ 0, -85, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -650, -341.5, 1 }",
-                    "worldScale": "{ 1.1, 1.1, 1 }",
+                    "worldPos": "{ -650, -355, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -3789,11 +3789,11 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 1.7053e-12, -80, 1 }",
+                    "pos": "{ 0, -15, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -650, -358, 1 }",
-                    "worldScale": "{ 1.1, 1.1, 1 }",
+                    "worldPos": "{ -650, -285, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -3823,11 +3823,11 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 1.7053e-12, 55.5, 1 }",
+                    "pos": "{ 0, 55.5, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -650, -208.95, 1 }",
-                    "worldScale": "{ 1.1, 1.1, 1 }",
+                    "worldPos": "{ -650, -214.5, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -3870,7 +3870,7 @@
         "ID": 115,
         "Prefab": {
             "name": "Leah_Smokescreen_Hover",
-            "version": 14,
+            "version": 15,
             "objToEntity": [
                 {
                     "key": 0,
@@ -3912,10 +3912,10 @@
             {
                 "Transform": {
                     "pos": "{ -230, -270, 0 }",
-                    "scale": "{ 1.1, 1.1, 1 }",
+                    "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -230, -270, 0 }",
-                    "worldScale": "{ 1.1, 1.1, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             }
@@ -3935,7 +3935,7 @@
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
                     "worldPos": "{ -230, -270, 0 }",
-                    "worldScale": "{ 1.1, 1.1, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -4004,8 +4004,8 @@
                     "pos": "{ 0, -25, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -230, -297.5, 1 }",
-                    "worldScale": "{ 1.1, 1.1, 1 }",
+                    "worldPos": "{ -230, -295, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -4035,11 +4035,11 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, -65, 1 }",
+                    "pos": "{ 0, -85, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -230, -341.5, 1 }",
-                    "worldScale": "{ 1.1, 1.1, 1 }",
+                    "worldPos": "{ -230, -355, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -4069,11 +4069,11 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, -80, 1 }",
+                    "pos": "{ 0, -15, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -230, -358, 1 }",
-                    "worldScale": "{ 1.1, 1.1, 1 }",
+                    "worldPos": "{ -230, -285, 0 }",
+                    "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
@@ -4106,8 +4106,8 @@
                     "pos": "{ 0, 55.5, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -230, -208.95, 1 }",
-                    "worldScale": "{ 1.1, 1.1, 1 }",
+                    "worldPos": "{ -230, -214.5, 1 }",
+                    "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },

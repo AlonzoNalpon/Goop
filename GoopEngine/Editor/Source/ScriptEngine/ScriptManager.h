@@ -497,12 +497,34 @@ namespace GE::MONO
 	************************************************************************/
 	bool CheckMonoError(MonoError& error);
 
+	/*!*********************************************************************
+	\brief
+		Check if the application has lost focus
+	************************************************************************/
 	static bool GetLoseFocus();
 
+	/*!*********************************************************************
+	\brief
+		Set the value of focus.
+	\param bool active
+		bool to set the value
+	************************************************************************/
 	static void SetLoseFocus(bool active);
 
+	/*!*********************************************************************
+	\brief
+		Set the entity's active value.
+	\param GE::ECS::Entity entity, bool active
+		Set the entity id with the bool value.
+	************************************************************************/
 	static void SetIsActiveEntity(GE::ECS::Entity entity, bool active);
 
+	/*!*********************************************************************
+	\brief
+		Get the entity's active value.
+	\param GE::ECS::Entity entity
+		Entity id
+	************************************************************************/
 	static bool GetIsActiveEntity(GE::ECS::Entity entity);
 
 	/*!*********************************************************************
