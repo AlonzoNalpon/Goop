@@ -178,6 +178,7 @@ namespace GoopScripts.Gameplay
     ************************************************************************/
     public int TakeDamage(float damage, int queueIndex)
 		{
+      Utils.SendString("Taking " + damage + " damage");
       if (damage == 0.0f)
       {
         return 0;
@@ -201,6 +202,7 @@ namespace GoopScripts.Gameplay
         }
       }
       int damageTaken = (int)(damage * takenMultiplier) - m_block;
+      Utils.SendString("damageTaken = (int)(" + damage + " * " + takenMultiplier + ") - " + m_block);
       if (damageTaken > 0)
       {
         m_healthBar.DecreaseHealth(damageTaken);
@@ -581,7 +583,6 @@ namespace GoopScripts.Gameplay
     ************************************************************************/
     public void PlayDamagedAnimation(int damageReceived)
     {
-      Utils.SendString("Took " + damageReceived + " damage");
       if (damageReceived == 0)
       {
         m_animManager.PlayBlock();

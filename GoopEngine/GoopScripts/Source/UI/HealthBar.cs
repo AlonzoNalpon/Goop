@@ -25,7 +25,7 @@ namespace GoopScripts.UI
     static readonly string HEAL_EMITTER_PREFAB = "HealEmitter";
     static readonly string HEALTH_BAR_GLOW_PREFAB = "HealthBarGlow";
     static readonly double HEAL_ANIM_BUFFER = 0.25;  // buffer time to revert scale of healthbar after the animation
-    static readonly Vec3<double> HEALTH_BAR_START = new Vec3<double>(-770.0, 430.0, 3.0);
+    static readonly Vec3<double> HEALTH_BAR_START = new Vec3<double>(-760.0, 430.0, 3.0);
     static readonly double TIMESLICE_MULTIPLIER = 0.5;
 
     bool m_isPlayer;
@@ -121,18 +121,17 @@ namespace GoopScripts.UI
       m_timer += dt;
       if (m_timer >= m_timeSlice / TIMESLICE_MULTIPLIER)
       {
+        ++m_health;
+        UpdateHealthText();
+        m_timer -= m_timeSlice;
+
         if (m_health >= m_targetHealth)
         {
-          UpdateHealthText();
           m_isPlayingAnim = false;
           Utils.DestroyEntity(Utils.GetEntity(HEAL_EMITTER_PREFAB));
           Utils.DestroyEntity(Utils.GetEntity(HEALTH_BAR_GLOW_PREFAB));
           return;
         }
-
-        ++m_health;
-        UpdateHealthText();
-        m_timer -= m_timeSlice;
       }
     }
 
@@ -251,6 +250,7 @@ namespace GoopScripts.UI
       time -= HEAL_ANIM_BUFFER;
       m_targetHealth = m_health + amount;
       Vec3<double> currPos = Utils.GetPosition(m_playerBarID);
+      currPos.X = HEALTH_BAR_START.X + 0.5 * (double)(m_oneUnit * m_health);
       Vec3<double> currScale = new Vec3<double>(1.0, 1.0, 1.0);
       double posIncr = (double)m_oneUnit * 0.5 * TIMESLICE_MULTIPLIER, scaleIncr = TIMESLICE_MULTIPLIER * ((double)m_targetHealth / (double)m_health - 1.0) / (double)amount;
       m_timeSlice = time / (double)amount;
@@ -279,7 +279,8 @@ namespace GoopScripts.UI
         Utils.AddTweenKeyFrame(emitterInst, "Heal", emitterPos, new Vec3<double>(1.0, 1.0, 1.0), new Vec3<double>(), m_timeSlice * TIMESLICE_MULTIPLIER);
       }
       Utils.AddTweenKeyFrame(m_playerBarID, "Heal", currPos, currScale, new Vec3<double>(), HEAL_ANIM_BUFFER);
-      Utils.AddTweenKeyFrame(m_playerBarID, "Heal", currPos, new Vec3<double>(1.0, 1.0, 1.0), new Vec3<double>(), 0.0, 1.0f, "ResetHealthBar");
+      Vec3<double> finalPos = new Vec3<double>(HEALTH_BAR_START.X + (double)m_oneUnit * 0.5 * (double)m_targetHealth, currPos.Y, currPos.Z);
+      Utils.AddTweenKeyFrame(m_playerBarID, "Heal", finalPos, new Vec3<double>(1.0, 1.0, 1.0), new Vec3<double>(), 0.0, 1.0f, "ResetHealthBar");
 
       Utils.PlayTransformAnimation(m_playerBarID, "Heal");
       Utils.PlayTransformAnimation(emitterInst, "Heal");
@@ -295,6 +296,7 @@ namespace GoopScripts.UI
 		********************************************************************/
     void UpdateHealthText()
     {
+      Utils.SendString("Updating text of entity " + m_textUI);
       Utils.SetTextComponent(m_textUI, m_health + " / " + m_maxHealth);
     }
 
