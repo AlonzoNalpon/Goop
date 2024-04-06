@@ -585,17 +585,7 @@
     {
         "Name": "FPSCounter",
         "ID": 35,
-        "Prefab": {
-            "name": "FPSCounter",
-            "version": 2,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 35
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [],
@@ -736,25 +726,7 @@
     {
         "Name": "Tooltip",
         "ID": 37,
-        "Prefab": {
-            "name": "Tooltip",
-            "version": 1,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 37
-                },
-                {
-                    "key": 1,
-                    "value": 38
-                },
-                {
-                    "key": 2,
-                    "value": 39
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [
@@ -914,25 +886,7 @@
     {
         "Name": "Transition",
         "ID": 42,
-        "Prefab": {
-            "name": "Transition",
-            "version": 3,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 42
-                },
-                {
-                    "key": 1,
-                    "value": 43
-                },
-                {
-                    "key": 2,
-                    "value": 44
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [
@@ -2585,33 +2539,7 @@
     {
         "Name": "Leah_Attack2_Hover",
         "ID": 88,
-        "Prefab": {
-            "name": "Leah_Attack2_Hover",
-            "version": 20,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 88
-                },
-                {
-                    "key": 1,
-                    "value": 89
-                },
-                {
-                    "key": 2,
-                    "value": 90
-                },
-                {
-                    "key": 3,
-                    "value": 91
-                },
-                {
-                    "key": 4,
-                    "value": 92
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [
@@ -2826,33 +2754,7 @@
     {
         "Name": "Leah_Attack_Hover",
         "ID": 93,
-        "Prefab": {
-            "name": "Leah_Attack_Hover",
-            "version": 23,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 93
-                },
-                {
-                    "key": 1,
-                    "value": 94
-                },
-                {
-                    "key": 2,
-                    "value": 95
-                },
-                {
-                    "key": 3,
-                    "value": 96
-                },
-                {
-                    "key": 4,
-                    "value": 97
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [
@@ -3067,33 +2969,7 @@
     {
         "Name": "Leah_Block_Hover",
         "ID": 98,
-        "Prefab": {
-            "name": "Leah_Block_Hover",
-            "version": 15,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 98
-                },
-                {
-                    "key": 1,
-                    "value": 99
-                },
-                {
-                    "key": 2,
-                    "value": 100
-                },
-                {
-                    "key": 3,
-                    "value": 101
-                },
-                {
-                    "key": 4,
-                    "value": 102
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [
@@ -3308,37 +3184,7 @@
     {
         "Name": "Leah_Berserk_Hover",
         "ID": 103,
-        "Prefab": {
-            "name": "Leah_Berserk_Hover",
-            "version": 16,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 103
-                },
-                {
-                    "key": 1,
-                    "value": 104
-                },
-                {
-                    "key": 2,
-                    "value": 105
-                },
-                {
-                    "key": 3,
-                    "value": 106
-                },
-                {
-                    "key": 4,
-                    "value": 107
-                },
-                {
-                    "key": 5,
-                    "value": 108
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [
@@ -3351,10 +3197,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ -230, -270, 0 }",
+                    "pos": "{ 200, -270, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -230, -270, 0 }",
+                    "worldPos": "{ 200, -270, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -3374,7 +3220,7 @@
                     "pos": "{ 0, -25, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -230, -295, 1 }",
+                    "worldPos": "{ 200, -295, 1 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -3408,7 +3254,7 @@
                     "pos": "{ 0, -85, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -230, -355, 1 }",
+                    "worldPos": "{ 200, -355, 1 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -3442,7 +3288,7 @@
                     "pos": "{ 0, -15, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -230, -285, 0 }",
+                    "worldPos": "{ 200, -285, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -3476,7 +3322,7 @@
                     "pos": "{ 0, 55.5, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -230, -214.5, 1 }",
+                    "worldPos": "{ 200, -214.5, 1 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -3528,18 +3374,18 @@
                     "pos": "{ 0, 0, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -230, -270, 0 }",
+                    "worldPos": "{ 200, -270, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ -230, -270 }",
+                    "center": "{ 200, -270 }",
                     "width": 214.0,
                     "height": 300.0,
-                    "min": "{ -337, -420 }",
-                    "max": "{ -123, -120 }",
+                    "min": "{ 93, -420 }",
+                    "max": "{ 307, -120 }",
                     "render": false
                 }
             },
@@ -3588,37 +3434,7 @@
     {
         "Name": "Leah_Flashbang_Hover",
         "ID": 109,
-        "Prefab": {
-            "name": "Leah_Flashbang_Hover",
-            "version": 18,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 109
-                },
-                {
-                    "key": 1,
-                    "value": 110
-                },
-                {
-                    "key": 2,
-                    "value": 111
-                },
-                {
-                    "key": 3,
-                    "value": 112
-                },
-                {
-                    "key": 4,
-                    "value": 113
-                },
-                {
-                    "key": 5,
-                    "value": 114
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [
@@ -3868,37 +3684,7 @@
     {
         "Name": "Leah_Smokescreen_Hover",
         "ID": 115,
-        "Prefab": {
-            "name": "Leah_Smokescreen_Hover",
-            "version": 15,
-            "objToEntity": [
-                {
-                    "key": 0,
-                    "value": 115
-                },
-                {
-                    "key": 1,
-                    "value": 116
-                },
-                {
-                    "key": 2,
-                    "value": 117
-                },
-                {
-                    "key": 3,
-                    "value": 118
-                },
-                {
-                    "key": 4,
-                    "value": 119
-                },
-                {
-                    "key": 5,
-                    "value": 120
-                }
-            ],
-            "registered": true
-        },
+        "Prefab": null,
         "isActive": true,
         "Parent": null,
         "Child Entities": [
@@ -3911,10 +3697,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 200, -270, 0 }",
+                    "pos": "{ -230, -270, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 200, -270, 0 }",
+                    "worldPos": "{ -230, -270, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -3934,18 +3720,18 @@
                     "pos": "{ 0, 0, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 200, -270, 0 }",
+                    "worldPos": "{ -230, -270, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
             },
             {
                 "BoxCollider": {
-                    "center": "{ 200, -270 }",
+                    "center": "{ -230, -270 }",
                     "width": 214.0,
                     "height": 300.0,
-                    "min": "{ 93, -420 }",
-                    "max": "{ 307, -120 }",
+                    "min": "{ -337, -420 }",
+                    "max": "{ -123, -120 }",
                     "render": false
                 }
             },
@@ -4004,7 +3790,7 @@
                     "pos": "{ 0, -25, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 200, -295, 1 }",
+                    "worldPos": "{ -230, -295, 1 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -4038,7 +3824,7 @@
                     "pos": "{ 0, -85, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 200, -355, 1 }",
+                    "worldPos": "{ -230, -355, 1 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -4072,7 +3858,7 @@
                     "pos": "{ 0, -15, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 200, -285, 0 }",
+                    "worldPos": "{ -230, -285, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -4106,7 +3892,7 @@
                     "pos": "{ 0, 55.5, 1 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 200, -214.5, 1 }",
+                    "worldPos": "{ -230, -214.5, 1 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
