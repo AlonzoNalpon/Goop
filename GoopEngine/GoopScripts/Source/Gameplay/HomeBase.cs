@@ -62,10 +62,11 @@ namespace GoopScripts.Gameplay
       {
         Utils.UpdateSprite((uint)m_mapID, "UI_Map_05");
       }
-      int counter = 0;
+
       foreach (var card in statsInfo.deckList)
       {
-        Utils.SetTextComponent((int)Utils.GetChildEntity((uint)CardIDs[counter++], "Text"), "x" + card.Item2);
+        int index = card.Item1 - CardID.LEAH_BEAM;
+        Utils.SetTextComponent((int)Utils.GetChildEntity((uint)CardIDs[index], "Text"), "x" + card.Item2);
       }
     }
 

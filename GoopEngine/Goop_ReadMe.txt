@@ -1,6 +1,3 @@
-In the cutscenes:
-By pressing Left Mouse Button, you can move to the next scene.
-
 In the game scene:
 You can queue and unqueue up to 3 cards by clicking the cards in the player's hand and then press end turn to resolve the turn.
 The cards will be resolved, affecting the player and enemy's health.
@@ -12,21 +9,26 @@ An icon for buffs and debuffs applied will appear above the character's respecti
 Hovering over the icons will display text to show the type of buff.
 The turn ends once all cards and combos are resolved.
 
+Note: The game stores the save file under "Documents\Goop\DungeonPlunder\" directory
+
 Pausing:
-Pausing the game pauses the game scene.
+  - Press ESC key to pause
+    Pausing the game pauses the game scene.
 
 Controls:
-On the editor/engine, Pressing "G" when viewport is focused will hide the editor.
-"F11" on both gameplay and editor can toggle fullscreen modes
-"P" in-game will trigger the FPS counter on and off.
+  - On the editor/engine, Pressing "G" when viewport is focused will hide the editor.
+  - "F11" on both gameplay and editor can toggle fullscreen modes
+  - "P" in-game will trigger the FPS counter on and off.
 
 Cheats (in game scene):
-Pressing "U" will reduce the enemy's health by 1.
-Pressing "I" will heal the player's health by 1.
-Pressing "O" will draw an additional card (note that max hand size is 5)
+  - Pressing "U" will reduce the enemy's health by 1.
+  - Pressing "I" will heal the player's health by 1.
+  - Pressing "O" will draw an additional card
+    (note that max hand size is 5 and drawing past this will cause you to lose the card for the rest of this battle)
 
 Known bugs:
-[EDITOR ONLY]
+ - Occasionally, cards, buff icons may render with missing elements (e.g. text). 
+   This is a visual glitch and has no effect on the gameplay. The cards can still be queued/unqueued as per normal.
 
 Team Roster:
 Wong Chin Kit Bryan - Tech Lead, Product Manager

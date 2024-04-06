@@ -8,6 +8,7 @@
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 using GoopScripts.Cards;
+using GoopScripts.Mono;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +29,7 @@ namespace GoopScripts.Serialization
    ************************************************************************/
     public void SortDeck()
     {
-      Dictionary<CardBase.CardID, uint> cardMap = new Dictionary<CardBase.CardID, uint>();
+      SortedDictionary<CardBase.CardID, uint> cardMap = new SortedDictionary<CardBase.CardID, uint>();
       foreach (var card in deckList)
       {
         if (cardMap.ContainsKey(card.Item1))
@@ -40,6 +41,7 @@ namespace GoopScripts.Serialization
       deckList.Clear();
       foreach (var cardData in cardMap)
       {
+        Utils.SendString(cardData.Key.ToString());
         deckList.Add(new Tuple<CardBase.CardID, uint>(cardData.Key, cardData.Value));
       }
     }

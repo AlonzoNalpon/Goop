@@ -495,7 +495,7 @@ namespace GoopScripts.Gameplay
 
     /*!*********************************************************************
     \brief
-      This funciton is triggered when the user clicks the end turn button. 
+      This function is triggered when the user clicks the end turn button. 
       This function starts the resolution phase
     ************************************************************************/
     public void EndTurn()
