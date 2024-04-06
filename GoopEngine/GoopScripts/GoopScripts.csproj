@@ -72,7 +72,6 @@
     <Compile Include="Source\AI\RootNode.cs" />
     <Compile Include="Source\AI\SelectorNode.cs" />
     <Compile Include="Source\AI\SequenceNode.cs" />
-    <Compile Include="Source\Audio\Dawson\DawsonBodyFall.cs" />
     <Compile Include="Source\Audio\Dawson\DawsonChargeUp.cs" />
     <Compile Include="Source\Audio\Dawson\DawsonDies.cs" />
     <Compile Include="Source\Audio\Dawson\DawsonHurt.cs" />
