@@ -1,7 +1,7 @@
 {
     "Name": "Leah_Attack2_Hover",
     "isActive": true,
-    "Version": 19,
+    "Version": 20,
     "Components": [
         {
             "Transform": {
@@ -55,10 +55,10 @@
             "Components": [
                 {
                     "Transform": {
-                        "pos": "{ 0, -67, 1 }",
+                        "pos": "{ 0, -90, 1 }",
                         "scale": "{ 1, 1, 1 }",
                         "rot": "{ 0, 0, 0 }",
-                        "worldPos": "{ 0, -67, 1 }",
+                        "worldPos": "{ 0, -90, 1 }",
                         "worldScale": "{ 1, 1, 1 }",
                         "worldRot": "{ 0, 0, 0 }"
                     }
