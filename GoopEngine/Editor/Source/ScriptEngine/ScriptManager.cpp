@@ -470,7 +470,9 @@ std::string GetVisualStudioVersion() {
 #else
   GE::Debug::ErrorLogger::GetInstance().LogMessage("Not using Visual Studio, hotreload disabled");
 #endif
+#ifdef _DEBUG
   std::cout << VSver << "::VS VER\n";
+#endif
   return VSver;
 }
 

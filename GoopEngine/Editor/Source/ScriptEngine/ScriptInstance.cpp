@@ -374,7 +374,6 @@ void ScriptInstance::SetAllFields()
       GE::MONO::ScriptInstance& charAnimsI = sfi.m_data.m_characterAnimsInst;
 
       charAnimsI.SetAllFields();
-      std::cout << "sfdfdd\n";
       //std::cout << "setfields size:" << sfi.m_data.m_characterAnimsInst.m_scriptFieldInstList.size() << "\n";
     }
     //else if (f.is_type<GE::MONO::ScriptFieldInstance<CharacterType>>())

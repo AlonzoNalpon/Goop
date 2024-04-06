@@ -19,7 +19,6 @@ namespace GoopScripts.Gameplay
     public int startRange, endRange;
     public void PlayEvent(uint entity)
     {
-      Utils.SendString("Played flinch sound");
       Utils.PlayRandomSound(startRange, endRange, entity, 0.75f);
     }
   }

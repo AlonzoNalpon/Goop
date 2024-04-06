@@ -42,7 +42,9 @@ namespace GE
 				if (iter == treeList.end())
 				{
 					m_treeID = ghostTreeID;
-					std::cout << "Tree DOesnt Exist\n";
+#ifdef _DEBUG
+					std::cout << "Tree Doesnt Exist\n";
+#endif
 				}
 			
 			}

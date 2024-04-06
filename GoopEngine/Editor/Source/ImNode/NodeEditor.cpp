@@ -400,8 +400,10 @@ void GE::AI::NodeEditor::DisplayPopup()
 
 void GE::AI::NodeEditor::UpdateNewTree()
 {
+#ifdef _DEBUG
   std::cout << "NEWTREEUPDATE\n";
   std::cout << "----------------------------------\n";
+#endif
   //Create the newTempTree
   TreeTemplate treeTemp{};
   treeTemp.m_treeName = m_currentTree->m_treeName;
@@ -416,7 +418,9 @@ void GE::AI::NodeEditor::UpdateNewTree()
       hasEmptyNode = true;
       break;
     }
+#ifdef _DEBUG
     std::cout << dispNode.m_scriptName << "\n";
+#endif
     NodeTemplate nodeTemp{ dispNode.m_nodeType,0,{},dispNode.m_scriptName,{dispNode.m_pos.x, dispNode.m_pos.y} };
     std::vector<int> childPinID{};
     int parentPinID{};
