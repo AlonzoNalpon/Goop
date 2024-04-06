@@ -207,6 +207,7 @@ namespace GoopScripts.UI
           a.X = a.X - m_oneUnit * 0.5;
         }
       }
+      Utils.SetPosition(m_playerBarID, a);
     }
 
     /*!******************************************************************
