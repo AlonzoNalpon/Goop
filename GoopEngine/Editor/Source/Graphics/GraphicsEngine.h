@@ -323,7 +323,6 @@ namespace GE::Graphics {
     Model                           m_lineMdl{};        //!< basic primitive line
     Model                           m_fontMdl{};        //!< font model quad for rendering text
 
-    // FOR DEBUGGING
   private:
   public: // getters
     SpriteAnimationManager const&   animManager{ m_animManager };      // read-only getter to animation manager 

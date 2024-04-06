@@ -33,12 +33,10 @@ namespace GE
 			f32									m_scale{ 0.1f };							//!< scale of text
 			Graphics::gObjID		m_fontID{};										//!< font ID of text
 			TextAlignment				m_alignment{ TextAlignment::LEFT };		// NOT SERIALIZED AT THE MOMENT
-			//f32								m_width{};										//!< width of text object (wrapping) // 
 			// NON-SERIALIZED VARIABLES:
 			bool								m_dirty{true}; // DO NOT EVER SERIALIZE
 
 			std::vector<GE::Graphics::Fonts::FontManager::FontLineInfo> m_textLinesInfo;	 // DO NOT SERIALIZE?
-			//Graphics::Fonts::TextObjGroup m_textInfo;					//!< rendering information only for runtime
 			
 			inline void SetColor(Graphics::Colorf clr) { m_clr = clr; }
 			inline void SetColor(GLfloat r, GLfloat g, GLfloat b, GLfloat a) { SetColor({ r,g,b,a }); }
