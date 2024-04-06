@@ -42,7 +42,7 @@ namespace GoopScripts.Button
      ************************************************************************/
     public void OnClick(uint entity)
     {
-      if (GameManager.IsResolutionPhase())
+      if (Tutorial.IsResolutionPhase())
       {
         return;
       }
