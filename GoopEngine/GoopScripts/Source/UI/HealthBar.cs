@@ -107,7 +107,8 @@ namespace GoopScripts.UI
 
     /*!******************************************************************
 		\brief
-			Triggers the
+			Updates the health text when the timeslice is hit and stops
+      the animation by destroying the glow and emitter instances
 		\param dt
 			The delta time of the current frame
 		********************************************************************/
@@ -119,7 +120,7 @@ namespace GoopScripts.UI
       }
 
       m_timer += dt;
-      if (m_timer >= m_timeSlice / TIMESLICE_MULTIPLIER)
+      if (m_timer >= m_timeSlice * TIMESLICE_MULTIPLIER)
       {
         ++m_health;
         UpdateHealthText();
