@@ -227,9 +227,6 @@
     <ClCompile Include="Source\InputManager\InputManager.cpp" />
     <ClCompile Include="Source\Math\Mat4Utils.cpp" />
     <ClCompile Include="Source\ObjectFactory\ObjectFactory.cpp" />
-    <ClCompile Include="Source\MemoryManager\BaseAllocator.cpp" />
-    <ClCompile Include="Source\MemoryManager\ListAllocator.cpp" />
-    <ClCompile Include="Source\MemoryManager\MemoryManager.cpp" />
     <ClCompile Include="Source\EditorUI\SceneHierachy.cpp" />
     <ClCompile Include="Source\pch.cpp">
       <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
@@ -379,9 +376,6 @@
     <ClInclude Include="Source\Math\Mat3Utils.h" />
     <ClInclude Include="Source\ObjectFactory\ObjectFactory.h" />
     <ClInclude Include="Source\ObjectFactory\ObjectStructs.h" />
-    <ClInclude Include="Source\MemoryManager\BaseAllocator.h" />
-    <ClInclude Include="Source\MemoryManager\ListAllocator.h" />
-    <ClInclude Include="Source\MemoryManager\MemoryManager.h" />
     <ClInclude Include="Source\EditorUI\SceneHierachy.h" />
     <ClInclude Include="Source\Prefabs\PrefabManager.h" />
     <ClInclude Include="Source\Prefabs\VariantPrefab.h" />
