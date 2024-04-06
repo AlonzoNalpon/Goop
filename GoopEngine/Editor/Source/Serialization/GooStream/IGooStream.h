@@ -11,7 +11,6 @@
         inherit from both and acquire the ability to read from a file
         and container.
 
-
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include "GooStream.h"

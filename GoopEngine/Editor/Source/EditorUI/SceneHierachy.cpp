@@ -1,7 +1,7 @@
 /*!*********************************************************************
 \file   SceneHeirachy.cpp 
 \author w.chinkitbryan\@digipen.edu
-\date   13 October 2023
+\date   13-October-2023
 \brief  
   Defines the behaviour and logic for the scene heirachy dock
  

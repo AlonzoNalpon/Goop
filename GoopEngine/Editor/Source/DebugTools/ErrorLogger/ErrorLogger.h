@@ -1,7 +1,7 @@
 /*!*********************************************************************
 \file   ErrorLogger.h 
 \author w.chinkitbryan\@digipen.edu
-\date   17 September 2023
+\date   17-September-2023
 \brief  
   Singleton error logger holding spdlog objects for logging.
   The class is not static as it is required to hold data ie.

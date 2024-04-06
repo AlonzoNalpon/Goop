@@ -334,6 +334,11 @@ namespace GoopScripts.Serialization
       }
     }
 
+    /*!*********************************************************************
+    \brief
+      Generates the default save file for the player in SAVE_DIRECTORY.
+      If the directory doesn't exists, creates it as well.
+   ************************************************************************/
     static public void GenerateDefaultSave()
     {
       string saveStr = @"# Level to load

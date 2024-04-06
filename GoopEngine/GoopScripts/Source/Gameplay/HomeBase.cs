@@ -1,7 +1,7 @@
 ﻿/*!*********************************************************************
 \file   HomeBase.cs
 \author loh.j\@digipen.edu
-\date   15 March 2024
+\date   15-March-2024
 \brief  
   Script for the game's deck viewer screen, which displays the list
   of cards in the player's deck as well as a map showing the player's
@@ -58,13 +58,9 @@ namespace GoopScripts.Gameplay
       {
         Utils.UpdateSprite((uint)m_mapID, "UI_Map_04");
       }
-      if (m_levelToLoad == 4)
+      if (m_levelToLoad >= 4)
       {
         Utils.UpdateSprite((uint)m_mapID, "UI_Map_05");
-      }
-      if (m_levelToLoad >= 5)
-      {
-        Utils.UpdateSprite((uint)m_mapID, "UI_Map_06");
       }
       int counter = 0;
       foreach (var card in statsInfo.deckList)

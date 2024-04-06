@@ -1,7 +1,7 @@
 ﻿/*!*********************************************************************
 \file   ChangeGameOverToMainMenu.cs 
 \author w.chinkitbryan\@digipen.edu
-\date   12 February 2024
+\date   12-February-2024
 \brief  
   Animation behaviour to switch the game over screen to main menu
  

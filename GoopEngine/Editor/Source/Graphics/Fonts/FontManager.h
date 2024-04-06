@@ -18,7 +18,6 @@ Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 #include <string>
 #include <def.h>
 #include <Graphics/Fonts/Character.h>
-#include <Graphics/Fonts/TextObjGroup.h>
 #include <Graphics/Model.h>
 namespace GE::Graphics::Fonts
 {
@@ -140,18 +139,54 @@ namespace GE::Graphics::Fonts
     ************************************************************************/
     void FreeFonts();
 
-    //GLfloat GetTextWidth(std::string const& text, Graphics::gObjID fontID, GLfloat scale);
+    /*!*********************************************************************
+    \brief
+      Gets width of text
+    \param begin
+      iterator to beginning of text string 
+    \param end
+      iterator to end of string
+    \param fontID
+      the font ID of text
+    \param scale
+      the scale of the text
+    \return
+      the width of the text
+    ************************************************************************/
     GLfloat GetTextWidth(std::string::const_iterator begin, std::string::const_iterator end, 
       Graphics::gObjID fontID, GLfloat scale);
 
+    /*!*********************************************************************
+    \brief
+      calculates positions of all newlines
+    \param begin
+      iterator to beginning of text string
+    \param end
+      iterator to end of string    \param nlInfo
+    \param nlInfo
+      vector containing all newline positions
+    \param currIdx
+      first index to check
+    \return
+    ************************************************************************/
     void    TextNewLines(std::string::const_iterator begin, std::string::const_iterator end, std::vector<size_t>& nlInfo,
       size_t currIdx = 0u)const;
 
+    /*!*********************************************************************
+    \brief
+      Gets font lines information calculated based on the text, its alignment
+    \param fontID
+      ID of font
+    \param text
+      the text that the string contains
+    \param[out] nlInfo
+      the newline information to fill
+    \param align
+      alignment of the text which determines the output
+    \return
+    ************************************************************************/
     void    GetTextLinesInfo(Graphics::gObjID fontID, std::string const& text, 
       std::vector<GE::Graphics::Fonts::FontManager::FontLineInfo>& nlInfo, FontAlign align = FontAlign::LEFT)const;
-    //void    TextNewLines(std::string const& text, std::vector<size_t>& nlInfo);
-
-    void              UpdateTextInfo(TextObjGroup& group);
   };
 }
 

@@ -3,8 +3,7 @@
 \author a.nalpon\@digipen.edu
 \date   16-September-2023
 \brief  This file contains the definition to SpriteAnimation class
-to store sprite animation data
-  
+        to store sprite animation data
  
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/

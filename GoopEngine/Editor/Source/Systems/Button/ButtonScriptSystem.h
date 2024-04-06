@@ -20,10 +20,25 @@ namespace GE::Systems
     bool m_shouldHandleRelease;
 
   public:
+    /*!*********************************************************************
+    \brief
+      Starts the system and subscribes to events
+    ************************************************************************/
     void Start();
 
+    /*!*********************************************************************
+    \brief
+      Update function of the system. Checks if a button was selected on
+      and runs the script attached to it.
+    ************************************************************************/
     void Update();
 
+    /*!*********************************************************************
+    \brief
+      Handles the events the class subscribed to
+    \param event
+      The event to handle
+    ************************************************************************/
     void HandleEvent(GE::Events::Event* event);
   };
 }

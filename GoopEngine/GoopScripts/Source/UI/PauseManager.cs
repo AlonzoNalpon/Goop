@@ -1,10 +1,10 @@
 ﻿/*!*********************************************************************
 \file   PauseManager.cs
 \author loh.j\@digipen.edu
-\date   08 Febuary 2024
+\date   08-February-2024
 \brief
   Script is used to detect if the game should display the pause
-information or not.
+  information or not.
 
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
@@ -35,6 +35,8 @@ namespace GoopScripts.UI
     }
 
     static public int GetPauseState() { return m_pauseState; }
+
+    static public bool IsGamePaused() { return m_pauseState == 1; }
 
     static public void SetPauseState(int id) 
     {

@@ -1,3 +1,14 @@
+/*!*********************************************************************
+\file   ParticleSystem.cpp
+\author w.chinkitbryan\@digipen.edu
+\date   23-January-2024
+\brief
+  Definition of the particle system class. Defines an update function
+  to run the emitters of entities in the system to create particle
+  effects.
+
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include <pch.h>
 #include <Systems/ParitcleSystem/ParticleSystem.h>
 

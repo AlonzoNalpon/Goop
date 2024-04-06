@@ -27,16 +27,4 @@ namespace GE::Serialization
 
     m_scriptData = buffer.GetString();
   }
-
-  //ProxyScripts::ProxyScripts(Component::Scripts const& scripts)
-  //{
-  //  rapidjson::Document document;
-  //  rapidjson::Value data{ Serialization::Serializer::SerializeComponent(scripts, document.GetAllocator()) };
-
-  //  rapidjson::StringBuffer buffer;
-  //  rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
-  //  data.Accept(writer);
-
-  //  m_scriptData = buffer.GetString();
-  //}
 } // namespace GE::Serialization

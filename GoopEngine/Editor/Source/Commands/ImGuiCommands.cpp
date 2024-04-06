@@ -1,7 +1,7 @@
 /*!*********************************************************************
 \file   ImGuiCommands.h
 \author han.q\@digipen.edu
-\date   26 November 2023
+\date   26-November-2023
 \brief
 	Contains all the Child Command Classes. Whenever we want to undo/redo
 	a specific action (e.g. delete/add entity, update transform), we will

@@ -3,9 +3,8 @@
 \author han.q\@digipen.edu
 \date   26 November 2023
 \brief
-	This file contains the Enums and utils function required to transfer data between 
-	C# and C++
-
+	This file contains the Enums and utils function required to transfer
+	data between C# and C++
 
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
@@ -49,6 +48,15 @@ namespace GE {
 			CharacterAnimsFT
 		};
 
+		/*!*********************************************************************
+		\brief
+			Template along with its various specializations to get the mono
+			version of an array based on the type specified
+		\param MonoDomain* md
+			Pointer to the MonoDomain object
+		\param size_t sz
+			The size of the array
+		************************************************************************/
 		template <typename T>
 		MonoArray* GetMonoArray(MonoDomain* md, size_t sz);
 

@@ -19,7 +19,11 @@ namespace GoopScripts.Button
 {
   public class ToggleTutorial : ArrowButton
   {
-		public override void OnRelease(uint entity)
+    /*!*********************************************************************
+    \brief
+      Increments the tutorial's step and displays the next page
+    ************************************************************************/
+    public override void OnRelease(uint entity)
 		{
 			base.OnRelease(entity);
 			int m_prev = Tutorial.m_tut++;

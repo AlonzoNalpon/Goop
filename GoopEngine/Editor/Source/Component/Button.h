@@ -1,7 +1,7 @@
 /*!*********************************************************************
 \file   Buttons.h
 \author loh.j\@digipen.edu
-\date   21 November 2023
+\date   21-November-2023
 \brief
 	Component for making buttons.
 

@@ -2,7 +2,7 @@
 /*!*********************************************************************
 \file   InputManager.h
 \author han.q\@digipen.edu
-\date   28 September 2023
+\date   28-September-2023
 \brief
 	Input Manager for Engine
 
@@ -175,7 +175,7 @@ namespace GE
 
 			/*!*********************************************************************
 			\brief
-				This function dispatches the relavant input events based on the
+				This function dispatches the relevant input events based on the
 				updated key states after polling
 
 			************************************************************************/

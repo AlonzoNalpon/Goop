@@ -3,7 +3,6 @@
 \author a.nalpon\@digipen.edu
 \date   2-November-2023
 \brief  this file contains the definition of sprite component for ECS
-  
  
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/

@@ -1,7 +1,7 @@
 ﻿/*!*********************************************************************
 \file   RewardManager.cs
 \author loh.j\@digipen.edu
-\date   15 March 2024
+\date   15-March-2024
 \brief  
   Script for managing the reward screen.
  
@@ -23,7 +23,6 @@ namespace GoopScripts.Button
     static readonly double WIDTH = 1100;
     static readonly double Y_OFFSET = 40;
     static List<uint> m_selectedEntityIDs;
-    // public int m_hover;
 
     Random rng = new Random();
     public CardBase.CardID[] m_rewardPool = new CardBase.CardID[REWARD_POOL_COUNT];
@@ -32,12 +31,16 @@ namespace GoopScripts.Button
     public string playerSavePath;
     static uint[] m_cardEntities = new uint[NUM_CHOICES];
 
-
     public RewardManager()
     {
       m_selectedEntityIDs = new List<uint>();
     }
 
+    /*!*********************************************************************
+    \brief
+      Creates and initializes the relevant reward cards based on the
+      current level
+    ************************************************************************/
     public void OnCreate()
     {
       uint hover = Utils.SpawnPrefab("CardHover", new Vec3<double>(0.0, 0.0, 5.0));
@@ -82,6 +85,15 @@ namespace GoopScripts.Button
       }
     }
 
+    /*!*********************************************************************
+    \brief
+      Determines which card was chosen based on the generated percentage
+      out of hundred
+    \param chance
+      The number generated from 1-100
+    \return
+      The CardID of the chosen card
+    ************************************************************************/
     CardBase.CardID GetChosenCard(int chance)
     {
       int i = 0;
@@ -94,20 +106,36 @@ namespace GoopScripts.Button
         }
       }
 
-      Console.WriteLine("Chance: " + chance + " | Card: " + m_rewardPool[i]);
       return m_rewardPool[i];
     }
 
+    /*!*********************************************************************
+    \brief
+      Adds the entity ID of the selected card to the list
+    \param entity
+      The entity ID of the selected object
+    ************************************************************************/
     static public void CardSelected(uint entity)
     {
       m_selectedEntityIDs.Add(entity);
     }
 
+    /*!*********************************************************************
+    \brief
+      Removes the entity ID of the selected card from the list
+    \param entity
+      The entity ID of the selected object
+    ************************************************************************/
     static public void CardUnselected(uint entity)
     {
       m_selectedEntityIDs.Remove(entity);
     }
 
+    /*!*********************************************************************
+    \brief
+      Adds the list of selected cards into the player's deck by calling
+      the SerialReader to save it to file
+    ************************************************************************/
     public void AddCardsToDeck()
     {
       List<CardBase.CardID> selectedCards = new List<CardBase.CardID>();
@@ -118,9 +146,16 @@ namespace GoopScripts.Button
       Serialization.SerialReader.AddCardsToDeck(selectedCards);
     }
 
+    /*!*********************************************************************
+    \brief
+      Checks if the max. number of cards have been seleccted
+    \return
+      True if the max. number of cards have been selected and false
+      otherwise
+    ************************************************************************/
     static public bool IsFull()
     {
-      return m_selectedEntityIDs.Count >= 3;
+      return m_selectedEntityIDs.Count >= MAX_SELECT;
     }
   }
 }

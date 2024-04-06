@@ -2,9 +2,9 @@
 \file   MinMaxPlayCard.cs
 \author han.q@digipen.edu
 \date   15-March-2024
-\brief  This script handles the AI for enemy Dawson. the script uses MinMax AI 
-        Algorithm. By running different permutations, the AI is able to determine the best
-        course of action
+\brief  This script handles the AI for enemy Dawson. the script uses
+        MinMax AI Algorithm. By running different permutations, the AI
+        is able to determine the best course of action
 
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/

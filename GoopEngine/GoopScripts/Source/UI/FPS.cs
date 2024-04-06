@@ -1,7 +1,7 @@
 ﻿/*!*********************************************************************
 \file   FPS.cs
 \author a.nalpon\@digipen.edu
-\date   09 Febuary 2024
+\date   09-February-2024
 \brief
   Script for updating an FPS counter text object
 
@@ -31,6 +31,12 @@ namespace GoopScripts.UI
 			Utils.SetTextColor(fpsEntity, 0, 0, 0, 0);
 		}
 
+    /*!******************************************************************
+		\brief
+			Updates the FPS entity with the current game's FPS
+		\param deltaTime
+			The delta time of the current frame
+		********************************************************************/
     public void OnUpdate(double deltaTime)
     {
 			if (Utils.IsKeyTriggered(Input.KeyCode.P))

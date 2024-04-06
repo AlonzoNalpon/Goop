@@ -3,7 +3,7 @@
 \author a.nalpon\@digipen.edu
 \date   16-September-2023
 \brief  This file contains includes to graphical helper classes
-needed for rendering.
+        needed for rendering.
  
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/

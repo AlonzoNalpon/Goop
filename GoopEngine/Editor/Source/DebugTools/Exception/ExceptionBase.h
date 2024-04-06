@@ -1,7 +1,7 @@
 /*!*********************************************************************
 \file   ExceptionBase.h
 \author w.chinkitbryan\@digipen.edu
-\date   17 September 2023
+\date   17-September-2023
 \brief  
   Base exception class to allow for generic catch.
  

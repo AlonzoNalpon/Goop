@@ -168,7 +168,7 @@ namespace GoopScripts.Gameplay
     /*!*********************************************************************
     \brief  
       Calculates total damage taken and applies to character's stats.
-    Takes into account for buffs and debuffs.
+      Takes into account for buffs and debuffs.
     \param damage
       Total damage taken BEFORE buffs and debuffs.
     \param queueIndex
@@ -581,7 +581,6 @@ namespace GoopScripts.Gameplay
     ************************************************************************/
     public void PlayDamagedAnimation(int damageReceived)
     {
-      Utils.SendString("Took " + damageReceived + " damage");
       if (damageReceived == 0)
       {
         m_animManager.PlayBlock();

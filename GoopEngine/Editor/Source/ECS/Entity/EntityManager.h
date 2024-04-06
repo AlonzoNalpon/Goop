@@ -215,7 +215,7 @@ namespace GE
 			\return
 			  the entity object. Invalid object ID if none found.
 			************************************************************************/
-			Entity			GetEntity(std::string const& name);
+			Entity GetEntity(std::string const& name);
 
 			/*!*********************************************************************
 			\brief

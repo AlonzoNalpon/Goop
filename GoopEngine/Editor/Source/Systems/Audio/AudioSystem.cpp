@@ -1,3 +1,13 @@
+/*!*********************************************************************
+\file   AudioSystem.cpp
+\author c.phua\@digipen.edu
+\date   8-November-2023
+\brief
+  Audio system.
+  Updates entity's audio. Calls FmodSystems.h functions to play sounds.
+
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include <pch.h>
 #include <Systems/Audio/AudioSystem.h>
 #include <Fmod/FmodSystem.h>
@@ -127,8 +137,9 @@ void GE::Systems::AudioSystem::FadeInAudio(CrossFade fade)
   if (fmod.isPlaying(fade.m_audio))
     return;
 
-  m_fadeInList.push_back(fade);
+  m_fadeInList.emplace_back(std::move(fade));
 }
+
 void GE::Systems::AudioSystem::FadeOutAudio(CrossFade fade)
 {
   static auto& fmod = GE::fMOD::FmodSystem::GetInstance();
@@ -137,5 +148,5 @@ void GE::Systems::AudioSystem::FadeOutAudio(CrossFade fade)
     return;
 
   fade.m_startVol = fmod.GetVolume(fade.m_audio);
-  m_fadeOutList.push_back(fade);
+  m_fadeOutList.emplace_back(std::move(fade));
 }

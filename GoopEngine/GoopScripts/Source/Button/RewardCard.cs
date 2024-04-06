@@ -1,7 +1,7 @@
 ﻿/*!*********************************************************************
 \file   RewardCard.cs
 \author loh.j\@digipen.edu
-\date   15 March 2024
+\date   15-March-2024
 \brief  
   Script for generating randomed reward cards.
  
@@ -23,10 +23,18 @@ namespace GoopScripts.Button
     static public uint m_cardHover;
     uint box;
     bool selected = false;
+    Random rng = new Random();
 
 
     public RewardCard() { }
 
+    /*!*********************************************************************
+    \brief
+      Creates a highlight border around the card when it is selected, and
+      unselects it if it was already selected.
+    \param entity
+      The entity ID of the current object
+    ************************************************************************/
     public virtual void OnClick(uint entity)
     {
       if (selected)
@@ -36,6 +44,7 @@ namespace GoopScripts.Button
         Utils.SetIsActiveEntity(m_cardHover, true);
         Utils.DestroyEntity(box);
         RewardManager.CardUnselected(entity);
+        Utils.PlaySoundF("SFX_ButtonClick", (float)rng.NextDouble() * (0.6f - 0.75f) + 0.6f, Utils.ChannelType.SFX, false);
       }
 
       if (RewardManager.IsFull())
@@ -50,10 +59,17 @@ namespace GoopScripts.Button
         Utils.SetScale(box, new Vec3<double>(1, 1, 1));
         Utils.SetIsActiveEntity(m_cardHover, false);
         RewardManager.CardSelected(entity);
+        Utils.PlaySoundF("SFX_ButtonClick", (float)rng.NextDouble() * (0.6f - 0.75f) + 0.6f, Utils.ChannelType.SFX, false);
       }
       selected = !selected;
     }
 
+    /*!*********************************************************************
+    \brief
+      Displays the hover effect when the card is hovered upon
+    \param entity
+      The entity ID of the current object
+    ************************************************************************/
     public virtual void OnHoverEnter(uint entity)
     {
       if (RewardManager.IsFull())
@@ -70,6 +86,12 @@ namespace GoopScripts.Button
       }
     }
 
+    /*!*********************************************************************
+    \brief
+      Removes the hover effect when the card is no longer hovered on
+    \param entity
+      The entity ID of the current object
+    ************************************************************************/
     public virtual void OnHoverExit(uint entity)
     {
       if (RewardManager.IsFull())

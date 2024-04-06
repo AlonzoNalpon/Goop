@@ -1,7 +1,7 @@
 ﻿/*!*********************************************************************
 \file   MenuClose.cs
 \author loh.j\@digipen.edu
-\date   08 Febuary 2024
+\date   08-February-2024
 \brief
   Button script used for closing the pause menu.
 
@@ -23,7 +23,13 @@ namespace GoopScripts.Button
     public int DeeperPauseMenuID;
     public MenuClose() { }
 
-		public override void OnRelease(uint entity)
+    /*!*********************************************************************
+    \brief
+      Hides the pause menu based on its current state
+    \param entity
+      The entity ID of the current object
+    ************************************************************************/
+    public override void OnRelease(uint entity)
 		{
       m_clicked = false;
       if (!m_hovering)

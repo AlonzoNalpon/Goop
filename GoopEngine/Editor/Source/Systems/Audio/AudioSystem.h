@@ -1,7 +1,7 @@
 /*!*********************************************************************
 \file   AudioSystem.h
 \author c.phua\@digipen.edu
-\date   8 November 2023
+\date   8-November-2023
 \brief
 	Audio system.
 	Updates entity's audio. Calls FmodSystems.h functions to play sounds.
@@ -47,7 +47,20 @@ namespace GE
 			************************************************************************/
 			void Update();
 
+			/*!*********************************************************************
+			\brief
+			  Fades in an audio
+			\param fade
+				The audio to fade in in the form of a CrossFade object
+			************************************************************************/
 			void FadeInAudio(CrossFade fade);
+
+			/*!*********************************************************************
+			\brief
+				Fades out an audio
+			\param fade
+				The audio to fade out in the form of a CrossFade object
+			************************************************************************/
 			void FadeOutAudio(CrossFade fade);
 
     private:

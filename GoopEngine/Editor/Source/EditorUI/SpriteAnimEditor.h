@@ -18,6 +18,10 @@ namespace GE::EditorGUI
     private:
       static Graphics::gObjID currAnimation; //!< currently selected in editor
     public:
+    /*!*********************************************************************
+    \brief
+      Creates the ImGui elements for the sprite animation editor
+    ************************************************************************/
     static void CreateContent();
   };
 }

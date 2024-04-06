@@ -1,7 +1,7 @@
 ﻿/*!*********************************************************************
 \file   SurrenderToMainMenu.cs
 \author loh.j\@digipen.edu
-\date   15 March 2024
+\date   15-March-2024
 \brief  
   Script to attach to button to go back to main menu from game.
  

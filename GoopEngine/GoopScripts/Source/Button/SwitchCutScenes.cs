@@ -1,7 +1,7 @@
 ﻿/*!*********************************************************************
 \file   SwitchCutScenes.cs 
 \author w.chinkitbryan\@digipen.edu
-\date   09 February 2024
+\date   09-February-2024
 \brief  
   OnClick button to move to the next cut scene image
  

@@ -2,11 +2,9 @@
 \file   Card.h
 \author a.nalpon\@digipen.edu
 \date   27-November-2023
-\brief  Card component to store card ID of card and target entity
-				(like a holder). See GameDef.h for additional info
-				on the struct
+\brief  This file contains the enums used for cards in the game. They
+				follow the same order in the C# side of gameplay.
   
- 
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #ifndef CARD_H

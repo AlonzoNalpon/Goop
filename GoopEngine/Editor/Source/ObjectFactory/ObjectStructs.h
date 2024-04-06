@@ -2,7 +2,7 @@
 \file       ObjectStructs.h
 \author     loh.j\@digipen.edu
 \co-author  chengen.lau\@digipen.edu
-\date       28 September 2023
+\date       28-September-2023
 \brief
     Contains the structs used to store deserialized data for entities.
     Used for loading of scenes, creating and duplicating of entities,

@@ -3,7 +3,6 @@
 \author a.nalpon\@digipen.edu
 \date   29-September-2023
 \brief  This file contains all typedefs for project.
-  
  
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
@@ -36,9 +35,7 @@ std::string const SHADER_PATH{ ASSETS_PATH + "Shaders/" };
 #endif
 
 #ifdef _DEBUG
-// Alonzo: I am using this for additional checks to help debugging
-// see SpriteAnimationManager.cpp for an example
-// thanks for that ^ - Alonzo
+
 #define INVALID_VALUE_CHECK 
 #endif
 #endif

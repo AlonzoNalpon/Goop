@@ -4,14 +4,19 @@
 \date  26-November-2023
 
 \brief
-This file contains function declaration for the Enemy System Class
-The enemy system is in charge of running all the AI behaviours of the enemies.
-Each behaviour tree can be used by multiple enemies. 
-Instead of created 1 copy of the tree for each enemy, we will only have 1 copy of the tree at all times.
-Each enemy will have a tree cache. This cache will be used to keep track of the enemy's progress within the behaivour tree.
-Each enemy will only resolve 1 leaf node per frame, their cache will help the system determin which node the enemy will traverse
-to in the current frame.
+	This file contains function declaration for the Enemy System Class
+	The enemy system is in charge of running all the AI behaviours of the
+	enemies.
+	Each behaviour tree can be used by multiple enemies. 
+	Instead of created 1 copy of the tree for each enemy, we will only
+	have 1 copy of the tree at all times.
+	Each enemy will have a tree cache. This cache will be used to keep
+	track of the enemy's progress within the behaivour tree.
+	Each enemy will only resolve 1 leaf node per frame, their cache will
+	help the system determin which node the enemy will traverse to in the
+	current frame.
 
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 **************************************************************************/
 #pragma once
 #include <ECS/System/System.h>
@@ -47,10 +52,6 @@ namespace GE
 			static bool m_playerExist;
 			static unsigned int m_playerID;
 			static unsigned int m_currentEntityID;
-
-
-
-
 
 		public:
 			/************************************************************************/ 
@@ -120,7 +121,10 @@ namespace GE
 			/************************************************************************/
 			void UpdateTreeList();
 
-
+			/*!*********************************************************************
+			\brief
+			  Reloads the trees in the system
+			************************************************************************/
 			void ReloadTrees();
 
 			/************************************************************************/ 
@@ -243,9 +247,20 @@ namespace GE
 			/************************************************************************/
 			static bool PlayerExist();
 
-
+			/*!*********************************************************************
+			\brief
+			  Starts the AI of an entity
+			\param entityID
+				The entity holding the AI comoponent
+			************************************************************************/
 			static void StartAI(GE::ECS::Entity entityID);
 
+			/*!*********************************************************************
+			\brief
+				Ends the AI of an entity
+			\param entityID
+				The entity holding the AI comoponent
+			************************************************************************/
 			static void EndAI(GE::ECS::Entity entityID);
 
 			/************************************************************************/ 

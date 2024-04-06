@@ -2,7 +2,7 @@
 /*!*********************************************************************
 \file   Scripts.h
 \author c.phua\@digipen.edu
-\date   12 September 2023
+\date   12-September-2023
 \brief
 	Component for storing all the scripts attached to the entity
 

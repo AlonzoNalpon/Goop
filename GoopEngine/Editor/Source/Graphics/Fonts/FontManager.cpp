@@ -3,7 +3,6 @@
 \author a.nalpon\@digipen.edu
 \date   29-September-2023
 \brief  This file contains the implementation of the font manager class
-  
  
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
@@ -240,9 +239,5 @@ namespace GE::Graphics::Fonts
       }
       ++currIdx;
     }
-  }
-
-  void Graphics::Fonts::FontManager::UpdateTextInfo(TextObjGroup& group)
-  {
   }
 }

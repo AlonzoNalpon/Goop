@@ -57,6 +57,7 @@ namespace GoopScripts.Gameplay
     bool m_playerSkipped = false, firstTurn = true;
     static bool isStartOfTurn = true;
     static bool gameStarted = false; // called once at the start of game
+    static bool shouldApplyChargeUp = false;
 
     GameManager(uint entityID):base(entityID)
     {
@@ -83,7 +84,8 @@ namespace GoopScripts.Gameplay
 
     /*!*********************************************************************
     \brief
-      OnUpdate function for GameManager
+      OnUpdate function for GameManager. Runs the behaviour for the game
+      loop to trigger the resolution phase when the player ends the turn.
     \param deltaTime
       delta time since last frame
     ************************************************************************/
@@ -222,9 +224,10 @@ namespace GoopScripts.Gameplay
     }
 
     /*!*********************************************************************
-      \brief
-        This function is triggered when the start of turn occurs. Player and enemy will draw cards. Also triggers the Enemy's AI
-      ************************************************************************/
+    \brief
+      This function is triggered when the start of turn occurs. Player and
+      enemy will draw cards. Also triggers the Enemy's AI.
+    ************************************************************************/
     public void StartOfTurn()
     {
       QueueCardDisplay.DestroyCard();
@@ -256,8 +259,9 @@ namespace GoopScripts.Gameplay
 
     /*!*********************************************************************
       \brief
-        This function handles the resolution phase. It plays the animation based on the cards played.
-        It also trigger combos if player/enemy plays more than 1 card
+        This function handles the resolution phase. It plays the animation
+        based on the cards played. It also trigger combos if player/enemy
+        plays more than 1 card.
       \param deltaTime
         delta time since last frame
       ************************************************************************/
@@ -284,9 +288,9 @@ namespace GoopScripts.Gameplay
 
       if (m_slotToResolve > 2)
       {
-          isResolutionPhase = false;
-          isStartOfTurn = true;
-          m_slotToResolve = 0;
+        isResolutionPhase = false;
+        isStartOfTurn = true;
+        m_slotToResolve = 0;
         return;
       }
 
@@ -401,6 +405,15 @@ namespace GoopScripts.Gameplay
         }
         HighlightQueueSlot(m_slotToResolve);
         ++m_slotToResolve;
+
+        // apply chargeup buff if needed
+        if (m_slotToResolve > 2 && shouldApplyChargeUp)
+        {
+          m_enemyStats.m_buffs.AddBuff(new Buff(Buff.BuffType.SKIP_TURN, 0.0f, 1));
+          m_enemyStats.m_buffs.AddBuff(new Buff(Buff.BuffType.FLAT_ATK_UP, 2.0f, 2));
+          shouldApplyChargeUp = false;
+        }
+
         m_playerStats.ClearAtKBlk();
         m_enemyStats.ClearAtKBlk();
       }
@@ -431,10 +444,10 @@ namespace GoopScripts.Gameplay
 
 
     /*!*********************************************************************
-      \brief
-        This function is triggered t the satrt of resolution phase. 
-        This reset the variables used when resolving the resolution phase
-      ************************************************************************/
+    \brief
+      This function is triggered at the satrt of resolution phase. 
+      This reset the variables used when resolving the resolution phase
+    ************************************************************************/
     private void StartResolution()
     {
       SetHighlightActive(true);
@@ -477,8 +490,6 @@ namespace GoopScripts.Gameplay
         }
         
       }
-      
-     
     }
 
 
@@ -523,15 +534,40 @@ namespace GoopScripts.Gameplay
       Utils.SetPosition((uint)E_QUEUE_HIGHLIGHT, ePos);
     }
 
+    /*!*********************************************************************
+    \brief
+      Resets the game manager to its default values
+    ************************************************************************/
     static public void ResetGameManager()
     {
       isResolutionPhase = isStartOfTurn = gameStarted = gameEnded = false;
     }
 
+    /*!*********************************************************************
+    \brief
+      Checks if the game is currently in the resolution phase
+    \return
+      True if the game is in resolution phase and false otherwise
+    ************************************************************************/
     static public bool IsResolutionPhase() {  return isResolutionPhase; }
 
+    /*!*********************************************************************
+    \brief
+      Checks if the player's draw animation is playing
+    \return
+      True if the player is currently drawing a card and false otherwise
+    ************************************************************************/
     static public bool IsDrawingCard() { return isDrawingCard; }
 
+    /*!*********************************************************************
+    \brief
+      Loads the player's health and deck from the save file and loads the
+      corresponding enemy based on the level.
+      Additionally, the relevant animations of the player and enemy are
+      also read from a separate file and loaded accordingly.
+    \param filePath
+      The path of the save file
+    ************************************************************************/
     void LoadGame(string filePath)
     {
       // Load player and enemy stats
@@ -556,6 +592,12 @@ namespace GoopScripts.Gameplay
       m_enemyStats.m_animManager.LoadAnimations(charToAnims[m_enemyStats.m_type]);
     }
 
+    /*!*********************************************************************
+    \brief
+      Loads the player's deck and initializes its healthbar
+    \param statsInfo
+      The player's information contained in a PlayerStatsInfo object
+    ************************************************************************/
     void LoadPlayer(PlayerStatsInfo statsInfo)
     {
       m_playerStats.m_type = CharacterType.PLAYER; 
@@ -567,7 +609,14 @@ namespace GoopScripts.Gameplay
       m_playerStats.m_buffs.SetType(CharacterType.PLAYER);
       m_playerStats.m_healthBar.Init(statsInfo.health, statsInfo.maxHealth, true, P_HEALTH_TEXT_UI, P_HEALTH_UI);
     }
-    
+
+    /*!*********************************************************************
+    \brief
+      Creates the enemy by spawning its prefab and initializes its deck and
+      healthbar. The enemy portrait and background is also loaded here.
+    \param statsInfo
+      The level's information contained in a EnemyStatsInfo object
+    ************************************************************************/
     void LoadEnemy(EnemyStatsInfo statsInfo)
     {
       uint enemyID = Utils.SpawnPrefab(statsInfo.prefab, ENEMY_POS);
@@ -587,6 +636,15 @@ namespace GoopScripts.Gameplay
       m_enemyStats.m_buffs.SetType(m_enemyStats.m_type);
       Utils.SpawnPrefab(statsInfo.background, new Vec3<double>(0, 0, -999));
       Utils.UpdateSprite(GetEntity("Enemy Portrait"), statsInfo.portrait);
+    }
+
+    /*!*********************************************************************
+    \brief
+      Sets the flag to apply charge up buff on enemy
+    ************************************************************************/
+    static public void ApplyChargeUp()
+    {
+      shouldApplyChargeUp = true;
     }
 
     /*!*********************************************************************

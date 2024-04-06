@@ -20,8 +20,14 @@ using static GoopScripts.Cards.CardBase;
 
 namespace GoopScripts.Button
 {
-  internal class TutorialReturnQueue : IButtonClick, IButtonHoverEnter, IButtonHoverExit
+  public class TutorialReturnQueue : IButtonClick, IButtonHoverEnter, IButtonHoverExit
   {
+    /*!*********************************************************************
+    \brief
+      Spawns the card hover prefab for the player's queue
+    \param deltaTime
+      The card icon (in queue) entity
+    ************************************************************************/
     public void OnHoverEnter(uint entity)
     {
       QueueCardDisplay.ShowCard(entity);
@@ -55,6 +61,11 @@ namespace GoopScripts.Button
       Tutorial.m_tutorialToggled = true;
     }
 
+    /*!*********************************************************************
+    \brief
+      Destroys the card hover prefab instance. This should be called when
+      the icon is no longer hovered on
+    ************************************************************************/
     public void OnHoverExit(uint entity)
     {
       QueueCardDisplay.DestroyCard();

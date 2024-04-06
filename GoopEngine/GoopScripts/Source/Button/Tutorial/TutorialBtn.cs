@@ -23,7 +23,11 @@ namespace GoopScripts.Button
 
 		private bool m_disabledEndTurn;
 
-		public void Enable()
+    /*!*********************************************************************
+    \brief
+      Reverts the button to its default state
+    ************************************************************************/
+    public void Enable()
 		{
 			m_disabledEndTurn = false;
 
@@ -43,7 +47,11 @@ namespace GoopScripts.Button
 			}
 		}
 
-		public void Disable()
+    /*!*********************************************************************
+    \brief
+      Disables the button by setting the flag
+    ************************************************************************/
+    public void Disable()
 		{
 			m_disabledEndTurn = true;
 		}

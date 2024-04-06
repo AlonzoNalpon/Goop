@@ -1,3 +1,13 @@
+/*!*********************************************************************
+\file   Emitter.h
+\author w.chinkitbryan\@digipen.edu
+\date   25-January-2024
+\brief  Component for creation of particles. Holds the details req1uired
+        to emit a particle effect by creating objects with each their
+        own values and lifetimes.
+
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #pragma once
 #include <ECS/Component/Component.h>
 #include <Math/GEM.h>

@@ -1,7 +1,7 @@
 /*!*********************************************************************
  \file   AnimEventManager.h
  \author a.nalpon\@digipen.edu
- \date   30 January 2024
+ \date   30-January-2024
  \brief  This file contains the definition for the anim events manager
 
  

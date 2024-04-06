@@ -4,7 +4,6 @@
 \date   2-November-2023
 \brief  This file contains the definition for the text component for
 				ecs.
-  
  
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
@@ -14,7 +13,6 @@ Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 #include <string>
 #include <Graphics/GraphicsEngine.h>
 #include <Graphics/Def/GraphicsTypes.h>
-#include <Graphics/Fonts/TextObjGroup.h>
 namespace GE
 {
 	namespace Component
@@ -34,14 +32,31 @@ namespace GE
 			f32									m_scale{ 0.1f };							//!< scale of text
 			Graphics::gObjID		m_fontID{};										//!< font ID of text
 			TextAlignment				m_alignment{ TextAlignment::LEFT };		// NOT SERIALIZED AT THE MOMENT
-			//f32								m_width{};										//!< width of text object (wrapping) // 
 			// NON-SERIALIZED VARIABLES:
 			bool								m_dirty{true}; // DO NOT EVER SERIALIZE
 
 			std::vector<GE::Graphics::Fonts::FontManager::FontLineInfo> m_textLinesInfo;	 // DO NOT SERIALIZE?
-			//Graphics::Fonts::TextObjGroup m_textInfo;					//!< rendering information only for runtime
 			
+			/*!*********************************************************************
+			\brief
+			  Sets the color of the text component
+			\param clr
+				The color to set in the form of a Graphics::Colorf object
+			************************************************************************/
 			inline void SetColor(Graphics::Colorf clr) { m_clr = clr; }
+
+			/*!*********************************************************************
+			\brief
+				Sets the color of the text component
+			\param r
+				The red component of the color
+			\param g
+				The green component of the color
+			\param b
+				The blue component of the color
+			\param a
+				The alpha component of the color
+			************************************************************************/
 			inline void SetColor(GLfloat r, GLfloat g, GLfloat b, GLfloat a) { SetColor({ r,g,b,a }); }
 		};
 	}

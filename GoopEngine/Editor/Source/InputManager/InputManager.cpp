@@ -1,7 +1,7 @@
 /*!*********************************************************************
 \file   InputManager.cpp
 \author han.q\@digipen.edu
-\date   28 September 2023
+\date   28-September-2023
 \brief
 	Input Manager for Engine
 

@@ -1,12 +1,12 @@
 /*!*********************************************************************
-\file   EditorViewport.cpp
-\author a.nalpon\@digipen.edu
-\co-authors 
-        loh.j\@digipen.edu
-\date   3-November-2023
-\brief  
+\file         EditorViewport.cpp
+\author       a.nalpon\@digipen.edu
+\co-authors   loh.j\@digipen.edu
+\date         3-November-2023
+\brief        Class containing functions to render the viewport of the
+              engine. Supports functionality such as selecting, dragging
+              and zooming along with gizmos.
   
- 
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>

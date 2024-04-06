@@ -1,7 +1,7 @@
 /*!*********************************************************************
 \file   Transform.h
 \author c.phua\@digipen.edu
-\date   12 September 2023
+\date   12-September-2023
 \brief
 	Component for position, scale and rotation.
 

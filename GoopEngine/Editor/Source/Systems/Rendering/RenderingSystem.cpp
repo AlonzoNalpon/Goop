@@ -3,8 +3,8 @@
 \author a.nalpon\@digipen.edu
 \date   29-September-2023
 \brief  This file contains the implementation of the RenderingSystem.
-ECS related and communicates with Renderer in order to queue render requests
-  
+        ECS related and communicates with Renderer in order to queue
+        render requests
  
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/

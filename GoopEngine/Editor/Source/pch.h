@@ -1,3 +1,10 @@
+/*!*********************************************************************
+\file   pch.h
+\date   15-October-2023
+\brief  The pre-compiled header used by the engine
+
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #pragma once
 
 //#define IMGUI_DISABLE

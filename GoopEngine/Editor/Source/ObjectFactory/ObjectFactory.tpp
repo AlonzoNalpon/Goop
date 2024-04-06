@@ -1,5 +1,5 @@
 /*!*********************************************************************
-\file       ObjectFactory.h
+\file       ObjectFactory.tpp
 \author     loh.j\@digipen.edu
 \co-author  chengen.lau\@digipen.edu
 \date       28 September 2023

@@ -3,8 +3,7 @@
 \author a.nalpon\@digipen.edu
 \date   29-September-2023
 \brief  This file contains the implementation of the FontRenderer class.
-      It's still under construction
-  
+        It's still under construction
  
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/

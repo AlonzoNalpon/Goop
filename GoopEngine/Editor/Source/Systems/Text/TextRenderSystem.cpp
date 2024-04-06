@@ -4,7 +4,6 @@
 \date   3-November-2023
 \brief  This file contains the implementation of the text render system
         for ECS. Will use renderer to perform draw requests
-  
  
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
@@ -14,7 +13,6 @@ Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 #include <Component/Transform.h>
 namespace GE::Systems
 {
-
   void TextRenderSystem::LateUpdate()
   {
     auto& gEngine{ Graphics::GraphicsEngine::GetInstance() };
@@ -30,7 +28,6 @@ namespace GE::Systems
         textComp.m_textLinesInfo.clear();
         // Get the newlines
         fontMan.GetTextLinesInfo(textComp.m_fontID, textComp.m_text, textComp.m_textLinesInfo, textComp.m_alignment);
-        //fontMan.TextNewLines(textComp.m_text.cbegin(), textComp.m_text.cend(), textComp.m_newLines);
         textComp.m_dirty = false;
       }
 
@@ -40,5 +37,4 @@ namespace GE::Systems
         textComp.m_textLinesInfo, textComp.m_clr, textComp.m_fontID);
     }
   }
-
 }

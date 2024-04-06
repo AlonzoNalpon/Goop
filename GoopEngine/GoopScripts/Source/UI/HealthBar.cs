@@ -1,9 +1,10 @@
 ﻿/*!*********************************************************************
-\file   HealthBar.cs
-\author loh.j\@digipen.edu
-\date   09 March 2024
+\file       HealthBar.cs
+\author     loh.j\@digipen.edu
+\co-author  chengen.lau\@digipen.edu
+\date       09-March-2024
 \brief
-        Script used to generate healthbar UI for both player and enemy.
+            Script used to generate healthbar UI for both player and enemy.
 
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
@@ -24,7 +25,7 @@ namespace GoopScripts.UI
     static readonly string HEAL_EMITTER_PREFAB = "HealEmitter";
     static readonly string HEALTH_BAR_GLOW_PREFAB = "HealthBarGlow";
     static readonly double HEAL_ANIM_BUFFER = 0.25;  // buffer time to revert scale of healthbar after the animation
-    static readonly Vec3<double> HEALTH_BAR_START = new Vec3<double>(-770.0, 430.0, 3.0);
+    static readonly Vec3<double> HEALTH_BAR_START = new Vec3<double>(-760.0, 430.0, 3.0);
     static readonly double TIMESLICE_MULTIPLIER = 0.5;
 
     bool m_isPlayer;
@@ -47,6 +48,21 @@ namespace GoopScripts.UI
 
     }
 
+    /*!******************************************************************
+		\brief
+			Initializes the healthbar given the health, max health, entity
+      IDs of the UI elements and whether its the player or enemy
+		\param health
+		  The current health of the character
+    \param maxHealth
+      The maximum health of the character
+    \param isPlayer
+      Whether the character is the player
+     \param textUI
+      The entity ID of the text element
+    \param healthBarUI
+      The entityID of the health bar element
+		********************************************************************/
     public void Init(int health, int maxHealth, bool isPlayer, int textUI, int healthBarUI)
     {
       m_health = health;
@@ -89,6 +105,12 @@ namespace GoopScripts.UI
       UpdateBar();
     }
 
+    /*!******************************************************************
+		\brief
+			Triggers the
+		\param dt
+			The delta time of the current frame
+		********************************************************************/
     public void Update(double dt)
     {
       if (!m_isPlayingAnim)
@@ -99,21 +121,26 @@ namespace GoopScripts.UI
       m_timer += dt;
       if (m_timer >= m_timeSlice / TIMESLICE_MULTIPLIER)
       {
+        ++m_health;
+        UpdateHealthText();
+        m_timer -= m_timeSlice;
+
         if (m_health >= m_targetHealth)
         {
-          UpdateHealthText();
+          m_health = m_targetHealth;
           m_isPlayingAnim = false;
           Utils.DestroyEntity(Utils.GetEntity(HEAL_EMITTER_PREFAB));
           Utils.DestroyEntity(Utils.GetEntity(HEALTH_BAR_GLOW_PREFAB));
           return;
         }
-
-        ++m_health;
-        UpdateHealthText();
-        m_timer -= m_timeSlice;
       }
     }
 
+    /*!******************************************************************
+		\brief
+			Updates the healthbar by setting it to the correct width based
+      on the current health
+		********************************************************************/
     public void UpdateBar()
     {
       int newWidth;
@@ -129,6 +156,12 @@ namespace GoopScripts.UI
       UpdateHealthText();
     }
 
+    /*!******************************************************************
+		\brief
+			Decreases the health in the healthbar
+		\param amount
+			The amount of health lost
+		********************************************************************/
     public void DecreaseHealth(int amount = 1)
     {
       m_health -= amount;
@@ -152,6 +185,12 @@ namespace GoopScripts.UI
       Utils.SetPosition(m_playerBarID, a);
     }
 
+    /*!******************************************************************
+		\brief
+			Increases the health in the healthbar
+		\param amount
+			The amount of health gained
+		********************************************************************/
     public void IncreaseHealth(int amount = 1)
     {
       m_health += amount;
@@ -168,19 +207,38 @@ namespace GoopScripts.UI
           a.X = a.X - m_oneUnit * 0.5;
         }
       }
-      Utils.SetPosition(m_playerBarID, a);
     }
 
+    /*!******************************************************************
+		\brief
+			Sets the health of the healthbar
+		\param amount
+			The amount of health to set
+		********************************************************************/
     public void SetHealth(int amount)
     {
       m_health = amount;
     }
 
+    /*!******************************************************************
+		\brief
+			Sets the max health of the healthbar
+		\param amount
+			The amount of health to set
+		********************************************************************/
     public void SetMaxHealth(int amount)
     {
       m_maxHealth = amount;
     }
 
+    /*!******************************************************************
+		\brief
+			Triggers the heal animation for the player
+		\param amount
+			The amount of health to heal
+    \param time
+      The time for the animation
+		********************************************************************/
     public void AnimatedHeal(int amount, double time)
     {
       if (amount == 0)
@@ -192,6 +250,7 @@ namespace GoopScripts.UI
       time -= HEAL_ANIM_BUFFER;
       m_targetHealth = m_health + amount;
       Vec3<double> currPos = Utils.GetPosition(m_playerBarID);
+      currPos.X = HEALTH_BAR_START.X + 0.5 * (double)(m_oneUnit * m_health) - 2.0;
       Vec3<double> currScale = new Vec3<double>(1.0, 1.0, 1.0);
       double posIncr = (double)m_oneUnit * 0.5 * TIMESLICE_MULTIPLIER, scaleIncr = TIMESLICE_MULTIPLIER * ((double)m_targetHealth / (double)m_health - 1.0) / (double)amount;
       m_timeSlice = time / (double)amount;
@@ -220,7 +279,10 @@ namespace GoopScripts.UI
         Utils.AddTweenKeyFrame(emitterInst, "Heal", emitterPos, new Vec3<double>(1.0, 1.0, 1.0), new Vec3<double>(), m_timeSlice * TIMESLICE_MULTIPLIER);
       }
       Utils.AddTweenKeyFrame(m_playerBarID, "Heal", currPos, currScale, new Vec3<double>(), HEAL_ANIM_BUFFER);
-      Utils.AddTweenKeyFrame(m_playerBarID, "Heal", currPos, new Vec3<double>(1.0, 1.0, 1.0), new Vec3<double>(), 0.0, 1.0f, "ResetHealthBar");
+      Vec3<double> finalPos = Utils.GetPosition((uint)m_healthBarUI);
+      finalPos.X = finalPos.X - m_oneUnit * 0.5f * (m_maxHealth - m_targetHealth);
+      finalPos.Y = currPos.Y; finalPos.Z = currPos.Z;
+      Utils.AddTweenKeyFrame(m_playerBarID, "Heal", finalPos, new Vec3<double>(1.0, 1.0, 1.0), new Vec3<double>(), 0.0, 1.0f, "ResetHealthBar");
 
       Utils.PlayTransformAnimation(m_playerBarID, "Heal");
       Utils.PlayTransformAnimation(emitterInst, "Heal");
@@ -230,17 +292,41 @@ namespace GoopScripts.UI
       m_timer = 0.0;
     }
 
+    /*!******************************************************************
+		\brief
+			Updates the text to match the current health
+		********************************************************************/
     void UpdateHealthText()
     {
       Utils.SetTextComponent(m_textUI, m_health + " / " + m_maxHealth);
     }
 
+    /*!******************************************************************
+		\brief
+			Resets the health bar to default scale and width after the
+      animation
+		********************************************************************/
     public void Reset()
     {
-      UpdateBar();
+      int newWidth;
+      if (m_health <= 0)
+      {
+        newWidth = 0;
+      }
+      else
+      {
+        newWidth = m_oneUnit * m_targetHealth;
+      }
+      Utils.SetObjectWidth(m_playerBarID, newWidth);
       m_isHealing = false;
     }
 
+    /*!******************************************************************
+		\brief
+			Checks if the heal animation is currently playing
+		\return
+      True if the animation is ongoing and false otherwise
+		********************************************************************/
     public bool IsHealing()
     {
       return m_isHealing;

@@ -1,7 +1,7 @@
 ﻿/*!*********************************************************************
 \file   MenuResume.cs
 \author loh.j\@digipen.edu
-\date   08 Febuary 2024
+\date   08-February-2024
 \brief
   Button script used to hide the pause menu.
 
@@ -20,7 +20,13 @@ namespace GoopScripts.Button
   {
     public int PauseMenuID;
 
-		public override void OnRelease(uint entity)
+    /*!*********************************************************************
+    \brief
+      Hides the pause menu
+    \param entity
+      The entity ID of the current object
+    ************************************************************************/
+    public override void OnRelease(uint entity)
 		{
 			base.OnRelease(entity);
 			Utils.UnpauseMenu(PauseMenuID);

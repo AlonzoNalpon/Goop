@@ -3,8 +3,7 @@
 \author a.nalpon\@digipen.edu
 \date   28-September-2023
 \brief  This file contains definitions and typedefs for types
-        to be used with graphics engine
-  
+        to be used with graphics engine  
  
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/

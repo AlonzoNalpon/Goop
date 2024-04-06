@@ -5,7 +5,7 @@
 \co-author loh.j\@digipen.edu
 \co-author a.nalpon\@digipen.edu
 \co-author chengen.lau\@digipen.edu
-\date   28 September 2023
+\date   28-September-2023
 \brief
   Script Manager Singleton in charge of initializing and cleaning the Mono.
   Provides function to retrieve C# class data
@@ -28,7 +28,6 @@ Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 
 #include <filesystem>
 #include <Component/Card.h>
-#include <GameDef.h>
 #include <Graphics/GraphicsEngine.h>
 #include <Systems/SpriteAnim/SpriteAnimSystem.h>
 #include <ScriptEngine/CSharpStructs.h>

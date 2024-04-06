@@ -1,10 +1,12 @@
 /*!************************************************************************
-\file EnemyAI.h
+\file		EnemyAI.h
 \author Han Qin Ding
-
+\date   15-September-2023
 \brief
-Component for Enemy AI. Any Enemy that wants to use a behaviour tree, will have
-this component. 
+	Component for Enemy AI. Any Enemy that wants to use a behaviour tree
+	will need this component.
+
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 **************************************************************************/
 #pragma once
 
@@ -44,11 +46,11 @@ namespace GE
 				}
 			
 			}
-			/************************************************************************/ /*!
-			\ brief
-				Clear out the enemy's tree cache. to allow the enemy to traverse from the start of the tree again
-			*/
-			/************************************************************************/
+			/*!*********************************************************************
+			\brief
+				Clear out the enemy's tree cache. to allow the enemy to traverse from
+				the start of the tree again
+			************************************************************************/
 			void RefreshCache()
 			{
 				m_enemyTreeCache.m_nodeCacheStack.clear();

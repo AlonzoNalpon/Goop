@@ -1,16 +1,15 @@
-#pragma once
 /*!*********************************************************************
 \file   ScriptManager.h
 \author han.q\@digipen.edu
-\date   28 September 2023
+\date   28-September-2023
 \brief
 	Script Manager Singleton in charge of initializing and cleaning the Mono.
 	Provides function to retrieve C# class data
 	Adds internal call into mono to allow C# to call functions defined in cpp
 
-
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
+#pragma once
 #include <Singleton/Singleton.h>
 #include <mono/jit/jit.h>
 #include "mono/metadata/assembly.h"
@@ -57,25 +56,26 @@ namespace GE::MONO
 		static std::string m_scnfilePath;
 		static std::string m_csprojPath;
 		static std::string m_batfilePath;
+
 		/*!*********************************************************************
 		\brief
-			Init function for Mono. Sets the assembly path, initializes the domains and Load the C# Assembly.
-			Internal calls are added into mono
+			Init function for Mono. Sets the assembly path, initializes the
+			domains and Load the C# Assembly. Internal calls are added into mono
 		************************************************************************/
 		void InitMono();
 
 		void TestReload();
 		/*!*********************************************************************
 		\brief
-			destructor of Script Class. Calls mono's cleanup function to free the memorys and shutdown mono
-
+			destructor of Script Class. Calls mono's cleanup function to free
+			the memory and shutdown mono
 		************************************************************************/
 		~ScriptManager();
 
 		/*!*********************************************************************
 		\brief
-			Function to create a C# class instance by calling its non-default contstructor
-			and passing in the relevant arguments
+			Function to create a C# class instance by calling its non-default
+			constructor and passing in the relevant arguments
 
 		\params const char* className
 			class Name of the c# class object we want to instantiate
@@ -91,12 +91,11 @@ namespace GE::MONO
 		/*!*********************************************************************
 		\brief
 			Function to create a C# class instance by calling its default contstructor
-				
 
 		\params const char* className
 			class Name of the c# class object we want to instantiate
 
-			\return
+		\return
 			Instance of the c# class in the form of MonoObject*
 		************************************************************************/
 		MonoObject* InstantiateClass(const char* className);
@@ -104,50 +103,50 @@ namespace GE::MONO
 		static void LoadAppDomain();
 
 		/*!*********************************************************************
-\brief
-	Function to add internal function calls to mono
-************************************************************************/
+		\brief
+			Function to add internal function calls to mono
+		************************************************************************/
 		static void AddInternalCalls();
 
 		/*!*********************************************************************
-\brief
-	Function to load mono c# assembly
-************************************************************************/
+		\brief
+			Function to load mono c# assembly
+		************************************************************************/
 		static void LoadAssembly();
 
 		/*!*********************************************************************
-\brief
-	Function to reload all the c# scripts from mono
-************************************************************************/
+		\brief
+			Function to reload all the c# scripts from mono
+		************************************************************************/
 		static void ReloadAllScripts();
 
 		/*!*********************************************************************
-\brief
-	Function to pass into the file watcher. detects for any changes in the mono dll file.
-	If changes detected, it will reload the assembly and the c# scripts
+		\brief
+			Function to pass into the file watcher. detects for any changes in the mono dll file.
+			If changes detected, it will reload the assembly and the c# scripts
 
 
-\params const std::string& path
-	class Name of the c# class object we want to instantiate
+		\params const std::string& path
+			class Name of the c# class object we want to instantiate
 
-\params  const filewatch::Event change_type
-	The change type of the file its watching (e.g modified, add)
+		\params  const filewatch::Event change_type
+			The change type of the file its watching (e.g modified, add)
 
-************************************************************************/
+		************************************************************************/
 		static void AssemblyFileSystemEvent(const std::string& path, const filewatch::Event change_type);
 
 		/*!*********************************************************************
-\brief
-	Function to pass into the file watcher. detects for any changes in the c# project code.
-	If changes detected, it will rebuild the c# project to generate a new dll file
+		\brief
+			Function to pass into the file watcher. detects for any changes in the c# project code.
+			If changes detected, it will rebuild the c# project to generate a new dll file
 
 
-\params const std::string& path
-	class Name of the c# class object we want to instantiate
+		\params const std::string& path
+			class Name of the c# class object we want to instantiate
 
-\params  const filewatch::Event change_type
-	The change type of the file its watching (e.g modified, add)
-************************************************************************/
+		\params  const filewatch::Event change_type
+			The change type of the file its watching (e.g modified, add)
+		************************************************************************/
 		static void CSReloadEvent(const std::string& path, const filewatch::Event change_type);
 
 
@@ -223,13 +222,8 @@ namespace GE::MONO
 		an empty script field instance of a specific template type, in the form of rttr::variant
 		************************************************************************/
 		/*rttr::variant GetScriptFieldInst(std::string const& listType);*/
-
-
 		MonoAssembly* GetMonoAssembly();
 	};
-
-
-
 
 	/*!*********************************************************************
 	\brief
@@ -326,12 +320,65 @@ namespace GE::MONO
 		values to be added to the entity's transform
 	************************************************************************/
 	static void SetPosition(GE::ECS::Entity entity, GE::Math::dVec3 PosAdjustment);
+
+	/*!*********************************************************************
+	\brief
+		Set the scale of the entity
+	\param GE::ECS::Entity entity
+		ID of the entity
+	\param GE::Math::dVec3 PosAdjustment
+		Vector 3 of the new scale
+	************************************************************************/
 	static void SetScale(GE::ECS::Entity entity, GE::Math::dVec3 PosAdjustment);
+
+	/*!*********************************************************************
+	\brief
+		Set the rotation of the entity
+	\param GE::ECS::Entity entity
+		ID of the entity
+	\param GE::Math::dVec3 PosAdjustment
+		Vector 3 of the new rotation
+	************************************************************************/
 	static void SetRotation(GE::ECS::Entity entity, GE::Math::dVec3 PosAdjustment);
 
+	/*!*********************************************************************
+	\brief
+		Get the position of the entity
+	\param GE::ECS::Entity entity
+		ID of the entity
+	\return GE::Math::dVec3
+		Returns a vector 3 of the position of the entity
+	************************************************************************/
 	static GE::Math::dVec3 GetPosition(GE::ECS::Entity entity);
+
+	/*!*********************************************************************
+	\brief
+		Get the world position of the entity
+	\param GE::ECS::Entity entity
+		ID of the entity
+	\return GE::Math::dVec3
+		Returns a vector 3 of the world position of the entity
+	************************************************************************/
 	static GE::Math::dVec3 GetWorldPosition(GE::ECS::Entity entity);
+
+	/*!*********************************************************************
+	\brief
+		Get the scale of the entity
+	\param GE::ECS::Entity entity
+		ID of the entity
+	\return GE::Math::dVec3
+		Returns a vector 3 of the scale of the entity
+	************************************************************************/
 	static GE::Math::dVec3 GetScale(GE::ECS::Entity entity);
+
+	/*!*********************************************************************
+	\brief
+		Get the rotation of the entity
+	\param GE::ECS::Entity entity
+		ID of the entity
+	\return GE::Math::dVec3
+		Returns a vector 3 of the rotation of the entity
+	************************************************************************/
 	static GE::Math::dVec3 GetRotation(GE::ECS::Entity entity);
 
 	/*!*********************************************************************
@@ -497,12 +544,34 @@ namespace GE::MONO
 	************************************************************************/
 	bool CheckMonoError(MonoError& error);
 
+	/*!*********************************************************************
+	\brief
+		Check if the application has lost focus
+	************************************************************************/
 	static bool GetLoseFocus();
 
+	/*!*********************************************************************
+	\brief
+		Set the value of focus.
+	\param bool active
+		bool to set the value
+	************************************************************************/
 	static void SetLoseFocus(bool active);
 
+	/*!*********************************************************************
+	\brief
+		Set the entity's active value.
+	\param GE::ECS::Entity entity, bool active
+		Set the entity id with the bool value.
+	************************************************************************/
 	static void SetIsActiveEntity(GE::ECS::Entity entity, bool active);
 
+	/*!*********************************************************************
+	\brief
+		Get the entity's active value.
+	\param GE::ECS::Entity entity
+		Entity id
+	************************************************************************/
 	static bool GetIsActiveEntity(GE::ECS::Entity entity);
 
 	/*!*********************************************************************
@@ -519,18 +588,88 @@ namespace GE::MONO
 	************************************************************************/
 	static GE::ECS::Entity SpawnPrefab(MonoString* key, GE::Math::dVec3 pos = {});
 
+	/*!*********************************************************************
+	\brief
+		Gets the sprite component of the object and get its width.
+	\param GE::ECS::Entity entity
+		entity ID
+	\return
+		Integer of the object width.
+	************************************************************************/
 	static int GetObjectWidth(GE::ECS::Entity entity);
 
+	/*!*********************************************************************
+	\brief
+		Gets the sprite component of the object and get its height.
+	\param GE::ECS::Entity entity
+		entity ID
+	\return
+		Integer of the object height.
+	************************************************************************/
 	static int GetObjectHeight(GE::ECS::Entity entity);
 
+	/*!*********************************************************************
+	\brief
+		Sets the width of the sprite component of the object.
+	\param GE::ECS::Entity entity
+		entity ID
+	\param int width
+		width
+	************************************************************************/
 	void SetObjectWidth(GE::ECS::Entity entity, int width);
 
+	/*!*********************************************************************
+	\brief
+		Sets the height of the sprite component of the object.
+	\param GE::ECS::Entity entity
+		entity ID
+	\param int width
+		height
+	************************************************************************/
 	void SetObjectHeight(GE::ECS::Entity entity, int height);
 
+	/*!*********************************************************************
+	\brief
+		Creates an object with the parameters
+	\param MonoString* name
+		Entity ID
+	\param GE::Math::dVec3 pos = {}
+		Vector 3 of position
+	\param GE::Math::dVec3 scale = {}
+		Vector 3 of scale
+	\param GE::Math::dVec3 rotation = {}
+		Vector 3 of rotation
+	\param GE::ECS::Entity parent = ECS::INVALID_ID
+		Entity ID of parent
+	\return
+		Entity ID of the created object
+	************************************************************************/
 	static GE::ECS::Entity CreateObject(MonoString* name, GE::Math::dVec3 pos = {}, GE::Math::dVec3 scale = {}, GE::Math::dVec3 rotation = {}, GE::ECS::Entity parent = ECS::INVALID_ID);
 
+	/*!*********************************************************************
+	\brief
+		Creates an empty entity
+	\param MonoString* name
+		string of the name you want to give the entity.
+	\param GE::Math::dVec3 worldPos
+		Vector 3 of world position
+	\param GE::Math::dVec3 worldScale
+		Vector 3 of world scale
+	\param GE::Math::dVec3 worldRot
+		Vector 3 of world rotation
+	\return
+		Entity ID of the created entity
+	************************************************************************/
 	static ECS::Entity CreateEntity(MonoString* name, GE::Math::dVec3 worldPos, GE::Math::dVec3 worldScale, GE::Math::dVec3 worldRot, GE::ECS::Entity parent);
 
+	/*!*********************************************************************
+	\brief
+		Updates the sprite component of the entity
+	\param GE::ECS::Entity entity
+		Entity ID
+	\param MonoString* textureName
+		Name of the texture in the map.
+	************************************************************************/
 	static void UpdateSprite(GE::ECS::Entity entity, MonoString* textureName);
 
 	void SetSpriteTint(GE::ECS::Entity entity, int r, int g, int b, int a = 255);
@@ -699,14 +838,48 @@ namespace GE::MONO
 	void AddTweenKeyFrame(GE::ECS::Entity entity, MonoString* animName, GE::Math::dVec3 pos, GE::Math::dVec3 scale,
 		GE::Math::dVec3 rot, double duration, float alpha, MonoString* animEvent);
 
+	/*!*********************************************************************
+	\brief
+		Get the volume of the channel
+	\param int channel
+		Specific channel
+	\return float 
+		Volume
+	************************************************************************/
 	float GetChannelVolume(int channel);
 
+	/*!*********************************************************************
+	\brief
+		Set the volume of the channel
+	\param int channel
+		Specific channel
+	\param float volume
+		Volume
+	************************************************************************/
 	void SetChannelVolume(int channel, float volume);
 
+	/*!*********************************************************************
+	\brief
+		Get the master volume of the game
+	\return float
+		Master volume
+	************************************************************************/
 	float GetMasterVolume();
 
+	/*!*********************************************************************
+	\brief
+		Set the master volume of the game
+	\param float volume
+		Volume
+	************************************************************************/
 	void SetMasterVolume(float volume);
 
+	/*!*********************************************************************
+	\brief
+		Set the time scale of the game
+	\param float scale
+		Scale in float
+	************************************************************************/
 	void SetTimeScale(float scale);
 
 	/*!******************************************************************
