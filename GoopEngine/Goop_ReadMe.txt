@@ -9,9 +9,11 @@ An icon for buffs and debuffs applied will appear above the character's respecti
 Hovering over the icons will display text to show the type of buff.
 The turn ends once all cards and combos are resolved.
 
+Note: The game stores the save file under "Documents\Goop\DungeonPlunder\" directory
+
 Pausing:
-Press ESC key to pause
-Pausing the game pauses the game scene.
+  - Press ESC key to pause
+    Pausing the game pauses the game scene.
 
 Controls:
   - On the editor/engine, Pressing "G" when viewport is focused will hide the editor.
