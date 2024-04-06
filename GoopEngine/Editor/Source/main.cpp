@@ -1,3 +1,15 @@
+/*!*********************************************************************
+\file   main.cpp
+\date   10-October-2023
+\brief  The entry point of the whole program. Creates an instance of
+        the AppController and calls its functions to run initialize
+        and run all systems and their behaviours. If any execption is
+        thrown, it will be logged accordingly by the error logger.
+
+        In debug mode, a macro is used to log memory leaks.
+  
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include <pch.h>
 #include <AppController/AppController.h>
 

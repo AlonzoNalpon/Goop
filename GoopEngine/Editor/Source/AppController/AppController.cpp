@@ -1,8 +1,8 @@
 /*!*********************************************************************
-\file   AppController.cpp
-\author loh.j\@digipen.edu
-\co-author w.chinkitbryan\@digipen.edu
-\date   18-September-2023
+\file       AppController.cpp
+\author     loh.j\@digipen.edu
+\co-author  w.chinkitbryan\@digipen.edu
+\date       18-September-2023
 \brief
   The AppController class is the main controller for running the
   application.
