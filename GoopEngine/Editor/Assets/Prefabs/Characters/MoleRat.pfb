@@ -1,7 +1,7 @@
 {
     "Name": "MoleRat",
     "isActive": true,
-    "Version": 10,
+    "Version": 13,
     "Components": [
         {
             "Transform": {
@@ -150,7 +150,7 @@
                                 }
                             },
                             {
-                                "data": 11,
+                                "data": 9,
                                 "type": "System.Int32",
                                 "scriptField": {
                                     "fieldName": "startRange"
@@ -406,19 +406,19 @@
                     },
                     {
                         "first": 30,
-                        "second": "MoleRatBlocks"
-                    },
-                    {
-                        "first": 32,
-                        "second": "MoleRatFlinches"
-                    },
-                    {
-                        "first": 31,
                         "second": "LeahDies"
                     },
                     {
-                        "first": 33,
+                        "first": 32,
                         "second": "MoleRatScreeches"
+                    },
+                    {
+                        "first": 31,
+                        "second": "MoleRatFlinches"
+                    },
+                    {
+                        "first": 29,
+                        "second": "MoleRatBlocks"
                     }
                 ]
             }

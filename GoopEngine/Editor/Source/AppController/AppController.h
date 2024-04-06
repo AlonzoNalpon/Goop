@@ -13,7 +13,6 @@ Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 #include <AssetManager/AssetManager.h>
 #include <ObjectFactory/ObjectFactory.h>
 #include <Graphics/GraphicsEngine.h>
-#include <MemoryManager/MemoryManager.h>
 #include <EditorUI/ImGuiUI.h>
 #include <ScriptEngine/ScriptManager.h>
 #include <AI/TreeManager.h>
