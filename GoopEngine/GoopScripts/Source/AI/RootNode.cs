@@ -43,25 +43,6 @@ namespace GoopScripts.AI
 
 
     /*!*********************************************************************
-   \brief
-     Awake function for the RootNode script. 
-   ************************************************************************/
-    public void Awake()
-    {
-      // Logic for Awake
-    }
-
-
-    /*!*********************************************************************
-   \brief
-     Start function for the RootNode script. 
-   ************************************************************************/
-    public void Start()
-    {
-      // Logic for Start
-    }
-
-    /*!*********************************************************************
     \brief
      Update function for the RootNode script. This function is called every frame
      if the script is attached to a root node
@@ -96,14 +77,6 @@ namespace GoopScripts.AI
       }
 
     }
-    public void OnFail(uint entityID)
-    {
-
-    }
-
-    public void OnSuccess(uint entityID)
-    {
-    }
 
     /*!*********************************************************************
     \brief
@@ -118,33 +91,16 @@ namespace GoopScripts.AI
       OnExit();
     }
 
+    /*!*********************************************************************
+    \brief
+    OnExit function for the RootNode script. This function is called when we finished running the whole treee
+    and exit from the root node
+    ************************************************************************/
     public void OnExit()
     {
 
       ResetNode();
 
-    }
-
-
-
-
-    /*!*********************************************************************
-    \brief
-     Update function for the player script. This function is called every frame
-     if the script is attached to an entity
-    ************************************************************************/
-    public void Update()
-    {
-
-    }
-
-    /*!*********************************************************************
-    \brief
-     late Update function for the player script
-    ************************************************************************/
-    public void LateUpdate()
-    {
-      // Logic for lateUpdate
     }
 
 

@@ -43,24 +43,6 @@ namespace GoopScripts.AI.Enemy.MineWorm
     }
 
 
-    /*!*********************************************************************
-   \brief
-     Awake function for the HasCardinHand script. 
-   ************************************************************************/
-    public void Awake()
-    {
-      // Logic for Awake
-    }
-
-
-    /*!*********************************************************************
-   \brief
-     Start function for the HasCardinHand script. 
-   ************************************************************************/
-    public void Start()
-    {
-      // Logic for Start
-    }
 
     /*!*********************************************************************
     \brief
@@ -113,38 +95,6 @@ namespace GoopScripts.AI.Enemy.MineWorm
       SetResult((int)NODE_STATES.STATE_SUCCEED, m_nodeID);
       JumpToParent();
     }
-
-
-    public void ReturnFromChild(uint entityID)
-    {
-
-    }
-
-    public void OnExit()
-    {
-
-    }
-
-
-    /*!*********************************************************************
-    \brief
-     Update function for the HasCardinHand script. This function is called every frame
-     if the script is attached to an entity
-    ************************************************************************/
-    public void Update()
-    {
-
-    }
-
-    /*!*********************************************************************
-    \brief
-     late Update function for the HasCardinHand script
-    ************************************************************************/
-    public void LateUpdate()
-    {
-      // Logic for lateUpdate
-    }
-
 
 
   }
