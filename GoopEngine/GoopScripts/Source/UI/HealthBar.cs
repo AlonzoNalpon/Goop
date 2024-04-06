@@ -127,6 +127,7 @@ namespace GoopScripts.UI
 
         if (m_health >= m_targetHealth)
         {
+          m_health = m_targetHealth;
           m_isPlayingAnim = false;
           Utils.DestroyEntity(Utils.GetEntity(HEAL_EMITTER_PREFAB));
           Utils.DestroyEntity(Utils.GetEntity(HEALTH_BAR_GLOW_PREFAB));
@@ -206,7 +207,6 @@ namespace GoopScripts.UI
           a.X = a.X - m_oneUnit * 0.5;
         }
       }
-      Utils.SetPosition(m_playerBarID, a);
     }
 
     /*!******************************************************************
@@ -250,7 +250,7 @@ namespace GoopScripts.UI
       time -= HEAL_ANIM_BUFFER;
       m_targetHealth = m_health + amount;
       Vec3<double> currPos = Utils.GetPosition(m_playerBarID);
-      currPos.X = HEALTH_BAR_START.X + 0.5 * (double)(m_oneUnit * m_health);
+      currPos.X = HEALTH_BAR_START.X + 0.5 * (double)(m_oneUnit * m_health) - 2.0;
       Vec3<double> currScale = new Vec3<double>(1.0, 1.0, 1.0);
       double posIncr = (double)m_oneUnit * 0.5 * TIMESLICE_MULTIPLIER, scaleIncr = TIMESLICE_MULTIPLIER * ((double)m_targetHealth / (double)m_health - 1.0) / (double)amount;
       m_timeSlice = time / (double)amount;
@@ -279,7 +279,9 @@ namespace GoopScripts.UI
         Utils.AddTweenKeyFrame(emitterInst, "Heal", emitterPos, new Vec3<double>(1.0, 1.0, 1.0), new Vec3<double>(), m_timeSlice * TIMESLICE_MULTIPLIER);
       }
       Utils.AddTweenKeyFrame(m_playerBarID, "Heal", currPos, currScale, new Vec3<double>(), HEAL_ANIM_BUFFER);
-      Vec3<double> finalPos = new Vec3<double>(HEALTH_BAR_START.X + (double)m_oneUnit * 0.5 * (double)m_targetHealth, currPos.Y, currPos.Z);
+      Vec3<double> finalPos = Utils.GetPosition((uint)m_healthBarUI);
+      finalPos.X = finalPos.X - m_oneUnit * 0.5f * (m_maxHealth - m_targetHealth);
+      finalPos.Y = currPos.Y; finalPos.Z = currPos.Z;
       Utils.AddTweenKeyFrame(m_playerBarID, "Heal", finalPos, new Vec3<double>(1.0, 1.0, 1.0), new Vec3<double>(), 0.0, 1.0f, "ResetHealthBar");
 
       Utils.PlayTransformAnimation(m_playerBarID, "Heal");
@@ -306,7 +308,17 @@ namespace GoopScripts.UI
 		********************************************************************/
     public void Reset()
     {
-      UpdateBar();
+      int newWidth;
+      if (m_health <= 0)
+      {
+        newWidth = 0;
+      }
+      else
+      {
+        newWidth = m_oneUnit * m_targetHealth;
+      }
+      Utils.SendString("Setting to " + newWidth);
+      Utils.SetObjectWidth(m_playerBarID, newWidth);
       m_isHealing = false;
     }
 
