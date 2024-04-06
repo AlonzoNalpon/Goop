@@ -1,4 +1,3 @@
-#pragma once
 /*!*********************************************************************
 \file   ScriptManager.h
 \author han.q\@digipen.edu
@@ -8,9 +7,9 @@
 	Provides function to retrieve C# class data
 	Adds internal call into mono to allow C# to call functions defined in cpp
 
-
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
+#pragma once
 #include <Singleton/Singleton.h>
 #include <mono/jit/jit.h>
 #include "mono/metadata/assembly.h"
@@ -57,25 +56,26 @@ namespace GE::MONO
 		static std::string m_scnfilePath;
 		static std::string m_csprojPath;
 		static std::string m_batfilePath;
+
 		/*!*********************************************************************
 		\brief
-			Init function for Mono. Sets the assembly path, initializes the domains and Load the C# Assembly.
-			Internal calls are added into mono
+			Init function for Mono. Sets the assembly path, initializes the
+			domains and Load the C# Assembly. Internal calls are added into mono
 		************************************************************************/
 		void InitMono();
 
 		void TestReload();
 		/*!*********************************************************************
 		\brief
-			destructor of Script Class. Calls mono's cleanup function to free the memorys and shutdown mono
-
+			destructor of Script Class. Calls mono's cleanup function to free
+			the memory and shutdown mono
 		************************************************************************/
 		~ScriptManager();
 
 		/*!*********************************************************************
 		\brief
-			Function to create a C# class instance by calling its non-default contstructor
-			and passing in the relevant arguments
+			Function to create a C# class instance by calling its non-default
+			constructor and passing in the relevant arguments
 
 		\params const char* className
 			class Name of the c# class object we want to instantiate
@@ -91,12 +91,11 @@ namespace GE::MONO
 		/*!*********************************************************************
 		\brief
 			Function to create a C# class instance by calling its default contstructor
-				
 
 		\params const char* className
 			class Name of the c# class object we want to instantiate
 
-			\return
+		\return
 			Instance of the c# class in the form of MonoObject*
 		************************************************************************/
 		MonoObject* InstantiateClass(const char* className);
@@ -104,50 +103,50 @@ namespace GE::MONO
 		static void LoadAppDomain();
 
 		/*!*********************************************************************
-\brief
-	Function to add internal function calls to mono
-************************************************************************/
+		\brief
+			Function to add internal function calls to mono
+		************************************************************************/
 		static void AddInternalCalls();
 
 		/*!*********************************************************************
-\brief
-	Function to load mono c# assembly
-************************************************************************/
+		\brief
+			Function to load mono c# assembly
+		************************************************************************/
 		static void LoadAssembly();
 
 		/*!*********************************************************************
-\brief
-	Function to reload all the c# scripts from mono
-************************************************************************/
+		\brief
+			Function to reload all the c# scripts from mono
+		************************************************************************/
 		static void ReloadAllScripts();
 
 		/*!*********************************************************************
-\brief
-	Function to pass into the file watcher. detects for any changes in the mono dll file.
-	If changes detected, it will reload the assembly and the c# scripts
+		\brief
+			Function to pass into the file watcher. detects for any changes in the mono dll file.
+			If changes detected, it will reload the assembly and the c# scripts
 
 
-\params const std::string& path
-	class Name of the c# class object we want to instantiate
+		\params const std::string& path
+			class Name of the c# class object we want to instantiate
 
-\params  const filewatch::Event change_type
-	The change type of the file its watching (e.g modified, add)
+		\params  const filewatch::Event change_type
+			The change type of the file its watching (e.g modified, add)
 
-************************************************************************/
+		************************************************************************/
 		static void AssemblyFileSystemEvent(const std::string& path, const filewatch::Event change_type);
 
 		/*!*********************************************************************
-\brief
-	Function to pass into the file watcher. detects for any changes in the c# project code.
-	If changes detected, it will rebuild the c# project to generate a new dll file
+		\brief
+			Function to pass into the file watcher. detects for any changes in the c# project code.
+			If changes detected, it will rebuild the c# project to generate a new dll file
 
 
-\params const std::string& path
-	class Name of the c# class object we want to instantiate
+		\params const std::string& path
+			class Name of the c# class object we want to instantiate
 
-\params  const filewatch::Event change_type
-	The change type of the file its watching (e.g modified, add)
-************************************************************************/
+		\params  const filewatch::Event change_type
+			The change type of the file its watching (e.g modified, add)
+		************************************************************************/
 		static void CSReloadEvent(const std::string& path, const filewatch::Event change_type);
 
 
@@ -223,13 +222,8 @@ namespace GE::MONO
 		an empty script field instance of a specific template type, in the form of rttr::variant
 		************************************************************************/
 		/*rttr::variant GetScriptFieldInst(std::string const& listType);*/
-
-
 		MonoAssembly* GetMonoAssembly();
 	};
-
-
-
 
 	/*!*********************************************************************
 	\brief

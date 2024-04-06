@@ -28,7 +28,6 @@ Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 
 #include <filesystem>
 #include <Component/Card.h>
-#include <GameDef.h>
 #include <Graphics/GraphicsEngine.h>
 #include <Systems/SpriteAnim/SpriteAnimSystem.h>
 #include <ScriptEngine/CSharpStructs.h>

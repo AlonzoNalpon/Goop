@@ -3,8 +3,7 @@
 \author a.nalpon\@digipen.edu
 \date   29-September-2023
 \brief  This file contains the implementation of the SpriteAnimSystem
-class
-  
+        class
  
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
@@ -31,7 +30,6 @@ namespace GE::Systems
         Graphics::SpriteAnimation const& spriteAnim
         { gEngine.animManager.GetAnim(animData->animID) };
 
-
         // setting the new sprite based on data
         sprite->m_spriteData.info = spriteAnim.frames[animData->currFrame];
       }
@@ -46,7 +44,6 @@ namespace GE::Systems
     double dt{ FPS::FrameRateController::GetInstance().GetDeltaTime() };
     for (GE::ECS::Entity entity : GetUpdatableEntities())
     {
-      //Component::Model* model{ m_ecs->GetComponent<Component::Model>(entity) };
       Component::Sprite* sprite{ m_ecs->GetComponent<Component::Sprite>(entity) };
       Component::SpriteAnim* animData{ m_ecs->GetComponent<Component::SpriteAnim>(entity) };
       // Updating the sprite anim data (if any)

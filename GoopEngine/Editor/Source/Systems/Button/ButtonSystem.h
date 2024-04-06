@@ -20,9 +20,17 @@ namespace GE
 		class ButtonSystem : public GE::ECS::System, public GE::Events::IEventListener
 		{
 		public:
+			/*!*********************************************************************
+		\brief
+			Starts the system and subscribes to events
+		************************************************************************/
 			void Start();
 
-
+			/*!*********************************************************************
+			\brief
+				Update function of the system. Checks if a button was selected on
+				and runs the corresponding event.
+			************************************************************************/
 			void Update();
 
 			/*!*********************************************************************

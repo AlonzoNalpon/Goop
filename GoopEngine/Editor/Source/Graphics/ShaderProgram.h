@@ -4,8 +4,8 @@
 \date   16-September-2023
 \brief  This file contains the definition of the ShaderProgram class.
 \note   There's no ShaderProgramManager class as every rendered object
-  requires a shader. Therefore they would have a handle to a 
-  shaderprogram instead.
+        requires a shader. Therefore they would have a handle to a 
+        shaderprogram instead.
   
  
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.

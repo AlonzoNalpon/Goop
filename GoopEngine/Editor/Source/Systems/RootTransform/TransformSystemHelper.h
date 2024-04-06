@@ -1,3 +1,11 @@
+/*!*********************************************************************
+\file   TransformSystemHelper.h
+\author w.chinkitbryan\@digipen.edu
+\date   29-October-2023
+\brief  Contains definitions of helper functions for transform system.
+  
+Copyright (C) 2023 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #pragma once
 #include <Math/GEM.h>
 

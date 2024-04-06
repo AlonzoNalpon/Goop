@@ -3,7 +3,7 @@
 \author a.nalpon\@digipen.edu
 \date   16-September-2023
 \brief  This file contains the definition of the SpriteAnimationManager
-class.
+        class.
   
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
@@ -68,8 +68,12 @@ namespace GE::Graphics
     ************************************************************************/
     std::map<std::string, size_t> const&
                                   GetAnimLT() const noexcept;
-
+    /*!*********************************************************************
+    \brief
+      Clears all animations from the containers
+    ************************************************************************/
     void ClearAnimations();
+
   private: // PRIVATE MEMBERS
     std::map<std::string, size_t> m_animLookupTable;  //!< a lookup to see name to ID
     std::map<size_t, std::string> m_animID_NameLT;    //!< a lookup to see ID to name

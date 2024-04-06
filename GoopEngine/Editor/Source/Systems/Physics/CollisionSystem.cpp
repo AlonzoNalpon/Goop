@@ -1,3 +1,15 @@
+/*!*********************************************************************
+\file   CollisionSystem.cpp
+\author c.phua\@digipen.edu
+\date   16-September-2023
+\brief
+	Collision system.
+	Checks for AABB-to-AABB collision.
+	Checks for AABB-to-mouse collision.
+	Updates AABB collision box of entity according to it's new center.
+
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #include <pch.h>
 #include <Systems/Physics/CollisionSystem.h>
 #include <Graphics/GraphicsEngine.h>

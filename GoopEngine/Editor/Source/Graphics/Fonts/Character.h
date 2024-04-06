@@ -4,7 +4,6 @@
 \date   29-September-2023
 \brief  This file contains definition of character struct for fonts
         This is to be used with freetype's library
-  
  
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/

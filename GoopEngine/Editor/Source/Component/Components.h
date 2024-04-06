@@ -1,3 +1,10 @@
+/*!*********************************************************************
+\file   Components.h
+\date   21-November-2023
+\brief  Header file used to easily include all existing components.
+
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #pragma once
 #include <Component/BoxCollider.h>
 #include <Component/Scripts.h>

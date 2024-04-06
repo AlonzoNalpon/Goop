@@ -26,10 +26,28 @@ namespace GE::Systems {
   class SpriteAnimSystem : public GE::ECS::System
   {
   public:
+    /*!*********************************************************************
+    \brief
+      Initializes the system and retrieves initial data required from the
+      entities
+    ************************************************************************/
     virtual void Start();
 
+    /*!*********************************************************************
+    \brief
+      Update function of the system. Iterates through all entities in the
+      system and updates their sprite animation if needed.
+    ************************************************************************/
     virtual void Update();
 
+    /*!*********************************************************************
+    \brief
+      Stes the animation of an entity
+    \param entity
+      The entity
+    \param animID
+      The ID of the animation
+    ************************************************************************/
     static void SetAnimation(ECS::Entity entity, size_t animID);
   };
 }

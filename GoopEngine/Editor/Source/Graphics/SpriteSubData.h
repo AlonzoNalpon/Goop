@@ -3,8 +3,8 @@
 \author a.nalpon\@digipen.edu
 \date   29-September-2023
 \brief  This file contains the definition to SpriteSubData struct
-for sprite information (as well as sprite animation frame information)
-  
+        for sprite information (as well as sprite animation frame
+        information)
  
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/

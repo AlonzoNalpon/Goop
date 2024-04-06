@@ -317,7 +317,6 @@ namespace GoopScripts.UI
       {
         newWidth = m_oneUnit * m_targetHealth;
       }
-      Utils.SendString("Setting to " + newWidth);
       Utils.SetObjectWidth(m_playerBarID, newWidth);
       m_isHealing = false;
     }

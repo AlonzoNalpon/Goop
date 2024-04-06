@@ -7,7 +7,6 @@
 	Script Class to contain the data of a c# class. 
 	It will store the pointer to the MonoObject and its 4 main methods
 
-
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <mono/jit/jit.h>
@@ -305,26 +304,27 @@ namespace GE {
 			}
 
 			/*!*********************************************************************
-					\brief
-						Template Function to set a public field from the c# script class.
-						this function will be called when we want set the value of a data member that happens to be another script class
-						public field thats an array
+			\brief
+				Template Function to set a public field from the c# script class.
+				this function will be called when we want set the value of a data
+				member that happens to be another script class public field thats
+				an array
 
-				 \param MMonoObject* obj
-					Pointer to the mono oject we are accessing
+			\param MMonoObject* obj
+			Pointer to the mono oject we are accessing
 
-					\param std::vector<T> value
-					Value we want to set
+			\param std::vector<T> value
+			Value we want to set
 
-					\param MonoDomain* md
-					Pointer to the mono domain we are accessing
+			\param MonoDomain* md
+			Pointer to the mono domain we are accessing
 
-					\param MonoClassField* field
-					pointer to the field we are trying to get
+			\param MonoClassField* field
+			pointer to the field we are trying to get
 
-					\return
-					the value of the c# script class's public field
-					************************************************************************/
+			\return
+			the value of the c# script class's public field
+			************************************************************************/
 			template<typename T>
 			void SetChildFieldValueArr(MonoObject* obj, std::vector<T> value, MonoDomain* md, MonoClassField* field)
 			{

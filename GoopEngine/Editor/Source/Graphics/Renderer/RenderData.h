@@ -4,7 +4,6 @@
 \date   29-September-2023
 \brief  This class contains the definitions of rendering data structures
         for game objects. These objects will be passed to renderer.
-  
  
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/

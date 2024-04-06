@@ -2,7 +2,10 @@
 \file   Tree.h
 \author han.q\@digipen.edu
 \date   28-September-2023
-
+\brief	Definition of NodeCache and TreeCache, which is used by
+				the behaviour tree system to keep track of the results of each
+				action. The relevant enums and strings  of each type/state
+				are also defined here.
 
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/

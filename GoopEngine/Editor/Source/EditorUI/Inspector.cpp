@@ -24,7 +24,6 @@ Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 #include <EditorUI/GizmoEditor.h>
 #include <ImNode/NodeEditor.h>
 #include <rttr/type.h>
-#include <GameDef.h>
 #include <Prefabs/PrefabManager.h>
 #include "PrefabEditor.h"
 #include <Events/EventManager.h>

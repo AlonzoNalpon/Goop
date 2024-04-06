@@ -1,7 +1,7 @@
 /*!*********************************************************************
 \file   CommandManager.cpp
 \author han.q\@digipen.edu
-\date   26 November 2023
+\date   26-November-2023
 \brief
 	Command Manager for our game engine. The command manager has queues to
 	keep track of the actions the made by the user. BUt storing certain

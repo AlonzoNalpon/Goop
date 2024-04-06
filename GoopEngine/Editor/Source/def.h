@@ -3,7 +3,6 @@
 \author a.nalpon\@digipen.edu
 \date   29-September-2023
 \brief  This file contains all typedefs for project.
-  
  
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/

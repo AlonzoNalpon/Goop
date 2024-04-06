@@ -3,8 +3,7 @@
 \author a.nalpon\@digipen.edu
 \date   16-September-2023
 \brief  this file contains the defined enumerated animation flags
-for bitwise operations to query animation properties
-  
+        for bitwise operations to query animation properties
  
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/

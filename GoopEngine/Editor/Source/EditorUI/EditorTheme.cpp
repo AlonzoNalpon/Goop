@@ -3,8 +3,7 @@
 \author a.nalpon\@digipen.edu
 \date   27-November-2023
 \brief  Editor style class. I am not claiming this code as it really
-isn't something i'd consider to be real work
-  
+        isn't something i'd consider to be real work
  
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/

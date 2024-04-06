@@ -1,4 +1,3 @@
-#pragma once
 /*!************************************************************************
 \file BaseAllocator.h
 \author Han Qin Ding
@@ -7,7 +6,6 @@
 This file contains the base class for all allocators
 The base class contains essential data members like Allocator sizee and Number of Allocation
 **************************************************************************/
-
 #pragma once
 #include <cstddef>
 #include <cstdint>

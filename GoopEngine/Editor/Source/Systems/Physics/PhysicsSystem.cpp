@@ -1,3 +1,14 @@
+/*!*********************************************************************
+\file   PhysicsSystem.cpp
+\author c.phua\@digipen.edu
+\date   12-September-2023
+\brief
+	Physics system.
+	Updates entity's velocity with respect to delta time.
+
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
+
 #include <pch.h>
 #include <Systems/Physics/PhysicsSystem.h>
 #include <Component/Transform.h>

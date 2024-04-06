@@ -1,3 +1,11 @@
+/*!*********************************************************************
+\file   Window.h
+\author a.nalpon\@digipen.edu
+\date   29-September-2023
+\brief  This file contains the definition of the Window class
+
+Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
+************************************************************************/
 #ifndef WINDOW_H
 #define WINDOW_H
 

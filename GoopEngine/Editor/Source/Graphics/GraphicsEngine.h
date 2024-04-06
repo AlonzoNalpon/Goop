@@ -3,8 +3,8 @@
 \author a.nalpon\@digipen.edu
 \date   13-September-2023
 \brief  The graphics engine is in charge of rendering including
-shader and mesh instances. It aims to abstract away all OpenGL calls.
-  
+        shader and mesh instances. It aims to abstract away all OpenGL
+        calls.
  
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/

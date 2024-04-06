@@ -38,6 +38,19 @@ namespace GE::Systems
 		************************************************************************/
 		vec3 Tweening(vec3 start, vec3 end, double normalisedTime);
 
+		/*!*********************************************************************
+		\brief
+		  Computes the interpolated color based on a start time, end time and
+			the current time
+		\param start
+			The starting color
+		\param end
+			The end ccolor
+		\param normalisedTime
+			The normalized time out of 1.f
+		\return
+		  The interpolated color
+		************************************************************************/
 		Colorf Tweening(Colorf start, Colorf end, double normalisedTime);
 	};
 }

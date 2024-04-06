@@ -4,7 +4,6 @@
 \date   29-September-2023
 \brief  This file contains the definition for the FontRenderer class.
         This class is meant for rendering fonts with opengl calls
-  
  
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/

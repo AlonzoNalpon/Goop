@@ -1,11 +1,11 @@
 /*!*********************************************************************
-\file   EditorViewport.h
-\author a.nalpon\@digipen.edu
-\co-authors
-        loh.j\@digipen.edu
-\date   3-November-2023
-\brief
-
+\file         EditorViewport.h
+\author       a.nalpon\@digipen.edu
+\co-authors   loh.j\@digipen.edu
+\date         3-November-2023
+\brief        Class containing functions to render the viewport of the
+              engine. Supports functionality such as selecting, dragging
+              and zooming along with gizmos.
 
 Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
@@ -32,6 +32,12 @@ namespace GE::EditorGUI
     ************************************************************************/
     static void UpdateViewport(Graphics::Rendering::FrameBufferInfo& fbInfo);
 
+    /*!*********************************************************************
+    \brief
+      Renders the viewport to the screen
+    \param fbInfo
+      The framebuffer to render
+    ************************************************************************/
     static void RenderViewport(Graphics::Rendering::FrameBufferInfo& fbInfo);
 
   private:

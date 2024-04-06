@@ -3,9 +3,9 @@
 \author a.nalpon\@digipen.edu
 \date   8-February-2024
 \brief  This file contains the implmentation of the animation events 
-system.
-This system automatically calls any bound event on running frame
-of animation by calling any attached script by name on mono.
+        system.
+        This system automatically calls any bound event on running frame
+        of animation by calling any attached script by name on mono.
    
  Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved. 
  ************************************************************************/

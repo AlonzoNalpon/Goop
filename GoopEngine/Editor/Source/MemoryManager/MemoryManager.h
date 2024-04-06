@@ -1,8 +1,7 @@
-#pragma once
-#pragma once
 /*!************************************************************************
 \file MemoryManager.h
 \author Han Qin Ding
+\date   25-September-2023
 
 \brief
 This file contains functions for a memory manager system.
@@ -72,14 +71,11 @@ EXAMPLE ON HOW TO DEALLOCATE:
 	 1. Return( ptr );  // You just need to pass in the pointer, the allocator will know if its an array or a single object
 
 **************************************************************************/
+#pragma once
 #include "./BaseAllocator.h"
 #include "./ListAllocator.h"
 #include "../Singleton/Singleton.h"
 #include <random>
-
-
-
-
 
 namespace GE
 {
