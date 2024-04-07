@@ -14,7 +14,6 @@ Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 #include "GameSystem.h"
 #include <Component/Scripts.h>
 #include <Component/Audio.h>
-#include <EditorUI/ImGuiUI.h>
 #include <GameStateManager/GameStateManager.h>
 
 #ifndef IMGUI_DISABLE

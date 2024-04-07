@@ -10,7 +10,11 @@ Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
 #include <GameStateManager/GameStateManager.h>
+
+#ifndef IMGUI_DISABLE
 #include <EditorUI/ImGuiUI.h>
+#endif
+
 using namespace GE::GSM;
 
 void GE::GSM::GameStateManager::SetNextScene(std::string next_scene)

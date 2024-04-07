@@ -36,7 +36,9 @@ Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 ************************************************************************/
 #include <pch.h>
 #include "FrameRateController.h"
+#ifndef IMGUI_DISABLE
 #include <EditorUI/DataViz/Visualizer.h>
+#endif
 
 using namespace GE::FPS;
 

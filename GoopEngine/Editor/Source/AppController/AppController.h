@@ -13,12 +13,15 @@ Copyright (C) 2024 DigiPen Institute of Technology. All rights reserved.
 #include <AssetManager/AssetManager.h>
 #include <ObjectFactory/ObjectFactory.h>
 #include <Graphics/GraphicsEngine.h>
-#include <EditorUI/ImGuiUI.h>
 #include <ScriptEngine/ScriptManager.h>
 #include <AI/TreeManager.h>
 #include <GameStateManager/GameStateManager.h>
 #include <Fmod/FmodSystem.h>
 #include <Events/Listener.h>
+
+#ifndef IMGUI_DISABLE
+#include <EditorUI/ImGuiUI.h>
+#endif
 
 namespace GE::Application
 {
