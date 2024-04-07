@@ -32,8 +32,14 @@ Cheats (in game scene):
     (note that max hand size is 5 and drawing past this will cause you to lose the card for the rest of this battle)
 
 Known bugs:
+ - During the tutorial, the card hover effect may remain on the screen when proceeding to the next step. This is
+   due to the overlay blocking it from detecting the cursor hover.
+ - Occasionally, hovering on a card while it moves may cause the hover effect to be placed wrongly. It will revert
+   back to normal upon hovering over another card.
+ - When moving the cursor really fast, the cards sometimes do not display the hover effect.
  - Occasionally, cards, buff icons may render with missing elements (e.g. text). 
-   This is a visual glitch and has no effect on the gameplay. The cards can still be queued/unqueued as per normal.
+
+**These are all visual glitches and have no effect on the gameplay. The cards can still be queued/unqueued and game can go on as per normal.
 
 Team Roster:
 Wong Chin Kit Bryan - Tech Lead, Product Manager

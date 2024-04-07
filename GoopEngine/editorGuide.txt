@@ -86,6 +86,12 @@ during saving.
 
 ** Deleting a child entity from a prefab is currently unstable due to new features added
 
+[ Sprite Sheet Editor ]
+Accessed through the top toolbar via Options > Configure Sprite Sheets
+Allows configuring of each sprite sheet animation's values (stacks, slices, speed, frames, loop)
+You are able to add/remove a new entry, reset changes or save through the
+"Add", "Save", "Reset" and "Remove" buttons are available at the bottom (or on the right of each row for Remove)
+
 [ Undo/Redo ]
 CTRL-Z to undo and CTRL-SHIFT-Z to redo
 *Currently only works for Transform component
