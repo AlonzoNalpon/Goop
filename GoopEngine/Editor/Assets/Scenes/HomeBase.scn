@@ -1537,7 +1537,7 @@
                                     }
                                 },
                                 {
-                                    "data": 54,
+                                    "data": 2055220072,
                                     "type": "System.Int32",
                                     "scriptField": {
                                         "fieldName": "m_levelToLoad"
@@ -3285,10 +3285,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, -15, 0 }",
+                    "pos": "{ 0, -104.746, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 200, -285, 0 }",
+                    "worldPos": "{ 200, -374.746, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -3605,10 +3605,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, -15, 0 }",
+                    "pos": "{ 0, -104.746, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -650, -285, 0 }",
+                    "worldPos": "{ -650, -374.746, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -3855,10 +3855,10 @@
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, -15, 0 }",
+                    "pos": "{ 0, -104.746, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -230, -285, 0 }",
+                    "worldPos": "{ -230, -374.746, 0 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
