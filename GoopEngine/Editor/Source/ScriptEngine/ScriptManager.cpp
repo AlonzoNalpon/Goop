@@ -1250,6 +1250,7 @@ void GE::MONO::SetCardToQueuedState(unsigned entity, Math::dVec3 target)
     // to get the icon to the target
     cardTrans->m_pos.x += target.x - iconTrans->m_worldPos.x;
     cardTrans->m_pos.y += target.y - iconTrans->m_worldPos.y;
+    cardTrans->m_pos.z -= 5.0;
     ecs.SetIsActiveEntity(e, true);
   }
 }
@@ -1268,6 +1269,8 @@ void GE::MONO::SetCardToHandState(unsigned cardEntity)
 
     ecs.SetIsActiveEntity(e, true);
   }
+  auto* cardTrans{ ecs.GetComponent<Component::Transform>(cardEntity) };
+  cardTrans->m_pos.z += 5.0;
 }
 
 void GE::MONO::SetBuffIconTextActive(unsigned iconID, bool state)

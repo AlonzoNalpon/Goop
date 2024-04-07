@@ -53,7 +53,8 @@ namespace GoopScripts.Gameplay
 
     //tools for resolving cards
     int m_slotToResolve = 0;
-    double m_timer, m_playerDrawTimer;
+    double m_timer;
+    static double m_playerDrawTimer;
     bool m_playerSkipped = false, firstTurn = true;
     static bool isStartOfTurn = true;
     static bool gameStarted = false; // called once at the start of game
@@ -235,7 +236,7 @@ namespace GoopScripts.Gameplay
       m_playerStats.EndOfTurn();
       m_enemyStats.EndOfTurn();
       m_playerStats.PlayerDraw();
-      isDrawingCard = true;
+      PlayerDraw();
       m_enemyStats.Draw();
       if (!m_enemyStats.IsTurnSkipped())
       {
@@ -645,6 +646,16 @@ namespace GoopScripts.Gameplay
     static public void ApplyChargeUp()
     {
       shouldApplyChargeUp = true;
+    }
+
+    /*!*********************************************************************
+    \brief
+      Sets the flag and resets the timer for the player draw timer
+    ************************************************************************/
+    static public void PlayerDraw()
+    {
+      isDrawingCard = true;
+      m_playerDrawTimer = 0.0;
     }
 
     /*!*********************************************************************
