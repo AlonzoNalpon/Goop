@@ -3190,7 +3190,6 @@
         "Child Entities": [
             104,
             105,
-            106,
             107,
             108
         ],
@@ -3247,7 +3246,9 @@
         "Prefab": null,
         "isActive": true,
         "Parent": 103,
-        "Child Entities": [],
+        "Child Entities": [
+            106
+        ],
         "Components": [
             {
                 "Transform": {
@@ -3280,15 +3281,15 @@
         "ID": 106,
         "Prefab": null,
         "isActive": true,
-        "Parent": 103,
+        "Parent": 105,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, -104.746, 0 }",
+                    "pos": "{ 0, -15, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ 200, -374.746, 0 }",
+                    "worldPos": "{ 200, -370, 1 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -3441,7 +3442,6 @@
             110,
             111,
             112,
-            113,
             114
         ],
         "Components": [
@@ -3567,7 +3567,9 @@
         "Prefab": null,
         "isActive": true,
         "Parent": 109,
-        "Child Entities": [],
+        "Child Entities": [
+            113
+        ],
         "Components": [
             {
                 "Transform": {
@@ -3600,15 +3602,15 @@
         "ID": 113,
         "Prefab": null,
         "isActive": true,
-        "Parent": 109,
+        "Parent": 112,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, -104.746, 0 }",
+                    "pos": "{ 0, -15, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -650, -374.746, 0 }",
+                    "worldPos": "{ -650, -370, 1 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
@@ -3691,7 +3693,6 @@
             116,
             117,
             118,
-            119,
             120
         ],
         "Components": [
@@ -3817,7 +3818,9 @@
         "Prefab": null,
         "isActive": true,
         "Parent": 115,
-        "Child Entities": [],
+        "Child Entities": [
+            119
+        ],
         "Components": [
             {
                 "Transform": {
@@ -3850,15 +3853,15 @@
         "ID": 119,
         "Prefab": null,
         "isActive": true,
-        "Parent": 115,
+        "Parent": 118,
         "Child Entities": [],
         "Components": [
             {
                 "Transform": {
-                    "pos": "{ 0, -104.746, 0 }",
+                    "pos": "{ 0, -15, 0 }",
                     "scale": "{ 1, 1, 1 }",
                     "rot": "{ 0, 0, 0 }",
-                    "worldPos": "{ -230, -374.746, 0 }",
+                    "worldPos": "{ -230, -370, 1 }",
                     "worldScale": "{ 1, 1, 1 }",
                     "worldRot": "{ 0, 0, 0 }"
                 }
