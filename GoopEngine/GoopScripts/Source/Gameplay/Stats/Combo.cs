@@ -222,7 +222,14 @@ namespace GoopScripts.Gameplay
 		************************************************************************/
     override public bool TutorialApplyEffect(ref Stats source, ref Stats target)
     {
-      source.Draw();
+      if (source.m_type == CharacterType.PLAYER)
+      {
+        source.TutorialPlayerDraw();
+      }
+      else
+      {
+        source.Draw();
+      }
       return true;
     }
 
