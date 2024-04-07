@@ -48,7 +48,11 @@ namespace
 namespace GE::Application
 {
   AppController::AppController() :
+#ifndef IMGUI_DISABLED
+    window{ 0, 0, "Dungeon Plunder" },
+#else
     window{ 0, 0, "Goop Engine" },
+#endif // !IMGUI_DISABLED
     gEngine{ Graphics::GraphicsEngine::GetInstance() },
     fRC{ GE::FPS::FrameRateController::GetInstance() },
     im{ GE::Input::InputManager::GetInstance() },
