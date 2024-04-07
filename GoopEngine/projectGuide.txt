@@ -2,6 +2,8 @@
 .NET Framework 4.8 MUST BE INSTALLED to run the project (for scripting)
 On startup, either select debug or release mode
 For target, set to x64 instead of "Any CPU"
+**if the target PC doesn't support .NET Framework 4.8, go to GoopScripts project properties and change target framework to 4.7.2.
+This works as well.
 
 [ ErrorLogging ]
 Errors are logged into Imgui console and to a file
