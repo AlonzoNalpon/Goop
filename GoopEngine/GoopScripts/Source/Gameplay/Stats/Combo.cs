@@ -38,6 +38,17 @@ namespace GoopScripts.Gameplay
     public abstract bool ApplyEffect(ref Stats source, ref Stats target);
 
     /*!*********************************************************************
+		\brief
+		  Same as ApplyEffect but used for the tutorial stage. Used to define
+      separate behaviour for tutorial.
+    \param source
+      The source of the combo
+    \param target
+      The target of the combo
+		************************************************************************/
+    public abstract bool TutorialApplyEffect(ref Stats source, ref Stats target);
+
+    /*!*********************************************************************
     \brief
       Function used in the AI's simulation to apply a buff effect to a
       character. Behaves similarly to ApplyEffect, except no UI elements
@@ -120,6 +131,37 @@ namespace GoopScripts.Gameplay
     \param target
       The target of the combo
 		************************************************************************/
+    override public bool TutorialApplyEffect(ref Stats source, ref Stats target)
+    {
+      if (m_chance <= 100 && !(m_rand.Next(0, 100) < m_chance))
+      {
+        return false;
+      }
+
+      foreach (Buff b in m_effects)
+      {
+        if (b.IsDebuff())
+        {
+          target.m_buffs.AddBuff(b);
+        }
+        else
+        {
+          source.m_buffs.AddBuff(b);
+        }
+      }
+
+      return true;
+    }
+
+    /*!*********************************************************************
+		\brief
+		  Applies a buff/debuff to the source/target at a chance based on
+      m_chance, which was passed into the constructor upon its creation.
+    \param source
+      The source of the combo
+    \param target
+      The target of the combo
+		************************************************************************/
     override public bool FakeApplyEffect(ref Stats source, ref Stats target)
     {
       if (m_chance <= 100 && !(m_rand.Next(0, 100) < m_chance))
@@ -149,7 +191,8 @@ namespace GoopScripts.Gameplay
 
     /*!*********************************************************************
 		\brief
-		  Draws a card for the source character
+		  Draws a card for the source character. If the source is the player,
+      triggers the draw animation.
     \param source
       The source of the combo
     \param target
@@ -166,6 +209,20 @@ namespace GoopScripts.Gameplay
       {
         source.Draw();
       }
+      return true;
+    }
+
+    /*!*********************************************************************
+		\brief
+		  Draws a card for the source character
+    \param source
+      The source of the combo
+    \param target
+      The target of the combo
+		************************************************************************/
+    override public bool TutorialApplyEffect(ref Stats source, ref Stats target)
+    {
+      source.Draw();
       return true;
     }
 

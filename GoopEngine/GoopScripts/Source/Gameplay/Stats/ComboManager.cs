@@ -99,6 +99,40 @@ namespace GoopScripts.Gameplay
 
     /*!*********************************************************************
 		\brief
+		  Triggers a tutorial combo given the source, target and the index of
+      the first card of the combo in the queue. Looks up the 2 card types
+      in the dictionary for a combo. If no such combo exists, does nothing.
+    \param source
+      The source of the combo
+    \param target
+      The target of the combo
+    \param firstCardIndex
+      Index of the first card of the combo in the queue
+		************************************************************************/
+    public static void TutorialCombo(ref Stats source, ref Stats target, int firstCardIndex)
+    {
+      CardBase.CardID card1 = source.m_deckMngr.m_queue[firstCardIndex].Item1,
+        card2 = source.m_deckMngr.m_queue[firstCardIndex + 1].Item1;
+      ComboPair pair = new ComboPair(CardManager.Get(card1).Type, CardManager.Get(card2).Type);
+      Combo combo;
+      if (!m_comboList.TryGetValue(pair, out combo))
+      {
+#if (DEBUG)
+        //Utils.SendString("Combo does not exist! " + card1.ToString() + " + " + card2.ToString());
+#endif
+        return;
+      }
+
+
+      if (combo.TutorialApplyEffect(ref source, ref target))
+      {
+        Mono.Utils.SetTextComponent(source.m_comboUI[firstCardIndex], combo.GetName());
+        ((ComboTextUpdate)Utils.GetScriptFromID((uint)source.m_comboUI[firstCardIndex], "ComboTextUpdate")).SetActive();
+      }
+    }
+
+    /*!*********************************************************************
+		\brief
 		  Used by the AI's simulation to trigger a combo given the source,
       target and the 2 card types. Behaves similarly to Combo(), except
       it does not deal with UI elements.
